@@ -2,329 +2,41 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>Lisbon — Mobile Pocket Guide</title>
-  <meta name="description" content="A fast, lightweight, mobile-optimized pocket companion and city guide for Lisbon, Portugal.">
-  
-  <!-- Mobile & PWA optimization -->
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="Lisbon">
-  <meta name="theme-color" content="#d94f26">
-  <link rel="manifest" href="manifest.json">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lisbon</title>
+  <meta name="description" content="A simple, responsive static site.">
   <link rel="icon" type="image/svg+xml" href="icon.svg">
-  <link rel="apple-touch-icon" href="icon.svg">
-
-  <!-- Color scheme and early FOUC prevention script (Modern Web Guidance) -->
-  <meta name="color-scheme" content="light dark">
-  <script>
-    {
-      const savedTheme = localStorage.getItem("lisbon_theme");
-      if (savedTheme) {
-        document.documentElement.setAttribute("data-theme", savedTheme);
-        const metaColor = document.querySelector('meta[name="theme-color"]');
-        if (metaColor) metaColor.content = savedTheme === 'dark' ? '#0f172a' : '#d94f26';
-      }
-    }
-  </script>
-
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- App Shell Container (Responsive Mobile Frame on Desktop, 100% Native on Mobile) -->
-  <div class="mobile-app-wrapper">
-    
-    <!-- Desktop helper badge (hidden on actual phones) -->
-    <div class="desktop-indicator" aria-hidden="true">
-      <span class="badge-dot"></span>
-      <span>Mobile Viewport Optimized</span>
-    </div>
+  <div class="container">
+    <header class="header">
+      <h1 class="title">Lisbon</h1>
+      <p class="subtitle">A clean, responsive static space.</p>
+    </header>
 
-    <div class="phone-frame">
-      <!-- Simulated Mobile Status Bar -->
-      <div class="mobile-status-bar">
-        <div class="status-left">
-          <span class="status-clock" id="status-clock">12:00</span>
-          <span class="status-location">🇵🇹 Lisboa</span>
-        </div>
-        <div class="status-right">
-          <span class="weather-pill" id="weather-pill" title="Typical Lisbon weather">☀️ 23°C</span>
-          <button id="theme-toggle" class="icon-btn theme-btn" aria-label="Toggle dark/light mode" title="Toggle Theme">
-            <span class="theme-icon">🌙</span>
-          </button>
-        </div>
-      </div>
+    <main class="content">
+      <section class="section">
+        <h2>About</h2>
+        <p>This is a lightweight static page hosted on GitHub Pages. It is designed to be minimal, responsive, and easy to edit.</p>
+      </section>
 
-      <!-- App Header -->
-      <header class="app-header">
-        <div class="header-top">
-          <div class="brand">
-            <div class="brand-icon">🚋</div>
-            <div>
-              <h1 class="brand-title">Lisboa</h1>
-              <p class="brand-subtitle">Pocket Companion</p>
-            </div>
-          </div>
-          <button id="btn-surprise" class="action-pill-btn" title="Pick a random Lisbon spot">
-            <span>🎲</span>
-            <span>Surprise Me</span>
-          </button>
-        </div>
+      <section class="section">
+        <h2>Content</h2>
+        <p>You can replace this section with your own text, notes, links, or articles.</p>
+      </section>
 
-        <!-- Lisbon Live Info Bar -->
-        <div class="lisbon-ticker">
-          <div class="ticker-item">
-            <span class="ticker-label">Local Time</span>
-            <span class="ticker-value" id="lisbon-time">--:--:--</span>
-          </div>
-          <div class="ticker-divider"></div>
-          <div class="ticker-item">
-            <span class="ticker-label">Tram 28</span>
-            <span class="ticker-value text-green">● Running</span>
-          </div>
-          <div class="ticker-divider"></div>
-          <div class="ticker-item">
-            <span class="ticker-label">Sunset</span>
-            <span class="ticker-value" id="sunset-time">19:42</span>
-          </div>
-        </div>
-      </header>
+      <section class="section">
+        <h2>Links</h2>
+        <ul class="links-list">
+          <li><a href="https://github.com/arrickx/lisbon" target="_blank" rel="noopener noreferrer">GitHub Repository ↗</a></li>
+        </ul>
+      </section>
+    </main>
 
-      <!-- Main Content Views -->
-      <main id="app-main" class="app-content">
-
-        <!-- ================= TAB 1: EXPLORE ================= -->
-        <section id="view-explore" class="tab-view active" role="tabpanel" aria-labelledby="tab-btn-explore">
-          
-          <!-- Search & Filter Controls -->
-          <div class="search-sticky-container">
-            <div class="search-box">
-              <span class="search-icon">🔍</span>
-              <input type="search" id="search-input" placeholder="Search spots, pastéis, miradouros..." autocomplete="off" spellcheck="false">
-              <button id="search-clear" class="search-clear-btn" aria-label="Clear search" hidden>×</button>
-            </div>
-
-            <!-- Categories Horizontal Scroller -->
-            <div class="chips-scroller" role="radiogroup" aria-label="Filter by category">
-              <button class="chip active" data-category="all">✨ All</button>
-              <button class="chip" data-category="miradouros">📍 Viewpoints</button>
-              <button class="chip" data-category="iconic">🚋 Icons</button>
-              <button class="chip" data-category="food">☕ Food & Sweets</button>
-              <button class="chip" data-category="nightlife">🍷 Nightlife</button>
-              <button class="chip" data-category="daytrip">🏰 Day Trips</button>
-            </div>
-
-            <!-- Neighborhood Scroller -->
-            <div class="neighborhood-scroller" role="radiogroup" aria-label="Filter by neighborhood">
-              <button class="sub-chip active" data-neighborhood="all">All Quarters</button>
-              <button class="sub-chip" data-neighborhood="Alfama">Alfama</button>
-              <button class="sub-chip" data-neighborhood="Baixa-Chiado">Baixa-Chiado</button>
-              <button class="sub-chip" data-neighborhood="Belém">Belém</button>
-              <button class="sub-chip" data-neighborhood="Bairro Alto">Bairro Alto</button>
-              <button class="sub-chip" data-neighborhood="Graça">Graça</button>
-              <button class="sub-chip" data-neighborhood="Sintra">Sintra</button>
-            </div>
-          </div>
-
-          <!-- Spot Cards List -->
-          <div class="spots-list" id="spots-list">
-            <!-- Rendered dynamically by app.js -->
-          </div>
-
-          <div id="no-results" class="empty-state" hidden>
-            <div class="empty-emoji">🔍</div>
-            <h3>No Lisbon spots found</h3>
-            <p>Try clearing filters or search for something like "pastel" or "tram".</p>
-            <button class="btn-primary" id="btn-reset-filters">Reset Filters</button>
-          </div>
-        </section>
-
-        <!-- ================= TAB 2: ITINERARY ================= -->
-        <section id="view-itinerary" class="tab-view" role="tabpanel" aria-labelledby="tab-btn-itinerary" hidden>
-          <div class="section-banner">
-            <h2>Lisbon Checklist & Plan</h2>
-            <p>Track your journey through the City of Seven Hills.</p>
-          </div>
-
-          <!-- Progress Card -->
-          <div class="progress-card">
-            <div class="progress-header">
-              <span class="progress-title">Your Lisbon Progress</span>
-              <span class="progress-percentage" id="progress-percent">0%</span>
-            </div>
-            <div class="progress-bar-track">
-              <div class="progress-bar-fill" id="progress-fill" style="width: 0%"></div>
-            </div>
-            <div class="progress-footer">
-              <span id="progress-count">0 of 10 completed</span>
-              <button id="btn-reset-checklist" class="text-btn">Reset</button>
-            </div>
-          </div>
-
-          <!-- Checklist Items -->
-          <div class="itinerary-list" id="itinerary-list">
-            <!-- Rendered by app.js -->
-          </div>
-
-          <!-- Custom User Checklist Item -->
-          <div class="add-custom-box">
-            <h3>Add Custom Lisbon Note / Spot</h3>
-            <form id="form-custom-item" class="custom-item-form">
-              <input type="text" id="custom-item-input" placeholder="e.g. Dinner reservation at Ponto Final..." required maxlength="80">
-              <button type="submit" class="btn-primary">Add Note</button>
-            </form>
-          </div>
-        </section>
-
-        <!-- ================= TAB 3: PHRASES & TIPS ================= -->
-        <section id="view-tips" class="tab-view" role="tabpanel" aria-labelledby="tab-btn-tips" hidden>
-          <div class="section-banner">
-            <h2>Tips & Survival Guide</h2>
-            <p>Essential local wisdom & practical Portuguese.</p>
-          </div>
-
-          <!-- Quick Tips Cards -->
-          <div class="survival-grid">
-            <article class="survival-card">
-              <div class="survival-icon">👟</div>
-              <div class="survival-body">
-                <h3>Calçada Portuguesa Warning</h3>
-                <p>Lisbon’s beautiful mosaic pavements are extremely slick, especially when wet or polished by footsteps. <strong>Wear grippy sneakers</strong>; avoid smooth soles or heels!</p>
-              </div>
-            </article>
-
-            <article class="survival-card">
-              <div class="survival-icon">🎫</div>
-              <div class="survival-body">
-                <h3>Save on Transit (Zapping)</h3>
-                <p>Never pay cash onboard Tram 28 (€3.10). Buy a reusable <strong>Navegante Occasional</strong> card (€0.50) at any metro station and load it with <em>Zapping</em> for ~€1.60 per ride.</p>
-              </div>
-            </article>
-
-            <article class="survival-card">
-              <div class="survival-icon">🥖</div>
-              <div class="survival-body">
-                <h3>The "Couvert" in Restaurants</h3>
-                <p>Bread, olives, and cheese brought to your table before the meal are not free. If you eat them, you will be charged. If you don't want them, simply leave them untouched.</p>
-              </div>
-            </article>
-
-            <article class="survival-card">
-              <div class="survival-icon">☕</div>
-              <div class="survival-body">
-                <h3>Order Coffee Like a Local</h3>
-                <p>Ask for a <strong>"Uma bica"</strong> — the traditional Lisbon term for a rich espresso with thick crema. Pair it with a warm pastel de nata sprinkled with cinnamon!</p>
-              </div>
-            </article>
-          </div>
-
-          <!-- Essential Phrases -->
-          <div class="phrases-section">
-            <div class="phrases-header">
-              <h3>Useful Phrases (Tap to Speak & Copy)</h3>
-              <p>Hear native European Portuguese pronunciation:</p>
-            </div>
-            <div class="phrases-list" id="phrases-list">
-              <!-- Rendered by app.js -->
-            </div>
-          </div>
-        </section>
-
-        <!-- ================= TAB 4: SAVED ================= -->
-        <section id="view-saved" class="tab-view" role="tabpanel" aria-labelledby="tab-btn-saved" hidden>
-          <div class="section-banner">
-            <h2>Saved Favorites</h2>
-            <p>Your handpicked Lisbon collection.</p>
-          </div>
-
-          <div class="saved-actions-bar" id="saved-actions-bar" hidden>
-            <span id="saved-count-label">0 items saved</span>
-            <button id="btn-clear-saved" class="text-danger-btn">Clear All</button>
-          </div>
-
-          <div class="spots-list" id="saved-spots-list">
-            <!-- Rendered by app.js -->
-          </div>
-
-          <div id="no-saved" class="empty-state">
-            <div class="empty-emoji">❤️</div>
-            <h3>No favorites saved yet</h3>
-            <p>Tap the heart icon on any spot in the Explore tab to save it for quick access anytime!</p>
-            <button class="btn-primary" id="btn-go-explore">Explore Lisbon</button>
-          </div>
-        </section>
-
-      </main>
-
-      <!-- Bottom Mobile Tab Bar -->
-      <nav class="bottom-nav-bar" aria-label="Mobile Navigation">
-        <button class="nav-tab active" id="tab-btn-explore" data-target="view-explore" aria-selected="true" role="tab">
-          <span class="nav-icon">🧭</span>
-          <span class="nav-label">Explore</span>
-        </button>
-        <button class="nav-tab" id="tab-btn-itinerary" data-target="view-itinerary" aria-selected="false" role="tab">
-          <span class="nav-icon">📋</span>
-          <span class="nav-label">Itinerary</span>
-          <span class="nav-badge" id="itinerary-badge" hidden>0</span>
-        </button>
-        <button class="nav-tab" id="tab-btn-tips" data-target="view-tips" aria-selected="false" role="tab">
-          <span class="nav-icon">💡</span>
-          <span class="nav-label">Survival</span>
-        </button>
-        <button class="nav-tab" id="tab-btn-saved" data-target="view-saved" aria-selected="false" role="tab">
-          <span class="nav-icon">❤️</span>
-          <span class="nav-label">Saved</span>
-          <span class="nav-badge" id="saved-badge" hidden>0</span>
-        </button>
-      </nav>
-
-    </div><!-- End phone-frame -->
-  </div><!-- End mobile-app-wrapper -->
-
-  <!-- Spot Details Native Modal Dialog -->
-  <dialog id="spot-modal" class="native-dialog" aria-labelledby="modal-spot-title">
-    <div class="modal-card">
-      <div class="modal-header">
-        <span class="modal-category" id="modal-category">Category</span>
-        <button id="modal-close" class="modal-close-btn" aria-label="Close details">✕</button>
-      </div>
-      <div class="modal-hero" id="modal-hero">
-        <span class="modal-hero-emoji" id="modal-emoji">📍</span>
-      </div>
-      <div class="modal-body">
-        <div class="modal-meta">
-          <span class="tag-pill" id="modal-neighborhood">Neighborhood</span>
-          <span class="tag-pill tag-time" id="modal-best-time">Best Time</span>
-        </div>
-        <h2 id="modal-spot-title" class="modal-title">Spot Title</h2>
-        <p id="modal-description" class="modal-desc">Spot description...</p>
-        
-        <div class="modal-tip-box">
-          <span class="tip-icon">💡</span>
-          <div>
-            <strong>Local Secret:</strong>
-            <p id="modal-tip">Tip content...</p>
-          </div>
-        </div>
-
-        <div class="modal-actions">
-          <a id="modal-maps-link" href="#" target="_blank" rel="noopener noreferrer" class="btn-primary maps-btn">
-            <span>🗺️</span>
-            <span>Open in Maps</span>
-          </a>
-          <button id="modal-fav-btn" class="btn-secondary fav-toggle-btn">
-            <span class="fav-icon">🤍</span>
-            <span class="fav-text">Save</span>
-          </button>
-        </div>
-      </div>
-    </div>
-  </dialog>
-
-  <!-- Transient Toast Container -->
-  <div id="toast-container" class="toast-container" aria-live="polite"></div>
-
-  <script src="app.js"></script>
+    <footer class="footer">
+      <p>Lisbon &bull; Hosted on GitHub Pages</p>
+    </footer>
+  </div>
 </body>
 </html>
