@@ -1,6 +1,6 @@
 /* =========================================================
-   葡萄牙双城随身页 — 极简、温柔明亮、响应式
-   不花哨、无死板表格、核心双城一眼看清
+   里斯本 & 阿尔加维 — 极简双城页
+   纯净、克制、温柔明亮、响应式
    ========================================================= */
 
 :root {
@@ -8,23 +8,18 @@
   --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
 
   /* 温柔暖调配色 */
-  --bg-page: #faf8f5;           /* 暖米宣纸色 */
-  --bg-card: #ffffff;           /* 干净纯白卡片 */
-  --border: #ece4db;           /* 淡暖灰边框 */
+  --bg-page: #faf8f5;           /* 暖米宣纸底色 */
+  --bg-card: #ffffff;           /* 纯白卡片 */
+  --border: #ece5dc;           /* 淡暖灰边框 */
 
-  --color-primary: #d26749;     /* 陶土暖橘 */
-  --color-accent-blue: #407996; /* 柔和海蓝 */
-  
-  --text-main: #2d2723;         /* 咖啡深灰 */
-  --text-muted: #7a7066;        /* 柔和次要文字 */
-  --text-subtle: #aaa095;
+  --text-main: #2d2723;         /* 温和咖啡深灰 */
+  --text-subtle: #9e9488;       /* 英文浅色 */
 
-  --radius-sm: 8px;
   --radius-md: 14px;
-  --radius-lg: 20px;
+  --radius-lg: 18px;
   --radius-full: 9999px;
 
-  --shadow-soft: 0 4px 14px rgba(100, 75, 50, 0.05), 0 1px 3px rgba(100, 75, 50, 0.02);
+  --shadow-soft: 0 4px 14px rgba(100, 75, 50, 0.04), 0 1px 3px rgba(100, 75, 50, 0.02);
 
   color-scheme: light;
 }
@@ -40,52 +35,35 @@ body {
   font-family: var(--font-sans);
   background-color: var(--bg-page);
   color: var(--text-main);
-  line-height: 1.6;
+  line-height: 1.5;
   -webkit-text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
   min-height: 100vh;
-  padding: 24px 16px 40px;
+  padding: 36px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .travel-wrapper {
-  max-width: 520px;
-  margin: 0 auto;
+  width: 100%;
+  max-width: 480px;
   display: flex;
   flex-direction: column;
-  gap: 22px;
+  gap: 20px;
 }
 
 /* ================= 头部 ================= */
 .page-header {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
   text-align: center;
-  padding: 10px 0 6px;
-}
-
-.trip-tag {
-  display: inline-block;
-  align-self: center;
-  background-color: #f4ede4;
-  color: #7d6b58;
-  font-size: 0.76rem;
-  font-weight: 600;
-  padding: 4px 12px;
-  border-radius: var(--radius-full);
+  padding: 8px 0 4px;
 }
 
 .main-title {
-  font-size: 1.85rem;
-  font-weight: 800;
-  letter-spacing: -0.02em;
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
   color: var(--text-main);
-  line-height: 1.25;
-}
-
-.sub-title {
-  font-size: 0.88rem;
-  color: var(--text-muted);
 }
 
 /* ================= 双城卡片 ================= */
@@ -103,11 +81,6 @@ body {
   box-shadow: var(--shadow-soft);
   display: flex;
   flex-direction: column;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-}
-
-.city-card:active {
-  transform: scale(0.99);
 }
 
 .city-cover {
@@ -115,8 +88,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 16px 20px;
-  position: relative;
+  padding: 16px 22px;
 }
 
 .cover-lisbon {
@@ -128,37 +100,35 @@ body {
 }
 
 .city-num {
-  font-size: 1.8rem;
-  font-weight: 900;
+  font-size: 1.6rem;
+  font-weight: 800;
   font-family: var(--font-mono);
   opacity: 0.25;
   color: var(--text-main);
 }
 
 .city-emoji {
-  font-size: 3.2rem;
-  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.08));
+  font-size: 3rem;
+  filter: drop-shadow(0 3px 8px rgba(0, 0, 0, 0.08));
 }
 
 .city-content {
-  padding: 16px 18px 18px;
+  padding: 16px 20px;
   display: flex;
-  flex-direction: column;
-  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .city-title-row {
   display: flex;
   align-items: baseline;
-  justify-content: space-between;
+  gap: 8px;
 }
 
 .city-name {
-  font-size: 1.35rem;
-  font-weight: 800;
+  font-size: 1.25rem;
+  font-weight: 700;
   color: var(--text-main);
-  display: inline-block;
-  margin-right: 6px;
 }
 
 .city-en {
@@ -167,37 +137,20 @@ body {
   font-weight: 500;
 }
 
-.city-badge {
-  font-size: 0.72rem;
-  font-weight: 600;
-  padding: 3px 9px;
-  border-radius: var(--radius-full);
-  background-color: #f6f0e8;
-  color: #7c6d5d;
-}
-
-.city-tagline {
-  font-size: 0.86rem;
-  color: var(--text-muted);
-  line-height: 1.5;
-}
-
 .city-actions {
   display: flex;
-  padding-top: 4px;
 }
 
 .btn-city-link {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
   background-color: var(--bg-page);
   border: 1px solid var(--border);
   color: var(--text-main);
   text-decoration: none;
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   font-weight: 600;
-  padding: 7px 14px;
+  padding: 6px 12px;
   border-radius: var(--radius-full);
   transition: background-color 0.15s ease;
 }
@@ -206,85 +159,9 @@ body {
   background-color: #eee7dd;
 }
 
-/* ================= 路线连接指示 ================= */
-.route-divider {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  padding: 4px 0;
-}
-
-.route-line {
-  flex: 1;
-  height: 1px;
-  background-color: var(--border);
-}
-
-.route-badge {
-  font-size: 0.74rem;
-  color: var(--text-muted);
-  background-color: #f5eee5;
-  padding: 4px 12px;
-  border-radius: var(--radius-full);
-  font-weight: 600;
-}
-
-/* ================= 随身备忘便签卡 ================= */
-.memo-card {
-  background-color: #fdfaf2;
-  border: 1px dashed #e8dccb;
-  border-radius: var(--radius-md);
-  padding: 14px 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.memo-header {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 0.82rem;
-  font-weight: 700;
-  color: #8c734b;
-}
-
-.memo-icon {
-  font-size: 1rem;
-}
-
-.memo-body {
-  font-size: 0.84rem;
-  color: var(--text-main);
-  line-height: 1.6;
-  outline: none;
-  min-height: 48px;
-  cursor: text;
-  white-space: pre-wrap;
-  word-break: break-word;
-}
-
-.memo-body:focus {
-  background-color: rgba(255, 255, 255, 0.7);
-  border-radius: var(--radius-sm);
-  padding: 4px;
-  margin: -4px;
-}
-
-/* ================= 底部 ================= */
-.page-footer {
-  text-align: center;
-  padding-top: 10px;
-  font-size: 0.8rem;
-  color: var(--text-subtle);
-}
-
 @media (max-width: 480px) {
   body {
-    padding: 16px 12px 30px;
-  }
-  .main-title {
-    font-size: 1.65rem;
+    padding: 24px 14px;
+    align-items: flex-start;
   }
 }
