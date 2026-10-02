@@ -1,70 +1,47 @@
 /* =========================================================
-   Internal Hub — Clean, Minimal, Responsive Stylesheet
-   Designed for high information scent and effortless reading
+   自用核心信息空间 — 温柔明亮风样式
+   明亮、温润、护眼、清晰，无暗黑模式干扰
    ========================================================= */
 
 :root {
-  /* Light Theme (Default) */
-  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, -apple-system, Helvetica, Arial, sans-serif;
+  /* 基础字体：优质无衬线中文字体优先 */
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
 
-  --bg-page: #f8fafc;
-  --bg-card: #ffffff;
-  --bg-subtle: #f1f5f9;
-  --bg-callout: #fefce8;
-  --border-callout: #fef08a;
+  /* 温柔暖调配色 */
+  --bg-page: #faf8f5;           /* 温暖柔和的浅米/宣纸底色 */
+  --bg-card: #ffffff;           /* 干净纯白卡片 */
+  --bg-subtle: #f4efe9;         /* 柔和浅米灰衬底 */
+  
+  --bg-callout: #fdf8ee;        /* 柔和暖奶油黄便签 */
+  --border-callout: #faeccd;    /* 便签浅金暖边框 */
+  --text-callout: #7c5e2d;
 
-  --border: #e2e8f0;
-  --border-light: #f1f5f9;
+  --border: #ede6dc;           /* 极淡的暖调灰边框 */
+  --border-light: #f5f0e8;
 
-  --text-main: #0f172a;
-  --text-muted: #64748b;
-  --text-subtle: #94a3b8;
+  --text-main: #2d2723;         /* 温和咖啡深灰，不刺眼 */
+  --text-muted: #786f66;        /* 暖灰次要文字 */
+  --text-subtle: #a69e94;       /* 辅助微弱说明 */
 
-  --tag-progress-bg: #e0f2fe;
-  --tag-progress-text: #0369a1;
-  --tag-pending-bg: #fef3c7;
-  --tag-pending-text: #b45309;
-  --tag-done-bg: #dcfce7;
-  --tag-done-text: #15803d;
+  /* 温柔三态标签配色 */
+  --tag-progress-bg: #edf3f7;   --tag-progress-text: #3c6c82; /* 柔和雾蓝 */
+  --tag-pending-bg: #fcf1e6;    --tag-pending-text: #a85e2b;  /* 温暖浅杏 */
+  --tag-done-bg: #edf5ee;       --tag-done-text: #417a4a;     /* 恬淡抹茶 */
 
-  --radius-sm: 6px;
-  --radius-md: 10px;
-  --radius-lg: 14px;
+  /* 圆角与阴影 */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
   --radius-full: 9999px;
 
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-soft: 0 2px 8px rgba(90, 70, 50, 0.04), 0 1px 2px rgba(90, 70, 50, 0.02);
 
-  color-scheme: light dark;
+  /* 明确指定明亮模式 */
+  color-scheme: light;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg-page: #090d16;
-    --bg-card: #111827;
-    --bg-subtle: #1f2937;
-    --bg-callout: #1c1917;
-    --border-callout: #292524;
-
-    --border: #1f2937;
-    --border-light: #182234;
-
-    --text-main: #f8fafc;
-    --text-muted: #94a3b8;
-    --text-subtle: #64748b;
-
-    --tag-progress-bg: #0c4a6e;
-    --tag-progress-text: #7dd3fc;
-    --tag-pending-bg: #451a03;
-    --tag-pending-text: #fcd34d;
-    --tag-done-bg: #052e16;
-    --tag-done-text: #86efac;
-
-    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
-  }
-}
-
-/* Base Reset */
+/* 重置与盒模型 */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -76,7 +53,7 @@ body {
   font-family: var(--font-sans);
   background-color: var(--bg-page);
   color: var(--text-main);
-  line-height: 1.5;
+  line-height: 1.6;
   -webkit-text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
   min-height: 100vh;
@@ -84,14 +61,14 @@ body {
 }
 
 .page-wrapper {
-  max-width: 660px;
+  max-width: 620px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 28px;
+  gap: 24px;
 }
 
-/* ================= HEADER ================= */
+/* ================= 头部区域 ================= */
 .hub-header {
   display: flex;
   flex-direction: column;
@@ -104,54 +81,53 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 0.78rem;
+  font-size: 0.8rem;
 }
 
 .badge-internal {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background-color: var(--bg-subtle);
-  color: var(--text-muted);
-  padding: 3px 8px;
+  background-color: #f3ece4;
+  color: #7a6a58;
+  padding: 4px 10px;
   border-radius: var(--radius-full);
   font-weight: 600;
-  letter-spacing: 0.02em;
-  border: 1px solid var(--border);
+  font-size: 0.75rem;
 }
 
 .badge-dot {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background-color: #10b981;
+  background-color: #2ea043;
 }
 
 .header-timestamp {
   color: var(--text-subtle);
-  font-size: 0.75rem;
+  font-size: 0.76rem;
   font-family: var(--font-mono);
 }
 
 .hub-title {
-  font-size: 1.75rem;
+  font-size: 1.65rem;
   font-weight: 700;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.02em;
   color: var(--text-main);
-  line-height: 1.15;
+  line-height: 1.25;
 }
 
 .hub-tagline {
   font-size: 0.9rem;
   color: var(--text-muted);
-  line-height: 1.45;
+  line-height: 1.5;
 }
 
-/* ================= MAIN SECTIONS ================= */
+/* ================= 核心区域 ================= */
 .hub-main {
   display: flex;
   flex-direction: column;
-  gap: 26px;
+  gap: 24px;
 }
 
 .section {
@@ -167,9 +143,9 @@ body {
 }
 
 .section-label {
-  font-size: 0.72rem;
+  font-size: 0.74rem;
   font-weight: 700;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.04em;
   color: var(--text-subtle);
   text-transform: uppercase;
 }
@@ -180,18 +156,18 @@ body {
   background: var(--bg-subtle);
   padding: 2px 8px;
   border-radius: var(--radius-full);
-  font-weight: 600;
+  font-weight: 500;
 }
 
-/* Cards Base */
+/* 卡片容器通用 */
 .card {
   background-color: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-soft);
 }
 
-/* 01. Status Highlights Grid */
+/* 01. 核心状态卡片网格 */
 .grid-status {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -199,39 +175,38 @@ body {
 }
 
 .status-card {
-  padding: 12px 14px;
+  padding: 14px 14px;
   display: flex;
   flex-direction: column;
   gap: 4px;
 }
 
 .status-kpi-title {
-  font-size: 0.72rem;
-  font-weight: 600;
+  font-size: 0.75rem;
+  font-weight: 500;
   color: var(--text-muted);
-  letter-spacing: 0.01em;
 }
 
 .status-kpi-value {
-  font-size: 1.15rem;
+  font-size: 1.05rem;
   font-weight: 700;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
   color: var(--text-main);
 }
 
 .status-kpi-sub {
-  font-size: 0.7rem;
+  font-size: 0.72rem;
   color: var(--text-subtle);
 }
 
-/* 02. Notice Callout Card */
+/* 02. 置顶暖色便签盒 */
 .callout-card {
   display: flex;
   gap: 12px;
   background-color: var(--bg-callout);
   border: 1px solid var(--border-callout);
   border-radius: var(--radius-md);
-  padding: 12px 14px;
+  padding: 13px 15px;
 }
 
 .callout-icon {
@@ -241,19 +216,19 @@ body {
 }
 
 .callout-body h3 {
-  font-size: 0.85rem;
+  font-size: 0.88rem;
   font-weight: 700;
-  margin-bottom: 2px;
-  color: var(--text-main);
+  margin-bottom: 3px;
+  color: var(--text-callout);
 }
 
 .callout-body p {
-  font-size: 0.8rem;
+  font-size: 0.82rem;
   color: var(--text-muted);
-  line-height: 1.45;
+  line-height: 1.5;
 }
 
-/* 03. Key Items / Todo List */
+/* 03. 事项进度列表 */
 .card-list {
   overflow: hidden;
 }
@@ -262,8 +237,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 14px;
-  gap: 12px;
+  padding: 13px 16px;
+  gap: 14px;
   border-bottom: 1px solid var(--border-light);
 }
 
@@ -278,24 +253,23 @@ body {
 }
 
 .item-title {
-  font-size: 0.86rem;
+  font-size: 0.88rem;
   font-weight: 600;
   color: var(--text-main);
 }
 
 .item-desc {
-  font-size: 0.75rem;
+  font-size: 0.76rem;
   color: var(--text-muted);
 }
 
-/* Status Tags */
+/* 状态标签 */
 .tag {
-  font-size: 0.7rem;
+  font-size: 0.72rem;
   font-weight: 600;
-  padding: 3px 8px;
+  padding: 3px 9px;
   border-radius: var(--radius-full);
   flex-shrink: 0;
-  letter-spacing: 0.02em;
 }
 
 .tag-progress {
@@ -313,7 +287,7 @@ body {
   color: var(--tag-done-text);
 }
 
-/* 04. Quick Shortcuts Grid */
+/* 04. 常用直达入口网格 */
 .grid-links {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -327,22 +301,23 @@ body {
   background-color: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
-  padding: 10px 12px;
+  padding: 12px 14px;
   text-decoration: none;
-  box-shadow: var(--shadow-sm);
-  transition: transform 0.1s ease, border-color 0.15s ease;
-}
-
-.link-card:active {
-  transform: scale(0.98);
+  box-shadow: var(--shadow-soft);
+  transition: transform 0.1s ease, border-color 0.15s ease, background-color 0.15s ease;
 }
 
 .link-card:hover {
-  border-color: var(--text-subtle);
+  border-color: #d1c6b8;
+  background-color: #fffefb;
+}
+
+.link-card:active {
+  transform: scale(0.985);
 }
 
 .link-icon {
-  font-size: 1.15rem;
+  font-size: 1.25rem;
   flex-shrink: 0;
 }
 
@@ -353,7 +328,7 @@ body {
 }
 
 .link-title {
-  font-size: 0.82rem;
+  font-size: 0.85rem;
   font-weight: 600;
   color: var(--text-main);
   white-space: nowrap;
@@ -362,12 +337,12 @@ body {
 }
 
 .link-url {
-  font-size: 0.7rem;
+  font-size: 0.72rem;
   color: var(--text-subtle);
   font-family: var(--font-mono);
 }
 
-/* 05. Core Reference Table */
+/* 05. 核心参数表格 */
 .info-table {
   overflow: hidden;
 }
@@ -376,8 +351,8 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 14px;
-  font-size: 0.8rem;
+  padding: 11px 16px;
+  font-size: 0.82rem;
   border-bottom: 1px solid var(--border-light);
 }
 
@@ -399,21 +374,22 @@ body {
 .table-value code {
   font-family: var(--font-mono);
   background-color: var(--bg-subtle);
-  padding: 2px 6px;
+  padding: 2px 7px;
   border-radius: 4px;
-  font-size: 0.75rem;
+  font-size: 0.78rem;
+  color: #605448;
 }
 
-/* ================= FOOTER ================= */
+/* ================= 底部版权 ================= */
 .hub-footer {
   text-align: center;
-  font-size: 0.75rem;
+  font-size: 0.76rem;
   color: var(--text-subtle);
   padding-top: 14px;
   border-top: 1px solid var(--border);
 }
 
-/* ================= MOBILE ADAPTATIONS ================= */
+/* ================= 手机端适配 ================= */
 @media (max-width: 520px) {
   body {
     padding: 16px 12px 36px;
@@ -433,7 +409,7 @@ body {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    padding: 10px 12px;
+    padding: 12px 14px;
   }
 
   .status-kpi-sub {
@@ -443,7 +419,7 @@ body {
   .table-row {
     flex-direction: column;
     align-items: flex-start;
-    gap: 3px;
+    gap: 2px;
   }
 
   .table-value {
