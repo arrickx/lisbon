@@ -11,125 +11,96 @@
 <body>
   <div class="travel-wrapper">
 
-    <!-- 顶部总览卡片 -->
-    <header class="page-header">
-      <div class="header-badges">
-        <span class="badge-pill highlight">✨ 9天8晚家庭慢调之旅</span>
-        <span class="badge-pill">4位成人 + 1位幼儿</span>
-      </div>
-      <h1 class="main-title">里斯本 & 阿尔加维</h1>
-      <p class="trip-dates">2027年5月4日 – 5月12日 · 黄金初夏平季</p>
-
-      <!-- 双城节奏摘要 -->
-      <div class="route-overview">
-        <div class="route-node">
-          <span class="node-icon">🚋</span>
-          <div class="node-text">
-            <strong>里斯本 5 晚</strong>
-            <span>凯悦 Hyatt Regency · 贝伦河畔</span>
+    <!-- iPhone 16 Pro 专享极简顶部 App Bar (高度仅 46px，零浪费屏幕) -->
+    <header class="mobile-app-header">
+      <div class="header-top-row">
+        <div class="header-title-wrap">
+          <span class="country-flag">🇵🇹</span>
+          <div class="header-titles">
+            <h1 class="compact-title">里斯本 & 阿尔加维</h1>
+            <span class="compact-meta">5/4–5/12 · 9天8晚 · 4大1小</span>
           </div>
         </div>
-        <div class="route-arrow">
-          <span class="arrow-line"></span>
-          <span class="arrow-tag">A2 高速 2.5h</span>
-        </div>
-        <div class="route-node">
-          <span class="node-icon">🌊</span>
-          <div class="node-text">
-            <strong>阿尔加维 3 晚</strong>
-            <span>海滨度假村 · 洞窟与悬崖木栈</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- 智能定位与今日状态提示栏 -->
-      <div class="today-status-bar" id="today-status-bar">
-        <div class="status-indicator">
-          <span class="pulse-dot" id="status-pulse"></span>
-          <div class="status-texts">
-            <span class="status-text" id="status-text">同步里斯本当地时间中...</span>
-            <span class="status-sub" id="status-sub">时区：葡萄牙里斯本 (WEST/UTC+1)</span>
-          </div>
-        </div>
-        <div class="status-controls">
-          <div class="sim-wrapper" id="sim-wrapper" title="行前演练：模拟旅途中的任意一天">
-            <label for="sim-day-select" class="sim-label">⚡ 模拟演练：</label>
-            <select id="sim-day-select" class="sim-select" aria-label="选择模拟天数">
-              <option value="auto">自动 (按当前真实时间)</option>
-              <option value="1">D1 · 5/4 抵达</option>
-              <option value="2">D2 · 5/5 贝伦蛋挞</option>
-              <option value="3">D3 · 5/6 两栖车</option>
-              <option value="4">D4 · 5/7 观景漫步</option>
-              <option value="5">D5 · 5/8 水族馆</option>
-              <option value="6">D6 · 5/9 自驾南下</option>
-              <option value="7">D7 · 5/10 洞窟游船</option>
-              <option value="8">D8 · 5/11 悬崖木栈</option>
-              <option value="9">D9 · 5/12 返程还车</option>
+        <div class="header-actions">
+          <div class="sim-wrapper" id="sim-wrapper" title="行前演练模式">
+            <select id="sim-day-select" class="sim-select" aria-label="模拟天数">
+              <option value="auto">自动 (里斯本时间)</option>
+              <option value="1">D1 5/4 抵达</option>
+              <option value="2">D2 5/5 贝伦</option>
+              <option value="3">D3 5/6 两栖车</option>
+              <option value="4">D4 5/7 观景</option>
+              <option value="5">D5 5/8 水族馆</option>
+              <option value="6">D6 5/9 自驾</option>
+              <option value="7">D7 5/10 洞窟</option>
+              <option value="8">D8 5/11 悬崖</option>
+              <option value="9">D9 5/12 返程</option>
             </select>
           </div>
-          <button type="button" class="btn-locate-today" id="btn-locate-today" title="快速定位到今天的日程卡片">
-            📍 聚焦今天
-          </button>
         </div>
       </div>
-    </header>
 
-    <!-- 主导航切换（9天日程 / 省心锦囊 / 住址自驾） -->
-    <nav class="view-tabs" aria-label="核心板块切换">
-      <button type="button" class="view-tab active" data-view="itinerary">
-        <span>🗺️</span> 9天每日日程
-      </button>
-      <button type="button" class="view-tab" data-view="peace-of-mind">
-        <span>🛡️</span> 省心随身锦囊
-      </button>
-      <button type="button" class="view-tab" data-view="logistics">
-        <span>🏨</span> 住址与自驾
-      </button>
-    </nav>
+      <!-- 超紧凑状态与今日对齐条 -->
+      <div class="compact-status-bar" id="today-status-bar">
+        <div class="status-left">
+          <span class="pulse-dot"></span>
+          <span class="status-text" id="status-text">同步里斯本时间中...</span>
+        </div>
+        <button type="button" class="btn-locate-today" id="btn-locate-today">📍 回到今天</button>
+      </div>
+    </header>
 
     <!-- ===================================================================
          VIEW 1: 9天每日行程与吸顶天数导航
          =================================================================== -->
     <section id="view-itinerary" class="view-section active">
 
-      <!-- 吸顶天数胶囊导航栏 (Sticky Day Bar) -->
+      <!-- 吸顶天数横向滑动胶囊 (包含每天车程时耗速查) -->
       <nav class="day-nav-wrapper" id="day-nav-sticky" aria-label="天数快捷定位">
         <div class="day-nav-container" id="day-nav-scroll">
           <button type="button" class="day-pill active" data-day="1">
             <span class="day-num">D1</span>
             <span class="day-brief">5/4 抵达</span>
+            <span class="commute-mini">🚗20m</span>
           </button>
           <button type="button" class="day-pill" data-day="2">
             <span class="day-num">D2</span>
-            <span class="day-brief">5/5 贝伦蛋挞</span>
+            <span class="day-brief">5/5 贝伦</span>
+            <span class="commute-mini">🚗5m</span>
           </button>
           <button type="button" class="day-pill" data-day="3">
             <span class="day-num">D3</span>
             <span class="day-brief">5/6 两栖车</span>
+            <span class="commute-mini">🚗10m</span>
           </button>
           <button type="button" class="day-pill" data-day="4">
             <span class="day-num">D4</span>
-            <span class="day-brief">5/7 观景漫步</span>
+            <span class="day-brief">5/7 观景</span>
+            <span class="commute-mini">🚗15m</span>
           </button>
           <button type="button" class="day-pill" data-day="5">
             <span class="day-num">D5</span>
             <span class="day-brief">5/8 水族馆</span>
+            <span class="commute-mini">🚗20m</span>
           </button>
           <button type="button" class="day-pill" data-day="6">
             <span class="day-num">D6</span>
-            <span class="day-brief">5/9 自驾南下</span>
+            <span class="day-brief">5/9 自驾</span>
+            <span class="commute-mini">🚗2.5h</span>
           </button>
           <button type="button" class="day-pill" data-day="7">
             <span class="day-num">D7</span>
-            <span class="day-brief">5/10 洞窟游船</span>
+            <span class="day-brief">5/10 游船</span>
+            <span class="commute-mini">🚗15m</span>
           </button>
           <button type="button" class="day-pill" data-day="8">
             <span class="day-num">D8</span>
-            <span class="day-brief">5/11 悬崖木栈</span>
+            <span class="day-brief">5/11 木栈道</span>
+            <span class="commute-mini">🚗12m</span>
           </button>
           <button type="button" class="day-pill" data-day="9">
             <span class="day-num">D9</span>
             <span class="day-brief">5/12 返程</span>
+            <span class="commute-mini">🚗2.5h</span>
           </button>
         </div>
       </nav>
@@ -151,6 +122,11 @@
           </div>
 
           <div class="day-card-body">
+            <div class="day-commute-strip">
+              <span class="commute-strip-icon">🚗</span>
+              <span class="commute-strip-text"><strong>今日车程</strong>：机场 ➔ 凯悦 单程约 18~20 分钟 (12km) · UberXL 约 €20 · 直达大堂</span>
+            </div>
+
             <div class="timeline-slot">
               <div class="slot-time">下午</div>
               <div class="slot-content">
@@ -215,6 +191,11 @@
           </div>
 
           <div class="day-card-body">
+            <div class="day-commute-strip">
+              <span class="commute-strip-icon">🚗</span>
+              <span class="commute-strip-text"><strong>今日车程</strong>：凯悦 ➔ 贝伦名胜 单程仅 5~7 分钟 (1.8km) · LX Factory 步行 8 分钟 (800m) · 就在酒店隔壁</span>
+            </div>
+
             <div class="timeline-slot">
               <div class="slot-time">上午</div>
               <div class="slot-content">
@@ -291,6 +272,11 @@
           </div>
 
           <div class="day-card-body">
+            <div class="day-commute-strip">
+              <span class="commute-strip-icon">🚗</span>
+              <span class="commute-strip-text"><strong>今日车程</strong>：凯悦 ➔ 商业广场 单程仅 10~12 分钟 (4.5km) · 沿河直行无堵车 · 两栖车仅 3 分钟</span>
+            </div>
+
             <div class="timeline-slot">
               <div class="slot-time">上午</div>
               <div class="slot-content">
@@ -364,6 +350,11 @@
           </div>
 
           <div class="day-card-body">
+            <div class="day-commute-strip">
+              <span class="commute-strip-icon">🚗</span>
+              <span class="commute-strip-text"><strong>今日车程</strong>：凯悦 ➔ 圣母观景台 单程约 15~18 分钟 (6.5km) · 专车直达山顶 · 顺坡下行不费腿</span>
+            </div>
+
             <div class="timeline-slot">
               <div class="slot-time">上午</div>
               <div class="slot-content">
@@ -431,6 +422,10 @@
           </div>
 
           <div class="day-card-body">
+            <div class="day-commute-strip">
+              <span class="commute-strip-icon">🚗</span>
+              <span class="commute-strip-text"><strong>今日车程</strong>：凯悦 ➔ 水族馆世博区 单程约 18~20 分钟 (14km) · 全程最远但一路平坦快线</span>
+            </div>
             <div class="timeline-slot">
               <div class="slot-time">上午</div>
               <div class="slot-content">
@@ -491,6 +486,11 @@
           </div>
 
           <div class="day-card-body">
+            <div class="day-commute-strip">
+              <span class="commute-strip-icon">🚗</span>
+              <span class="commute-strip-text"><strong>今日车程</strong>：凯悦 ➔ 阿尔加维 A2 高速自驾约 2.5 小时 (240km) · 7座MPV宽敞舒适</span>
+            </div>
+
             <div class="timeline-slot">
               <div class="slot-time">上午</div>
               <div class="slot-content">
@@ -565,6 +565,11 @@
           </div>
 
           <div class="day-card-body">
+            <div class="day-commute-strip">
+              <span class="commute-strip-icon">🚗</span>
+              <span class="commute-strip-text"><strong>今日车程</strong>：度假村 ➔ Benagil 洞窟码头 自驾约 15~20 分钟 (14km) · 游船平稳安全</span>
+            </div>
+
             <div class="timeline-slot">
               <div class="slot-time">上午</div>
               <div class="slot-content">
@@ -628,6 +633,11 @@
           </div>
 
           <div class="day-card-body">
+            <div class="day-commute-strip">
+              <span class="commute-strip-icon">🚗</span>
+              <span class="commute-strip-text"><strong>今日车程</strong>：度假村 ➔ 佩达德角木栈道 自驾仅 12~15 分钟 (10km) · 悬崖停车即达</span>
+            </div>
+
             <div class="timeline-slot">
               <div class="slot-time">上午</div>
               <div class="slot-content">
@@ -694,6 +704,11 @@
           </div>
 
           <div class="day-card-body">
+            <div class="day-commute-strip">
+              <span class="commute-strip-icon">🚗</span>
+              <span class="commute-strip-text"><strong>今日车程</strong>：阿尔加维 ➔ 里斯本机场还车 A2 高速直达约 2.5 小时 (250km)</span>
+            </div>
+
             <div class="timeline-slot">
               <div class="slot-time">上午</div>
               <div class="slot-content">
@@ -741,9 +756,126 @@
     </section>
 
     <!-- ===================================================================
-         VIEW 2: 🛡️ 省心随身锦囊 (点餐出示卡 / 防坑 / 买奶 / 法规小抄)
+         VIEW 2: 🚗 每日交通与往返耗时全景盘 (专为解答凯悦往返时耗设计)
          =================================================================== -->
-    <section id="view-peace-of-mind" class="view-section">
+    <section id="view-commute" class="view-section">
+      <div class="commute-dashboard">
+        <div class="verdict-banner">
+          <div class="verdict-badge">💡 交通定心丸</div>
+          <h2 class="verdict-title">凯悦往返会不会很久？—— 完全不会！</h2>
+          <p class="verdict-desc">
+            凯悦 (Hyatt Regency) 位于贝伦特茹河畔大道边，绝非荒凉偏远。
+            <strong>里斯本市内单程平均仅需 10~15 分钟</strong>！全天往返总车程仅 25~35 分钟。
+            全程叫 UberXL（6~7座大车）单程仅约 €8~€15，全家平摊人均只要两三欧，下车即景点，老人孩子绝不折腾！
+          </p>
+        </div>
+
+        <!-- 每日时耗对比卡片 -->
+        <div class="commute-matrix-list">
+          <div class="matrix-card highlight">
+            <div class="matrix-day">D1</div>
+            <div class="matrix-body">
+              <div class="matrix-title">机场接机 ➔ 凯悦大堂</div>
+              <div class="matrix-tags">
+                <span class="m-tag">⏱️ 单程约 18~20 分钟</span>
+                <span class="m-tag">📏 12 公里</span>
+                <span class="m-tag">💶 UberXL ~€20</span>
+              </div>
+              <p class="m-note">走二环高速与滨河路，4大1小加推车轻松直达酒店放下行李。</p>
+            </div>
+          </div>
+
+          <div class="matrix-card super-near">
+            <div class="matrix-day">D2</div>
+            <div class="matrix-body">
+              <div class="matrix-title">凯悦 ➔ 贝伦名胜 (蛋挞老店/修道院/LX Factory)</div>
+              <div class="matrix-tags">
+                <span class="m-tag green">⏱️ 单程仅 5~7 分钟！</span>
+                <span class="m-tag">📏 1.8 公里</span>
+                <span class="m-tag">💶 UberXL ~€7</span>
+              </div>
+              <p class="m-note">就在酒店后花园！LX Factory 距凯悦仅 800 米（步行 8 分钟），甚至能推车沿河溜达。</p>
+            </div>
+          </div>
+
+          <div class="matrix-card highlight">
+            <div class="matrix-day">D3</div>
+            <div class="matrix-body">
+              <div class="matrix-title">凯悦 ➔ 老城核心 (商业广场/圣胡斯塔)</div>
+              <div class="matrix-tags">
+                <span class="m-tag">⏱️ 单程仅 10~12 分钟</span>
+                <span class="m-tag">📏 4.5 公里</span>
+                <span class="m-tag">💶 UberXL ~€10</span>
+              </div>
+              <p class="m-note">沿特茹河畔平坦大道 (Av. da Índia) 笔直向东，全程无石子路无坡道；两栖车码头就在凯悦旁 1 公里。</p>
+            </div>
+          </div>
+
+          <div class="matrix-card">
+            <div class="matrix-day">D4</div>
+            <div class="matrix-body">
+              <div class="matrix-title">凯悦 ➔ 圣母观景台 (阿尔法玛最高峰)</div>
+              <div class="matrix-tags">
+                <span class="m-tag">⏱️ 单程约 15~18 分钟</span>
+                <span class="m-tag">📏 6.5 公里</span>
+                <span class="m-tag">💶 UberXL ~€12</span>
+              </div>
+              <p class="m-note">车子直接开到山顶制高点，全家由上往下顺着坡道溜达，回程在大教堂门口打车回酒店，不费腿。</p>
+            </div>
+          </div>
+
+          <div class="matrix-card">
+            <div class="matrix-day">D5</div>
+            <div class="matrix-body">
+              <div class="matrix-title">凯悦 ➔ 世博水族馆 (万国公园区)</div>
+              <div class="matrix-tags">
+                <span class="m-tag">⏱️ 单程约 18~20 分钟</span>
+                <span class="m-tag">📏 14 公里</span>
+                <span class="m-tag">💶 UberXL ~€15</span>
+              </div>
+              <p class="m-note">全程最远的一趟，但一路全是大道与高速快线；下车后水族馆、缆车与大商场全部紧邻平地。</p>
+            </div>
+          </div>
+
+          <div class="matrix-card">
+            <div class="matrix-day">D6</div>
+            <div class="matrix-body">
+              <div class="matrix-title">机场提车 ➔ 阿尔加维海滨 (A2 高速自驾)</div>
+              <div class="matrix-tags">
+                <span class="m-tag">⏱️ 自驾 2.5 小时</span>
+                <span class="m-tag">📏 240 公里</span>
+                <span class="m-tag">🛣️ 高速 ETC 通行</span>
+              </div>
+              <p class="m-note">7座MPV宽敞舒适，A2 高速路面平坦、车流极少，中途在大型服务区换尿布吃午餐。</p>
+            </div>
+          </div>
+
+          <div class="matrix-card super-near">
+            <div class="matrix-day">D7-8</div>
+            <div class="matrix-body">
+              <div class="matrix-title">阿尔加维当地游玩 (Benagil海蚀洞 / 佩达德角木栈道)</div>
+              <div class="matrix-tags">
+                <span class="m-tag green">⏱️ 每次自驾仅 12~18 分钟</span>
+                <span class="m-tag">📏 8~14 公里</span>
+              </div>
+              <p class="m-note">南部海岸自驾随心停靠，推车放后备箱，下车即是沙滩和无障碍木栈道。</p>
+            </div>
+          </div>
+
+          <div class="matrix-card">
+            <div class="matrix-day">D9</div>
+            <div class="matrix-body">
+              <div class="matrix-title">阿尔加维 ➔ 里斯本机场还车登机</div>
+              <div class="matrix-tags">
+                <span class="m-tag">⏱️ 自驾直达 2.5 小时</span>
+                <span class="m-tag">📏 250 公里</span>
+              </div>
+              <p class="m-note">高速一路北上直通机场租车大厅，满油还车，推行李走家庭安检优先通道。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
       
       <div class="section-intro">
         <h2 class="intro-title">🛡️ 全程省心随身定心丸</h2>
@@ -966,6 +1098,26 @@
     </footer>
 
   </div>
+
+  <!-- iOS 原生级底部主导航栏 (Bottom Tab Bar · 拇指操作热区) -->
+  <nav class="mobile-bottom-bar" id="mobile-bottom-bar" aria-label="底栏主导航">
+    <button type="button" class="tab-item active" data-view="itinerary">
+      <span class="tab-icon">🗺️</span>
+      <span class="tab-label">9天日程</span>
+    </button>
+    <button type="button" class="tab-item" data-view="commute">
+      <span class="tab-icon">🚗</span>
+      <span class="tab-label">交通耗时</span>
+    </button>
+    <button type="button" class="tab-item" data-view="peace-of-mind">
+      <span class="tab-icon">🛡️</span>
+      <span class="tab-label">省心锦囊</span>
+    </button>
+    <button type="button" class="tab-item" data-view="logistics">
+      <span class="tab-icon">🏨</span>
+      <span class="tab-label">住址自驾</span>
+    </button>
+  </nav>
 
   <!-- ===================================================================
        全屏带娃点餐大字出示弹窗 (Fullscreen Flashcard)

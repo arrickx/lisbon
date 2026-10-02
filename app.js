@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const floatTodayText = document.getElementById("float-today-text");
   const toastEl = document.getElementById("toast-tip");
 
-  const viewTabs = document.querySelectorAll(".view-tab");
+  const viewTabs = document.querySelectorAll(".view-tab, .tab-item");
   const viewSections = document.querySelectorAll(".view-section");
   const flashcardOverlay = document.getElementById("flashcard-overlay");
 
