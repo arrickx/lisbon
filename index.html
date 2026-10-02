@@ -2,41 +2,167 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lisbon</title>
-  <meta name="description" content="A simple, responsive static site.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>[Space / Project Name] — Internal Hub</title>
+  <meta name="description" content="Internal personal hub and core information dashboard.">
   <link rel="icon" type="image/svg+xml" href="icon.svg">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container">
-    <header class="header">
-      <h1 class="title">Lisbon</h1>
-      <p class="subtitle">A clean, responsive static space.</p>
+  <div class="page-wrapper">
+    
+    <!-- Top Header / Identity -->
+    <header class="hub-header">
+      <div class="header-status-row">
+        <span class="badge-internal">
+          <span class="badge-dot"></span> Internal Only
+        </span>
+        <span class="header-timestamp" id="last-updated">[Last Updated: 2026-10-01]</span>
+      </div>
+      <h1 class="hub-title">[Space / Project Title]</h1>
+      <p class="hub-tagline">[One-line core mission, purpose, or current motto for this private hub]</p>
     </header>
 
-    <main class="content">
+    <main class="hub-main">
+
+      <!-- 1. Core Status Highlights (3 Key Metrics / Status Cards) -->
       <section class="section">
-        <h2>About</h2>
-        <p>This is a lightweight static page hosted on GitHub Pages. It is designed to be minimal, responsive, and easy to edit.</p>
+        <div class="section-label">01 / CURRENT STATUS</div>
+        <div class="grid-status">
+          <div class="card status-card">
+            <span class="status-kpi-title">[Core Metric A]</span>
+            <span class="status-kpi-value">[Active / Phase 1]</span>
+            <span class="status-kpi-sub">[Brief status note or subtitle]</span>
+          </div>
+          <div class="card status-card">
+            <span class="status-kpi-title">[Core Metric B]</span>
+            <span class="status-kpi-value">[Target / Milestone]</span>
+            <span class="status-kpi-sub">[Target deadline or priority]</span>
+          </div>
+          <div class="card status-card">
+            <span class="status-kpi-title">[Core Metric C]</span>
+            <span class="status-kpi-value">[Normal / Ready]</span>
+            <span class="status-kpi-sub">[System, budget, or progress]</span>
+          </div>
+        </div>
       </section>
 
+      <!-- 2. Priority Notice / Temporary Scratchpad -->
       <section class="section">
-        <h2>Content</h2>
-        <p>You can replace this section with your own text, notes, links, or articles.</p>
+        <div class="callout-card">
+          <div class="callout-icon">📌</div>
+          <div class="callout-body">
+            <h3>[Pinned Notice / Important Reminder]</h3>
+            <p>[Place critical announcements, immediate priorities, or temporary reminders here so they are visible right when opening the page.]</p>
+          </div>
+        </div>
       </section>
 
+      <!-- 3. Key Action Items & Todos -->
       <section class="section">
-        <h2>Links</h2>
-        <ul class="links-list">
-          <li><a href="https://github.com/arrickx/lisbon" target="_blank" rel="noopener noreferrer">GitHub Repository ↗</a></li>
-        </ul>
+        <div class="section-header">
+          <span class="section-label">02 / KEY ITEMS & MILESTONES</span>
+          <span class="section-badge">3 Items</span>
+        </div>
+        <div class="card card-list">
+          <div class="list-row">
+            <div class="row-main">
+              <span class="item-title">[Action Item 1: Complete initial setup]</span>
+              <span class="item-desc">[Details, assignee, or dependency notes]</span>
+            </div>
+            <span class="tag tag-progress">In Progress</span>
+          </div>
+
+          <div class="list-row">
+            <div class="row-main">
+              <span class="item-title">[Action Item 2: Key review & verification]</span>
+              <span class="item-desc">[Upcoming milestone or pending review]</span>
+            </div>
+            <span class="tag tag-pending">Pending</span>
+          </div>
+
+          <div class="list-row">
+            <div class="row-main">
+              <span class="item-title">[Action Item 3: Base repository initialization]</span>
+              <span class="item-desc">[Completed preliminary actions]</span>
+            </div>
+            <span class="tag tag-done">Completed</span>
+          </div>
+        </div>
       </section>
+
+      <!-- 4. Quick Links & Resources -->
+      <section class="section">
+        <div class="section-header">
+          <span class="section-label">03 / QUICK SHORTCUTS</span>
+        </div>
+        <div class="grid-links">
+          <a href="#" class="link-card">
+            <div class="link-icon">📁</div>
+            <div class="link-info">
+              <span class="link-title">[Shared Docs / Drive]</span>
+              <span class="link-url">docs.example.com ↗</span>
+            </div>
+          </a>
+
+          <a href="#" class="link-card">
+            <div class="link-icon">📊</div>
+            <div class="link-info">
+              <span class="link-title">[Dashboard / Console]</span>
+              <span class="link-url">app.example.com ↗</span>
+            </div>
+          </a>
+
+          <a href="#" class="link-card">
+            <div class="link-icon">💬</div>
+            <div class="link-info">
+              <span class="link-title">[Channel / Meeting Room]</span>
+              <span class="link-url">meet.example.com ↗</span>
+            </div>
+          </a>
+
+          <a href="#" class="link-card">
+            <div class="link-icon">🛠️</div>
+            <div class="link-info">
+              <span class="link-title">[External Tool / Resource]</span>
+              <span class="link-url">tools.example.com ↗</span>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <!-- 5. Essential Info & Reference Table -->
+      <section class="section">
+        <div class="section-header">
+          <span class="section-label">04 / CORE REFERENCE INFO</span>
+        </div>
+        <div class="card info-table">
+          <div class="table-row">
+            <span class="table-key">[Host / Location]</span>
+            <span class="table-value">[Server A / City / Office]</span>
+          </div>
+          <div class="table-row">
+            <span class="table-key">[Contact / Emergency]</span>
+            <span class="table-value">[phone / email / handle]</span>
+          </div>
+          <div class="table-row">
+            <span class="table-key">[Access / Port / Key]</span>
+            <span class="table-value"><code>[e.g. 192.168.1.1 / config-token]</code></span>
+          </div>
+          <div class="table-row">
+            <span class="table-key">[Schedule / Cadence]</span>
+            <span class="table-value">[Daily 10:00 AM / Weekly]</span>
+          </div>
+        </div>
+      </section>
+
     </main>
 
-    <footer class="footer">
-      <p>Lisbon &bull; Hosted on GitHub Pages</p>
+    <!-- Clean Minimal Footer -->
+    <footer class="hub-footer">
+      <p>[Internal Workspace] &bull; Private Reference</p>
     </footer>
+
   </div>
 </body>
 </html>

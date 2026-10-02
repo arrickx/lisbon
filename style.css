@@ -1,118 +1,452 @@
-/* Minimal, Responsive Static Stylesheet */
+/* =========================================================
+   Internal Hub — Clean, Minimal, Responsive Stylesheet
+   Designed for high information scent and effortless reading
+   ========================================================= */
 
 :root {
-  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  --color-bg: #ffffff;
-  --color-text: #1a1a1a;
-  --color-text-muted: #666666;
-  --color-border: #e5e5e5;
-  --color-link: #0969da;
-  --color-link-hover: #0550ae;
+  /* Light Theme (Default) */
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, -apple-system, Helvetica, Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+
+  --bg-page: #f8fafc;
+  --bg-card: #ffffff;
+  --bg-subtle: #f1f5f9;
+  --bg-callout: #fefce8;
+  --border-callout: #fef08a;
+
+  --border: #e2e8f0;
+  --border-light: #f1f5f9;
+
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+  --text-subtle: #94a3b8;
+
+  --tag-progress-bg: #e0f2fe;
+  --tag-progress-text: #0369a1;
+  --tag-pending-bg: #fef3c7;
+  --tag-pending-text: #b45309;
+  --tag-done-bg: #dcfce7;
+  --tag-done-text: #15803d;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-full: 9999px;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+
   color-scheme: light dark;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-bg: #0d1117;
-    --color-text: #e6edf3;
-    --color-text-muted: #8b949e;
-    --color-border: #30363d;
-    --color-link: #58a6ff;
-    --color-link-hover: #79c0ff;
+    --bg-page: #090d16;
+    --bg-card: #111827;
+    --bg-subtle: #1f2937;
+    --bg-callout: #1c1917;
+    --border-callout: #292524;
+
+    --border: #1f2937;
+    --border-light: #182234;
+
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --text-subtle: #64748b;
+
+    --tag-progress-bg: #0c4a6e;
+    --tag-progress-text: #7dd3fc;
+    --tag-pending-bg: #451a03;
+    --tag-pending-text: #fcd34d;
+    --tag-done-bg: #052e16;
+    --tag-done-text: #86efac;
+
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
   }
 }
 
+/* Base Reset */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
   font-family: var(--font-sans);
-  background-color: var(--color-bg);
-  color: var(--color-text);
-  line-height: 1.6;
-  font-size: 1rem;
-  padding: 2rem 1.25rem;
+  background-color: var(--bg-page);
+  color: var(--text-main);
+  line-height: 1.5;
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
   min-height: 100vh;
+  padding: 24px 16px 48px;
 }
 
-.container {
-  max-width: 640px;
+.page-wrapper {
+  max-width: 660px;
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
 }
 
-.header {
-  padding-bottom: 2rem;
-  margin-bottom: 2rem;
-  border-bottom: 1px solid var(--color-border);
+/* ================= HEADER ================= */
+.hub-header {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
 }
 
-.title {
-  font-size: 2rem;
+.header-status-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.78rem;
+}
+
+.badge-internal {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: var(--bg-subtle);
+  color: var(--text-muted);
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  border: 1px solid var(--border);
+}
+
+.badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #10b981;
+}
+
+.header-timestamp {
+  color: var(--text-subtle);
+  font-size: 0.75rem;
+  font-family: var(--font-mono);
+}
+
+.hub-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--text-main);
+  line-height: 1.15;
+}
+
+.hub-tagline {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.45;
+}
+
+/* ================= MAIN SECTIONS ================= */
+.hub-main {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.section-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--text-subtle);
+  text-transform: uppercase;
+}
+
+.section-badge {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  background: var(--bg-subtle);
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  font-weight: 600;
+}
+
+/* Cards Base */
+.card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+/* 01. Status Highlights Grid */
+.grid-status {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.status-card {
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.status-kpi-title {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 0.01em;
+}
+
+.status-kpi-value {
+  font-size: 1.15rem;
   font-weight: 700;
   letter-spacing: -0.02em;
-  margin-bottom: 0.5rem;
+  color: var(--text-main);
 }
 
-.subtitle {
-  color: var(--color-text-muted);
-  font-size: 1.05rem;
+.status-kpi-sub {
+  font-size: 0.7rem;
+  color: var(--text-subtle);
 }
 
-.content {
+/* 02. Notice Callout Card */
+.callout-card {
   display: flex;
-  flex-direction: column;
-  gap: 2rem;
+  gap: 12px;
+  background-color: var(--bg-callout);
+  border: 1px solid var(--border-callout);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
 }
 
-.section h2 {
-  font-size: 1.25rem;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
+.callout-icon {
+  font-size: 1.15rem;
+  flex-shrink: 0;
+  margin-top: 1px;
 }
 
-.section p {
-  color: var(--color-text-muted);
-}
-
-.links-list {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.links-list a {
-  color: var(--color-link);
-  text-decoration: none;
-}
-
-.links-list a:hover {
-  color: var(--color-link-hover);
-  text-decoration: underline;
-}
-
-.footer {
-  margin-top: 3rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid var(--color-border);
+.callout-body h3 {
   font-size: 0.85rem;
-  color: var(--color-text-muted);
+  font-weight: 700;
+  margin-bottom: 2px;
+  color: var(--text-main);
 }
 
-/* Mobile optimizations */
-@media (max-width: 480px) {
+.callout-body p {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  line-height: 1.45;
+}
+
+/* 03. Key Items / Todo List */
+.card-list {
+  overflow: hidden;
+}
+
+.list-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  gap: 12px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.list-row:last-child {
+  border-bottom: none;
+}
+
+.row-main {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.item-title {
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.item-desc {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+/* Status Tags */
+.tag {
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+  flex-shrink: 0;
+  letter-spacing: 0.02em;
+}
+
+.tag-progress {
+  background-color: var(--tag-progress-bg);
+  color: var(--tag-progress-text);
+}
+
+.tag-pending {
+  background-color: var(--tag-pending-bg);
+  color: var(--tag-pending-text);
+}
+
+.tag-done {
+  background-color: var(--tag-done-bg);
+  color: var(--tag-done-text);
+}
+
+/* 04. Quick Shortcuts Grid */
+.grid-links {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.link-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 10px 12px;
+  text-decoration: none;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.1s ease, border-color 0.15s ease;
+}
+
+.link-card:active {
+  transform: scale(0.98);
+}
+
+.link-card:hover {
+  border-color: var(--text-subtle);
+}
+
+.link-icon {
+  font-size: 1.15rem;
+  flex-shrink: 0;
+}
+
+.link-info {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.link-title {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-main);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.link-url {
+  font-size: 0.7rem;
+  color: var(--text-subtle);
+  font-family: var(--font-mono);
+}
+
+/* 05. Core Reference Table */
+.info-table {
+  overflow: hidden;
+}
+
+.table-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+  font-size: 0.8rem;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.table-row:last-child {
+  border-bottom: none;
+}
+
+.table-key {
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.table-value {
+  color: var(--text-main);
+  font-weight: 600;
+  text-align: right;
+}
+
+.table-value code {
+  font-family: var(--font-mono);
+  background-color: var(--bg-subtle);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+}
+
+/* ================= FOOTER ================= */
+.hub-footer {
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--text-subtle);
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+}
+
+/* ================= MOBILE ADAPTATIONS ================= */
+@media (max-width: 520px) {
   body {
-    padding: 1.5rem 1rem;
+    padding: 16px 12px 36px;
   }
 
-  .title {
-    font-size: 1.75rem;
+  .grid-status {
+    grid-template-columns: 1fr;
+    gap: 8px;
   }
 
-  .subtitle {
-    font-size: 0.95rem;
+  .grid-links {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .status-card {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 12px;
+  }
+
+  .status-kpi-sub {
+    display: none;
+  }
+
+  .table-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 3px;
+  }
+
+  .table-value {
+    text-align: left;
   }
 }
