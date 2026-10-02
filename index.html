@@ -3,59 +3,992 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>里斯本 & 阿尔加维</title>
+  <title>葡萄牙慢调之旅 · 里斯本 & 阿尔加维</title>
+  <meta name="description" content="2027年5月 葡萄牙9天8晚家庭慢调行程手册，支持每日自动定位与全套省心随身小抄">
   <link rel="icon" type="image/svg+xml" href="icon.svg">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="travel-wrapper">
-    
+
+    <!-- 顶部总览卡片 -->
     <header class="page-header">
+      <div class="header-badges">
+        <span class="badge-pill highlight">✨ 9天8晚家庭慢调之旅</span>
+        <span class="badge-pill">4位成人 + 1位幼儿</span>
+      </div>
       <h1 class="main-title">里斯本 & 阿尔加维</h1>
+      <p class="trip-dates">2027年5月4日 – 5月12日 · 黄金初夏平季</p>
+
+      <!-- 双城节奏摘要 -->
+      <div class="route-overview">
+        <div class="route-node">
+          <span class="node-icon">🚋</span>
+          <div class="node-text">
+            <strong>里斯本 5 晚</strong>
+            <span>凯悦 Hyatt Regency · 贝伦河畔</span>
+          </div>
+        </div>
+        <div class="route-arrow">
+          <span class="arrow-line"></span>
+          <span class="arrow-tag">A2 高速 2.5h</span>
+        </div>
+        <div class="route-node">
+          <span class="node-icon">🌊</span>
+          <div class="node-text">
+            <strong>阿尔加维 3 晚</strong>
+            <span>海滨度假村 · 洞窟与悬崖木栈</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 智能定位与今日状态提示栏 -->
+      <div class="today-status-bar" id="today-status-bar">
+        <div class="status-indicator">
+          <span class="pulse-dot"></span>
+          <span class="status-text" id="status-text">智能定位已就绪</span>
+        </div>
+        <button type="button" class="btn-locate-today" id="btn-locate-today" title="快速定位到当前所选日期">
+          🎯 直达目标天
+        </button>
+      </div>
     </header>
 
-    <main class="cities-container">
+    <!-- 主导航切换（9天日程 / 省心锦囊 / 住址自驾） -->
+    <nav class="view-tabs" aria-label="核心板块切换">
+      <button type="button" class="view-tab active" data-view="itinerary">
+        <span>🗺️</span> 9天每日日程
+      </button>
+      <button type="button" class="view-tab" data-view="peace-of-mind">
+        <span>🛡️</span> 省心随身锦囊
+      </button>
+      <button type="button" class="view-tab" data-view="logistics">
+        <span>🏨</span> 住址与自驾
+      </button>
+    </nav>
 
-      <!-- 城市 1：里斯本 -->
-      <article class="city-card">
-        <div class="city-cover cover-lisbon">
-          <span class="city-num">01</span>
-          <span class="city-emoji">🚋</span>
-        </div>
-        <div class="city-content">
-          <div class="city-title-row">
-            <h2 class="city-name">里斯本</h2>
-            <span class="city-en">Lisbon</span>
-          </div>
-          <div class="city-actions">
-            <a href="https://maps.google.com/?q=Lisbon+Portugal" target="_blank" rel="noopener noreferrer" class="btn-city-link">
-              谷歌地图 ↗
-            </a>
-          </div>
-        </div>
-      </article>
+    <!-- ===================================================================
+         VIEW 1: 9天每日行程与吸顶天数导航
+         =================================================================== -->
+    <section id="view-itinerary" class="view-section active">
 
-      <!-- 城市 2：阿尔加维 -->
-      <article class="city-card">
-        <div class="city-cover cover-algarve">
-          <span class="city-num">02</span>
-          <span class="city-emoji">🌊</span>
+      <!-- 吸顶天数胶囊导航栏 (Sticky Day Bar) -->
+      <nav class="day-nav-wrapper" id="day-nav-sticky" aria-label="天数快捷定位">
+        <div class="day-nav-container" id="day-nav-scroll">
+          <button type="button" class="day-pill active" data-day="1">
+            <span class="day-num">D1</span>
+            <span class="day-brief">5/4 抵达</span>
+          </button>
+          <button type="button" class="day-pill" data-day="2">
+            <span class="day-num">D2</span>
+            <span class="day-brief">5/5 贝伦蛋挞</span>
+          </button>
+          <button type="button" class="day-pill" data-day="3">
+            <span class="day-num">D3</span>
+            <span class="day-brief">5/6 两栖车</span>
+          </button>
+          <button type="button" class="day-pill" data-day="4">
+            <span class="day-num">D4</span>
+            <span class="day-brief">5/7 观景漫步</span>
+          </button>
+          <button type="button" class="day-pill" data-day="5">
+            <span class="day-num">D5</span>
+            <span class="day-brief">5/8 水族馆</span>
+          </button>
+          <button type="button" class="day-pill" data-day="6">
+            <span class="day-num">D6</span>
+            <span class="day-brief">5/9 自驾南下</span>
+          </button>
+          <button type="button" class="day-pill" data-day="7">
+            <span class="day-num">D7</span>
+            <span class="day-brief">5/10 洞窟游船</span>
+          </button>
+          <button type="button" class="day-pill" data-day="8">
+            <span class="day-num">D8</span>
+            <span class="day-brief">5/11 悬崖木栈</span>
+          </button>
+          <button type="button" class="day-pill" data-day="9">
+            <span class="day-num">D9</span>
+            <span class="day-brief">5/12 返程</span>
+          </button>
         </div>
-        <div class="city-content">
-          <div class="city-title-row">
-            <h2 class="city-name">阿尔加维</h2>
-            <span class="city-en">Algarve</span>
-          </div>
-          <div class="city-actions">
-            <a href="https://maps.google.com/?q=Algarve+Portugal" target="_blank" rel="noopener noreferrer" class="btn-city-link">
-              谷歌地图 ↗
-            </a>
-          </div>
-        </div>
-      </article>
+      </nav>
 
-    </main>
+      <!-- 9天日程卡片流 -->
+      <div class="itinerary-cards-flow">
+
+        <!-- Day 1 -->
+        <article class="day-card" id="day-1" data-day="1" data-date="2027-05-04">
+          <div class="day-card-header">
+            <div class="day-badge-col">
+              <span class="badge-day-id">DAY 01</span>
+              <span class="badge-day-date">5月4日 周二</span>
+            </div>
+            <div class="day-title-col">
+              <h2 class="day-theme-title">抵达里斯本 · 倒时差漫步</h2>
+              <span class="day-stay-tag">住：里斯本 Hyatt Regency</span>
+            </div>
+          </div>
+
+          <div class="day-card-body">
+            <div class="timeline-slot">
+              <div class="slot-time">下午</div>
+              <div class="slot-content">
+                <div class="slot-item">
+                  <label class="custom-check">
+                    <input type="checkbox" class="task-check" data-task="d1-arrive">
+                    <span class="check-box"></span>
+                    <span class="item-text"><strong>抵达里斯本机场 (LIS)</strong> · 4大1小提行李，网约车点叫 UberXL 接机（约 20 分钟）直达酒店</span>
+                  </label>
+                  <div class="slot-actions">
+                    <a href="https://maps.google.com/?q=Hyatt+Regency+Lisbon" target="_blank" rel="noopener" class="mini-map-btn">📍 导航至 Hyatt 酒店</a>
+                  </div>
+                </div>
+                <div class="slot-item">
+                  <label class="custom-check">
+                    <input type="checkbox" class="task-check" data-task="d1-checkin">
+                    <span class="check-box"></span>
+                    <span class="item-text"><strong>入住办理与休整</strong> · 凯悦宽敞套房放下行李，宝宝喝奶小憩，长辈稍作休整</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="timeline-slot">
+              <div class="slot-time">傍晚</div>
+              <div class="slot-content">
+                <div class="slot-item">
+                  <label class="custom-check">
+                    <input type="checkbox" class="task-check" data-task="d1-walk">
+                    <span class="check-box"></span>
+                    <span class="item-text"><strong>贝伦特茹河畔平坦步道散步</strong> · 酒店出门即是平坦亲水河岸，推推车极度顺畅，感受大西洋海风日落与四二五大桥景色</span>
+                  </label>
+                </div>
+                <div class="slot-item">
+                  <label class="custom-check">
+                    <input type="checkbox" class="task-check" data-task="d1-dinner">
+                    <span class="check-box"></span>
+                    <span class="item-text"><strong>河畔温和晚餐</strong> · 享用第一顿热腾腾的海鲜泡饭与蔬菜浓汤，早点休息调整时差</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="day-tip-box">
+              <span class="tip-icon">💡</span>
+              <span class="tip-txt"><strong>省心提醒</strong>：第一天不安排任何打卡景点，以倒时差和让宝宝适应环境为主；后排抱幼童坐 UberXL 合法合规。</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Day 2 -->
+        <article class="day-card" id="day-2" data-day="2" data-date="2027-05-05">
+          <div class="day-card-header">
+            <div class="day-badge-col">
+              <span class="badge-day-id">DAY 02</span>
+              <span class="badge-day-date">5月5日 周三</span>
+            </div>
+            <div class="day-title-col">
+              <h2 class="day-theme-title">贝伦文化日 · 修道院与百年蛋挞</h2>
+              <span class="day-stay-tag">住：里斯本 Hyatt Regency</span>
+            </div>
+          </div>
+
+          <div class="day-card-body">
+            <div class="timeline-slot">
+              <div class="slot-time">上午</div>
+              <div class="slot-content">
+                <div class="slot-item">
+                  <label class="custom-check">
+                    <input type="checkbox" class="task-check" data-task="d2-tart">
+                    <span class="check-box"></span>
+                    <span class="item-text"><strong>Pastéis de Belém 百年蛋挞老店</strong> · 入店堂食！外皮千层酥脆、奶馅温热爆浆，搭配一杯牛奶咖啡（Galão）</span>
+                  </label>
+                  <div class="slot-actions">
+                    <a href="https://maps.google.com/?q=Pasteis+de+Belem" target="_blank" rel="noopener" class="mini-map-btn">📍 导航到百年蛋挞店</a>
+                  </div>
+                </div>
+                <div class="slot-item">
+                  <label class="custom-check">
+                    <input type="checkbox" class="task-check" data-task="d2-monastery">
+                    <span class="check-box"></span>
+                    <span class="item-text"><strong>热罗尼莫斯修道院 (Jerónimos Monastery)</strong> · 漫步大航海时代曼努埃尔式建筑杰作（推车可入回廊与前广场）</span>
+                  </label>
+                  <div class="slot-actions">
+                    <a href="https://maps.google.com/?q=Jeronimos+Monastery" target="_blank" rel="noopener" class="mini-map-btn">📍 修道院地图</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="timeline-slot">
+              <div class="slot-time">下午</div>
+              <div class="slot-content">
+                <div class="slot-item">
+                  <label class="custom-check">
+                    <input type="checkbox" class="task-check" data-task="d2-tower">
+                    <span class="check-box"></span>
+                    <span class="item-text"><strong>发现者纪念碑 & 贝伦塔远眺</strong> · 绿地宽阔平坦，可买冰淇淋在草坪看帆船出海</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="timeline-slot">
+              <div class="slot-time">傍晚</div>
+              <div class="slot-content">
+                <div class="slot-item">
+                  <label class="custom-check">
+                    <input type="checkbox" class="task-check" data-task="d2-lxfactory">
+                    <span class="check-box"></span>
+                    <span class="item-text"><strong>LX Factory 创意园区</strong> · 距凯悦极近，逛网红飞天书店 Ler Devagar，在露天餐厅吃烤章鱼</span>
+                  </label>
+                  <div class="slot-actions">
+                    <a href="https://maps.google.com/?q=LX+Factory+Lisbon" target="_blank" rel="noopener" class="mini-map-btn">📍 LX Factory 地图</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="day-tip-box">
+              <span class="tip-icon">💡</span>
+              <span class="tip-txt"><strong>省心提醒</strong>：贝伦蛋挞店门口外带排长队，但<strong>直接往里面大厅走找座位堂食</strong>无需长久等候！</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Day 3 -->
+        <article class="day-card" id="day-3" data-day="3" data-date="2027-05-06">
+          <div class="day-card-header">
+            <div class="day-badge-col">
+              <span class="badge-day-id">DAY 03</span>
+              <span class="badge-day-date">5月6日 周四</span>
+            </div>
+            <div class="day-title-col">
+              <h2 class="day-theme-title">老城经典 · 水陆两栖车亲子狂欢</h2>
+              <span class="day-stay-tag">住：里斯本 Hyatt Regency</span>
+            </div>
+          </div>
+
+          <div class="day-card-body">
+            <div class="timeline-slot">
+              <div class="slot-time">上午</div>
+              <div class="slot-content">
+                <div class="slot-item">
+                  <label class="custom-check">
+                    <input type="checkbox" class="task-check" data-task="d3-baixa">
+                    <span class="check-box"></span>
+                    <span class="item-text"><strong>Baixa / Chiado 老城区漫步</strong> · 打车直达商业广场 (Praça do Comércio)，感受凯旋门与棋盘格步行街</span>
+                  </label>
+                  <div class="slot-actions">
+                    <a href="https://maps.google.com/?q=Praca+do+Comercio+Lisbon" target="_blank" rel="noopener" class="mini-map-btn">📍 商业广场导航</a>
+                  </div>
+                </div>
+                <div class="slot-item">
+                  <label class="custom-check">
+                    <input type="checkbox" class="task-check" data-task="d3-santajusta">
+                    <span class="check-box"></span>
+                    <span class="item-text"><strong>圣胡斯塔电梯打卡</strong> · 仰望经典哥特式铁艺电梯，在街角咖啡馆品尝葡式鳕鱼球</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="timeline-slot">
+              <div class="slot-time">下午</div>
+              <div class="slot-content">
+                <div class="slot-item">
+                  <label class="custom-check">
+                    <input type="checkbox" class="task-check" data-task="d3-nap">
+                    <span class="check-box"></span>
+                    <span class="item-text"><strong>酒店午休回血</strong> · 叫车回酒店睡午觉，避开正午强紫外线，养精蓄锐</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="timeline-slot">
+              <div class="slot-time">傍晚</div>
+              <div class="slot-content">
+                <div class="slot-item">
+                  <label class="custom-check">
+                    <input type="checkbox" class="task-check" data-task="d3-hippotrip">
+                    <span class="check-box"></span>
+                    <span class="item-text"><strong>🌟 HippoTrip 水陆两栖观光车</strong> · 全家必玩高光！陆上游览老城后直接“冲入水中”变成轮渡巡游特茹河，全车欢呼超开心</span>
+                  </label>
+                  <div class="slot-actions">
+                    <a href="https://maps.google.com/?q=HippoTrip+Lisbon" target="_blank" rel="noopener" class="mini-map-btn">📍 HippoTrip 上车点</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="day-tip-box">
+              <span class="tip-icon">💡</span>
+              <span class="tip-txt"><strong>省心提醒</strong>：HippoTrip 车上有讲解和音乐，下水瞬间小朋友极其兴奋；建议提前官网订好家庭票。</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Day 4 -->
+        <article class="day-card" id="day-4" data-day="4" data-date="2027-05-07">
+          <div class="day-card-header">
+            <div class="day-badge-col">
+              <span class="badge-day-id">DAY 04</span>
+              <span class="badge-day-date">5月7日 周五</span>
+            </div>
+            <div class="day-title-col">
+              <h2 class="day-theme-title">观景休闲日 · 由高向低顺坡漫步</h2>
+              <span class="day-stay-tag">住：里斯本 Hyatt Regency</span>
+            </div>
+          </div>
+
+          <div class="day-card-body">
+            <div class="timeline-slot">
+              <div class="slot-time">上午</div>
+              <div class="slot-content">
+                <div class="slot-item">
+                  <label class="custom-check">
+                    <input type="checkbox" class="task-check" data-task="d4-miradouro">
+                    <span class="check-box"></span>
+                    <span class="item-text"><strong>打车直达 Senhora do Monte 观景台</strong> · 里斯本最高观景点，俯瞰红屋顶、城堡与特茹河全景，拍照神位</span>
+                  </label>
+                  <div class="slot-actions">
+                    <a href="https://maps.google.com/?q=Miradouro+da+Senhora+do+Monte" target="_blank" rel="noopener" class="mini-map-btn">📍 观景台地图</a>
+                  </div>
+                </div>
+                <div class="slot-item">
+                  <label class="custom-check">
+                    <input type="checkbox" class="task-check" data-task="d4-alfama">
+                    <span class="check-box"></span>
+                    <span class="item-text"><strong>阿尔法玛 (Alfama) 顺坡下行</strong> · 绝不上坡爬山！顺着缓坡漫步，抓拍 28 路黄色复古电车穿过小巷，沿途看蓝花瓷砖墙</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="timeline-slot">
+              <div class="slot-time">下午</div>
+              <div class="slot-content">
+                <div class="slot-item">
+                  <label class="custom-check">
+                    <input type="checkbox" class="task-check" data-task="d4-cathedral">
+                    <span class="check-box"></span>
+                    <span class="item-text"><strong>里斯本主大教堂 (Sé de Lisboa)</strong> · 走到半山腰参观厚重罗曼式主教堂，门口常有电车叮咚驶过</span>
+                  </label>
+                  <div class="slot-actions">
+                    <a href="https://maps.google.com/?q=Lisbon+Cathedral" target="_blank" rel="noopener" class="mini-map-btn">📍 主大教堂地图</a>
+                  </div>
+                </div>
+                <div class="slot-item">
+                  <label class="custom-check">
+                    <input type="checkbox" class="task-check" data-task="d4-uberback">
+                    <span class="check-box"></span>
+                    <span class="item-text"><strong>打车回酒店享用下午茶</strong> · 在大教堂门口直接叫 UberXL 返回酒店，不费腿不劳累</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="day-tip-box">
+              <span class="tip-icon">💡</span>
+              <span class="tip-txt"><strong>省心提醒</strong>：里斯本是七丘之城，<strong>千万不要推着推车由下往上爬</strong>！我们安排的是“车送至最高点，全家由上往下顺着下坡走”，极其省力。</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Day 5 -->
+        <article class="day-card" id="day-5" data-day="5" data-date="2027-05-08">
+          <div class="day-card-header">
+            <div class="day-badge-col">
+              <span class="badge-day-id">DAY 05</span>
+              <span class="badge-day-date">5月8日 周六</span>
+            </div>
+            <div class="day-title-col">
+              <h2 class="day-theme-title">亲子特别日 · 欧洲顶级水族馆与缆车</h2>
+              <span class="day-stay-tag">住：里斯本 Hyatt Regency</span>
+            </div>
+          </div>
+
+          <div class="day-card-body">
+            <div class="timeline-slot">
+              <div class="slot-time">上午</div>
+              <div class="slot-content">
+                <div class="slot-item">
+                  <label class="custom-check">
+                    <input type="checkbox" class="task-check" data-task="d5-oceanario">
+                    <span class="check-box"></span>
+                    <span class="item-text"><strong>里斯本海洋水族馆 (Oceanário de Lisboa)</strong> · 欧洲最大水族馆之一，中央巨型大水缸（翻车鱼、魔鬼鱼、可爱海獭），全程推车极度友好</span>
+                  </label>
+                  <div class="slot-actions">
+                    <a href="https://maps.google.com/?q=Oceanario+de+Lisboa" target="_blank" rel="noopener" class="mini-map-btn">📍 水族馆导航</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="timeline-slot">
+              <div class="slot-time">下午</div>
+              <div class="slot-content">
+                <div class="slot-item">
+                  <label class="custom-check">
+                    <input type="checkbox" class="task-check" data-task="d5-cablecar">
+                    <span class="check-box"></span>
+                    <span class="item-text"><strong>万国公园滨海景观缆车 (Telecabine)</strong> · 紧邻水族馆，空中俯瞰达伽马大桥与特茹河开阔入海口</span>
+                  </label>
+                  <div class="slot-actions">
+                    <a href="https://maps.google.com/?q=Telecabine+Lisboa" target="_blank" rel="noopener" class="mini-map-btn">📍 缆车起点导航</a>
+                  </div>
+                </div>
+                <div class="slot-item">
+                  <label class="custom-check">
+                    <input type="checkbox" class="task-check" data-task="d5-vascogama">
+                    <span class="check-box"></span>
+                    <span class="item-text"><strong>Vasco da Gama 现代化商场采购</strong> · 逛大型超市 Continente，为明天自驾南下采购纯牛奶、水果和零食</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="day-tip-box">
+              <span class="tip-icon">💡</span>
+              <span class="tip-txt"><strong>省心提醒</strong>：世博区全是现代平地无石子坡路，推车推行极为丝滑，水族馆内冷气足，可为小朋友带一件薄开衫。</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Day 6 -->
+        <article class="day-card" id="day-6" data-day="6" data-date="2027-05-09">
+          <div class="day-card-header">
+            <div class="day-badge-col">
+              <span class="badge-day-id">DAY 06</span>
+              <span class="badge-day-date">5月9日 周日</span>
+            </div>
+            <div class="day-title-col">
+              <h2 class="day-theme-title">南下自驾 · 7座MPV奔赴阿尔加维</h2>
+              <span class="day-stay-tag">住：阿尔加维海滨海景度假公寓</span>
+            </div>
+          </div>
+
+          <div class="day-card-body">
+            <div class="timeline-slot">
+              <div class="slot-time">上午</div>
+              <div class="slot-content">
+                <div class="slot-item">
+                  <label class="custom-check">
+                    <input type="checkbox" class="task-check" data-task="d6-checkout">
+                    <span class="check-box"></span>
+                    <span class="item-text"><strong>睡到自然醒 & 凯悦退房</strong> · 悠闲享用早餐，收拾行李，打车至机场租车中心</span>
+                  </label>
+                </div>
+                <div class="slot-item">
+                  <label class="custom-check">
+                    <input type="checkbox" class="task-check" data-task="d6-pickupcar">
+                    <span class="check-box"></span>
+                    <span class="item-text"><strong>机场提取 7 座自动挡 MPV</strong> · 办理 0 赔付全险，加装幼儿安全座椅，激活 Via Verde 电子高速通道</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="timeline-slot">
+              <div class="slot-time">下午</div>
+              <div class="slot-content">
+                <div class="slot-item">
+                  <label class="custom-check">
+                    <input type="checkbox" class="task-check" data-task="d6-drive">
+                    <span class="check-box"></span>
+                    <span class="item-text"><strong>沿 A2 高速自驾 2.5 小时直达南部</strong> · 葡萄牙高速路况极佳车流少，中途在大型服务区休息换尿布</span>
+                  </label>
+                </div>
+                <div class="slot-item">
+                  <label class="custom-check">
+                    <input type="checkbox" class="task-check" data-task="d6-resort">
+                    <span class="check-box"></span>
+                    <span class="item-text"><strong>入住阿尔加维度假套房公寓</strong> · 宽敞客厅、全套厨房与海景阳台，下楼即是泳池与沙滩</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="timeline-slot">
+              <div class="slot-time">傍晚</div>
+              <div class="slot-content">
+                <div class="slot-item">
+                  <label class="custom-check">
+                    <input type="checkbox" class="task-check" data-task="d6-seafood">
+                    <span class="check-box"></span>
+                    <span class="item-text"><strong>南葡经典铜锅海鲜炖 (Cataplana)</strong> · 现捞大虾、青口、海鲈鱼与白葡萄酒慢炖，汤汁拌米饭绝美</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="day-tip-box">
+              <span class="tip-icon">💡</span>
+              <span class="tip-txt"><strong>省心提醒</strong>：A2 高速进站走绿色“V”字通道（Via Verde），全自动感应计费，还车时由租车公司结算，无需停车掏现金。</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Day 7 -->
+        <article class="day-card" id="day-7" data-day="7" data-date="2027-05-10">
+          <div class="day-card-header">
+            <div class="day-badge-col">
+              <span class="badge-day-id">DAY 07</span>
+              <span class="badge-day-date">5月10日 周一</span>
+            </div>
+            <div class="day-title-col">
+              <h2 class="day-theme-title">海蚀奇观 · Benagil 洞窟游船与踏浪</h2>
+              <span class="day-stay-tag">住：阿尔加维海滨海景度假公寓</span>
+            </div>
+          </div>
+
+          <div class="day-card-body">
+            <div class="timeline-slot">
+              <div class="slot-time">上午</div>
+              <div class="slot-content">
+                <div class="slot-item">
+                  <label class="custom-check">
+                    <input type="checkbox" class="task-check" data-task="d7-boat">
+                    <span class="check-box"></span>
+                    <span class="item-text"><strong>🌟 乘坐平稳观光船探秘 Benagil 海蚀洞窟</strong> · 从 Portimão 或 Carvoeiro 码头出发，乘平稳中型动力艇开进“上帝之眼”海蚀天然穹顶</span>
+                  </label>
+                  <div class="slot-actions">
+                    <a href="https://maps.google.com/?q=Benagil+Caves" target="_blank" rel="noopener" class="mini-map-btn">📍 Benagil 洞穴定位</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="timeline-slot">
+              <div class="slot-time">下午</div>
+              <div class="slot-content">
+                <div class="slot-item">
+                  <label class="custom-check">
+                    <input type="checkbox" class="task-check" data-task="d7-beach">
+                    <span class="check-box"></span>
+                    <span class="item-text"><strong>金沙滩挖沙踏浪 & 泳池戏水</strong> · 5月阳光温暖而不炙热，带上小沙铲小水桶，孩子在细腻金沙上尽情撒欢</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="timeline-slot">
+              <div class="slot-time">傍晚</div>
+              <div class="slot-content">
+                <div class="slot-item">
+                  <label class="custom-check">
+                    <input type="checkbox" class="task-check" data-task="d7-sunset">
+                    <span class="check-box"></span>
+                    <span class="item-text"><strong>阳台海鲜小酌 & 晚霞日落</strong> · 在公寓大阳台吹海风，品尝葡萄牙青葡萄酒 (Vinho Verde)，彻底放松</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="day-tip-box">
+              <span class="tip-icon">💡</span>
+              <span class="tip-txt"><strong>省心提醒</strong>：家庭出行<strong>不要选皮划艇 (Kayak) 进洞</strong>！选择带遮阳篷的正规中大型动力游船，既安全平稳，老人孩子都能舒适落座。</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Day 8 -->
+        <article class="day-card" id="day-8" data-day="8" data-date="2027-05-11">
+          <div class="day-card-header">
+            <div class="day-badge-col">
+              <span class="badge-day-id">DAY 08</span>
+              <span class="badge-day-date">5月11日 周二</span>
+            </div>
+            <div class="day-title-col">
+              <h2 class="day-theme-title">壮美悬崖 · 佩达德角无障碍木栈道</h2>
+              <span class="day-stay-tag">住：阿尔加维海滨海景度假公寓</span>
+            </div>
+          </div>
+
+          <div class="day-card-body">
+            <div class="timeline-slot">
+              <div class="slot-time">上午</div>
+              <div class="slot-content">
+                <div class="slot-item">
+                  <label class="custom-check">
+                    <input type="checkbox" class="task-check" data-task="d8-boardwalk">
+                    <span class="check-box"></span>
+                    <span class="item-text"><strong>Ponta da Piedade（佩达德角）金色悬崖</strong> · 沿着最新修缮的平整木栈道（Boardwalk）漫步，推车一路到底，两旁是鬼斧神工的金黄悬崖与翡翠海水</span>
+                  </label>
+                  <div class="slot-actions">
+                    <a href="https://maps.google.com/?q=Ponta+da+Piedade" target="_blank" rel="noopener" class="mini-map-btn">📍 佩达德角木栈道</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="timeline-slot">
+              <div class="slot-time">下午</div>
+              <div class="slot-content">
+                <div class="slot-item">
+                  <label class="custom-check">
+                    <input type="checkbox" class="task-check" data-task="d8-lagos">
+                    <span class="check-box"></span>
+                    <span class="item-text"><strong>拉各斯 (Lagos) 白色古城漫游</strong> · 穿行鹅卵石老街，淘当地软木工艺品与手工瓷砖公鸡，喝手工意式冰淇淋</span>
+                  </label>
+                  <div class="slot-actions">
+                    <a href="https://maps.google.com/?q=Lagos+Old+Town+Portugal" target="_blank" rel="noopener" class="mini-map-btn">📍 拉各斯老城地图</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="timeline-slot">
+              <div class="slot-time">傍晚</div>
+              <div class="slot-content">
+                <div class="slot-item">
+                  <label class="custom-check">
+                    <input type="checkbox" class="task-check" data-task="d8-farewell">
+                    <span class="check-box"></span>
+                    <span class="item-text"><strong>告别海鲜晚宴</strong> · 享用现烤鲜活多宝鱼、蒜蓉炒蛤蜊（Amêijoas）与无刺鮟鱇鱼泡饭</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="day-tip-box">
+              <span class="tip-icon">💡</span>
+              <span class="tip-txt"><strong>省心提醒</strong>：佩达德角的木栈道极其宽阔平整，是全阿尔加维对婴儿车最友好的悬崖步道；海边风大，带好防风遮阳帽。</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Day 9 -->
+        <article class="day-card" id="day-9" data-day="9" data-date="2027-05-12">
+          <div class="day-card-header">
+            <div class="day-badge-col">
+              <span class="badge-day-id">DAY 09</span>
+              <span class="badge-day-date">5月12日 周三</span>
+            </div>
+            <div class="day-title-col">
+              <h2 class="day-theme-title">悠闲返程 · 直达机场还车登机</h2>
+              <span class="day-stay-tag">返程国际航班</span>
+            </div>
+          </div>
+
+          <div class="day-card-body">
+            <div class="timeline-slot">
+              <div class="slot-time">上午</div>
+              <div class="slot-content">
+                <div class="slot-item">
+                  <label class="custom-check">
+                    <input type="checkbox" class="task-check" data-task="d9-pack">
+                    <span class="check-box"></span>
+                    <span class="item-text"><strong>海景早餐 & 行李打包</strong> · 享用最后一次海景早餐，检查所有证件与随身物品，慢悠悠退房</span>
+                  </label>
+                </div>
+                <div class="slot-item">
+                  <label class="custom-check">
+                    <input type="checkbox" class="task-check" data-task="d9-driveback">
+                    <span class="check-box"></span>
+                    <span class="item-text"><strong>自驾返程里斯本 (2.5h)</strong> · 沿 A2 高速一路北上直达里斯本机场租车航站楼</span>
+                  </label>
+                  <div class="slot-actions">
+                    <a href="https://maps.google.com/?q=Lisbon+Airport+Car+Rental" target="_blank" rel="noopener" class="mini-map-btn">📍 里斯本机场还车点</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="timeline-slot">
+              <div class="slot-time">下午</div>
+              <div class="slot-content">
+                <div class="slot-item">
+                  <label class="custom-check">
+                    <input type="checkbox" class="task-check" data-task="d9-returncar">
+                    <span class="check-box"></span>
+                    <span class="item-text"><strong>便捷还车与值机登机</strong> · 检查油箱满油归还，推行李前往出发大厅，家庭旅客走专享快速通道</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="day-tip-box">
+              <span class="tip-icon">💡</span>
+              <span class="tip-txt"><strong>省心提醒</strong>：葡萄牙机场对带幼童的家庭提供**优先安检与优先登机礼遇 (Priority Line)**，无需在长队中苦等。</span>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         VIEW 2: 🛡️ 省心随身锦囊 (点餐出示卡 / 防坑 / 买奶 / 法规小抄)
+         =================================================================== -->
+    <section id="view-peace-of-mind" class="view-section">
+      
+      <div class="section-intro">
+        <h2 class="intro-title">🛡️ 全程省心随身定心丸</h2>
+        <p class="intro-desc">消除所有出行与带娃焦虑，在当地遇到场景随时点击使用</p>
+      </div>
+
+      <!-- 锦囊卡 1：点餐出示大字卡 -->
+      <div class="pocket-card priority-card">
+        <div class="pocket-header">
+          <span class="pocket-emoji">👶</span>
+          <div>
+            <h3 class="pocket-title">带娃点餐神句 · 一键大字出示</h3>
+            <span class="pocket-sub">进店直接给服务员看，保证清淡少盐不辣</span>
+          </div>
+        </div>
+
+        <div class="quote-box">
+          <div class="quote-pt">"Uma sopa de legumes e uma dose de arroz branco para a criança, com pouco sal e sem piri-piri, por favor."</div>
+          <div class="quote-zh">中文意思：请给小朋友来一份蔬菜浓汤和一碗纯白米饭，少放盐，不要任何辣酱，谢谢。</div>
+        </div>
+
+        <div class="card-btn-row">
+          <button type="button" class="btn-action primary" id="btn-show-flashcard">
+            📱 弹出全屏大字出示卡
+          </button>
+          <button type="button" class="btn-action" id="btn-copy-quote" data-copy="Uma sopa de legumes e uma dose de arroz branco para a criança, com pouco sal e sem piri-piri, por favor.">
+            📋 复制葡文
+          </button>
+        </div>
+      </div>
+
+      <!-- 锦囊卡 2：餐前小食 Couvert 避坑法则 -->
+      <div class="pocket-card">
+        <div class="pocket-header">
+          <span class="pocket-emoji">🥖</span>
+          <div>
+            <h3 class="pocket-title">餐前小菜 (Couvert) 拒付法则</h3>
+            <span class="pocket-sub">葡萄牙法律保护（Decreto-Lei n.º 10/2015）</span>
+          </div>
+        </div>
+        <p class="pocket-text">
+          餐桌上未点的面包、橄榄、奶酪、金枪鱼酱<strong>绝非免费</strong>。
+          <strong>不吃就不收钱！</strong> 服务员放下时直接微笑摆手说：<em>"Não, obrigado" (不用了谢谢)</em> 让其端走即可。买单时核对账单，没吃却被计费直接让服务员去掉，当地人每天都这么做。
+        </p>
+        <div class="rule-badge">✨ 葡萄牙 0 强制小费，账单已含服务费与税，无需心理负担。</div>
+      </div>
+
+      <!-- 锦囊卡 3：Uber 抱幼童完全合法 -->
+      <div class="pocket-card">
+        <div class="pocket-header">
+          <span class="pocket-emoji">🚼</span>
+          <div>
+            <h3 class="pocket-title">Uber 抱幼童乘车完全合法</h3>
+            <span class="pocket-sub">葡萄牙道路交通法第 55 条第 5 款法定豁免</span>
+          </div>
+        </div>
+        <p class="pocket-text">
+          在里斯本打出租车或 Uber/Bolt，<strong>2 岁以下幼童坐后排无需安全座椅，大人抱着完全合法</strong>，警察绝不开罚单。95% 以上司机习以为常。<br>
+          <em>*注意：大人先系好安全带，再将宝宝抱在怀中或背带固定，切勿一根安全带绑两人。后半程租车自驾必须加装儿童座椅。</em>
+        </p>
+      </div>
+
+      <!-- 锦囊卡 4：超市买奶速认卡 -->
+      <div class="pocket-card">
+        <div class="pocket-header">
+          <span class="pocket-emoji">🍼</span>
+          <div>
+            <h3 class="pocket-title">超市买奶速认指南</h3>
+            <span class="pocket-sub">随时随地插吸管喝纯全脂牛奶</span>
+          </div>
+        </div>
+        <div class="milk-guide-grid">
+          <div class="milk-col good">
+            <span class="milk-tag">✅ 认准买这个</span>
+            <strong>Mimosa Leite UHT Gordo 200ml</strong>
+            <p>深蓝/红色利乐砖包装，全脂常温奶，配自带弯头吸管；或 <strong>Mimosa Crescer</strong>（儿童成长款）。</p>
+          </div>
+          <div class="milk-col avoid">
+            <span class="milk-tag">❌ 货架避开这个</span>
+            <strong>调味乳饮料</strong>
+            <p>避开 <em>com Chocolate</em> (巧克力) 与 <em>com Morango</em> (草莓)，不是纯牛奶。</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 锦囊卡 5：防坑 ATM 与刷卡无现金 -->
+      <div class="pocket-card">
+        <div class="pocket-header">
+          <span class="pocket-emoji">💶</span>
+          <div>
+            <h3 class="pocket-title">刷卡与 ATM 防坑指南</h3>
+            <span class="pocket-sub">99% 支持 Apple Pay 与免货币转换费信用卡</span>
+          </div>
+        </div>
+        <p class="pocket-text">
+          ⚠️ <strong>全欧洲最大陷阱</strong>：坚决不要插卡使用街头黄蓝色的 <strong>Euronet ATM</strong>（掠夺性汇率损失15%）。<br>
+          ✅ <strong>正规取款</strong>：认准 <strong>Multibanco (MB)</strong> 银行标志取款机。屏幕弹出是否转为美元结算时，一律按 <strong>【Continue in EUR (拒绝转换)】</strong>，由发卡行官方结算，省下 10% 汇差。
+        </p>
+      </div>
+
+    </section>
+
+    <!-- ===================================================================
+         VIEW 3: 🏨 住址导航与自驾信息
+         =================================================================== -->
+    <section id="view-logistics" class="view-section">
+      
+      <div class="section-intro">
+        <h2 class="intro-title">🏨 住宿与出行凭据</h2>
+        <p class="intro-desc">一键复制当地地址，可直接出示给 Uber 司机或柜台</p>
+      </div>
+
+      <!-- 酒店 1：里斯本凯悦 -->
+      <div class="stay-card">
+        <div class="stay-tag-row">
+          <span class="stay-chip">里斯本前 5 晚 · 5/4 - 5/9</span>
+          <span class="stay-city">里斯本 · 贝伦区</span>
+        </div>
+        <h3 class="stay-name">Hyatt Regency Lisbon (里斯本凯悦酒店)</h3>
+
+        <div class="address-copy-block">
+          <div class="addr-text" id="addr-lisbon">
+            Rua da Junqueira 63, 1300-307 Lisboa, Portugal
+          </div>
+          <button type="button" class="btn-copy-addr" data-copy-target="addr-lisbon">
+            📋 复制当地地址
+          </button>
+        </div>
+
+        <div class="stay-meta-grid">
+          <div class="meta-item">
+            <span class="meta-label">前台电话</span>
+            <span class="meta-val">+351 21 241 1234</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">退改房型</span>
+            <span class="meta-val">家庭豪华套房 / 连通房</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">入住/退房</span>
+            <span class="meta-val">15:00 入住 · 12:00 退房</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">推车环境</span>
+            <span class="meta-val">出门即河畔平整栈道</span>
+          </div>
+        </div>
+
+        <div class="stay-card-footer">
+          <a href="https://maps.google.com/?q=Hyatt+Regency+Lisbon" target="_blank" rel="noopener" class="btn-card-map">
+            📍 谷歌地图一键导航 ↗
+          </a>
+        </div>
+      </div>
+
+      <!-- 酒店 2：阿尔加维海滨海景度假村 -->
+      <div class="stay-card">
+        <div class="stay-tag-row">
+          <span class="stay-chip">阿尔加维后 3 晚 · 5/9 - 5/12</span>
+          <span class="stay-city">阿尔加维 · 南部海岸</span>
+        </div>
+        <h3 class="stay-name">Algarve Beachfront Resort & Suites</h3>
+
+        <div class="address-copy-block">
+          <div class="addr-text" id="addr-algarve">
+            Estrada da Ponta da Piedade, 8600-513 Lagos, Portugal
+          </div>
+          <button type="button" class="btn-copy-addr" data-copy-target="addr-algarve">
+            📋 复制当地地址
+          </button>
+        </div>
+
+        <div class="stay-meta-grid">
+          <div class="meta-item">
+            <span class="meta-label">配套设施</span>
+            <span class="meta-val">全套厨房、洗衣机、恒温泳池</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">停车指引</span>
+            <span class="meta-val">度假村内免费停车位</span>
+          </div>
+        </div>
+
+        <div class="stay-card-footer">
+          <a href="https://maps.google.com/?q=Lagos+Algarve+Portugal" target="_blank" rel="noopener" class="btn-card-map">
+            📍 谷歌地图一键导航 ↗
+          </a>
+        </div>
+      </div>
+
+      <!-- 自驾与租车备忘卡 -->
+      <div class="stay-card car-rental-card">
+        <div class="stay-tag-row">
+          <span class="stay-chip auto-car">自驾 MPV · 5/9 - 5/12</span>
+          <span class="stay-city">里斯本机场还取</span>
+        </div>
+        <h3 class="stay-name">7座自动挡 MPV (大众夏朗 / 奔驰V级)</h3>
+        
+        <div class="rental-tips">
+          <div class="tip-row">
+            <span class="tip-bullet">🔹</span>
+            <span><strong>高速通道 (Via Verde)</strong>：过收费站走绿色“V”字专用道，自动感应不停车。</span>
+          </div>
+          <div class="tip-row">
+            <span class="tip-bullet">🔹</span>
+            <span><strong>儿童座椅</strong>：柜台已加装 1 个 ISOFIX 幼儿安全座椅，自驾途中全程入座。</span>
+          </div>
+          <div class="tip-row">
+            <span class="tip-bullet">🔹</span>
+            <span><strong>加油注意</strong>：柴油标注 <strong>Gasóleo</strong>，汽油标注 <strong>Gasolina 95</strong>，切勿加错。</span>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- 底部友好版权与离线说明 -->
+    <footer class="page-footer">
+      <p class="footer-note">🇵🇹 葡萄牙慢调之旅 · 离线可用 · 自动保存在手机本地</p>
+    </footer>
 
   </div>
+
+  <!-- ===================================================================
+       全屏带娃点餐大字出示弹窗 (Fullscreen Flashcard)
+       =================================================================== -->
+  <div class="flashcard-overlay" id="flashcard-overlay" aria-hidden="true" role="dialog">
+    <div class="flashcard-content">
+      <button type="button" class="btn-close-flashcard" id="btn-close-flashcard" aria-label="关闭弹窗">✕</button>
+      
+      <div class="flashcard-badge">📱 请直接出示给餐馆服务员看</div>
+
+      <div class="flashcard-pt">
+        "Uma sopa de legumes e uma dose de arroz branco para a criança, com pouco sal e sem piri-piri, por favor."
+      </div>
+
+      <div class="flashcard-zh">
+        （服务员您好：请给小朋友来一份蔬菜纯浓汤和一碗白米饭，少放盐，不要任何辣酱，十分感谢！）
+      </div>
+
+      <div class="flashcard-extra">
+        <div class="extra-item">
+          <span>👶 幼童安全纯蔬菜汤</span>
+          <strong>Sopa de Legumes</strong>
+        </div>
+        <div class="extra-item">
+          <span>🍚 纯白米饭少盐</span>
+          <strong>Arroz branco simples</strong>
+        </div>
+        <div class="extra-item">
+          <span>🚫 完全不要辣酱</span>
+          <strong>Sem piri-piri</strong>
+        </div>
+      </div>
+
+      <button type="button" class="btn-done-flashcard" id="btn-done-flashcard">
+        我知道了，关闭出示卡
+      </button>
+    </div>
+  </div>
+
+  <!-- 轻量全局 Toast 提示 -->
+  <div class="toast-tip" id="toast-tip" role="status" aria-live="polite"></div>
+
+  <!-- 引入交互脚本 -->
+  <script src="app.js"></script>
 </body>
 </html>

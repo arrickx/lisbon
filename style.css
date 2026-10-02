@@ -1,26 +1,43 @@
 /* =========================================================
-   里斯本 & 阿尔加维 — 极简双城页
-   纯净、克制、温柔明亮、响应式
+   葡萄牙慢调之旅 · 里斯本 & 阿尔加维
+   视觉风格：温柔、明朗、高质感暖色纸感、手机端极佳握持手感
    ========================================================= */
 
 :root {
-  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
 
-  /* 温柔暖调配色 */
-  --bg-page: #faf8f5;           /* 暖米宣纸底色 */
+  /* 优雅温润自然色调 */
+  --bg-page: #faf8f5;           /* 温暖宣纸米色 */
   --bg-card: #ffffff;           /* 纯白卡片 */
-  --border: #ece5dc;           /* 淡暖灰边框 */
+  --bg-subtle: #f4eee6;         /* 浅沙色 */
+  --border: #ece5dc;            /* 柔和边界色 */
+  --border-focus: #d8c9b8;
 
-  --text-main: #2d2723;         /* 温和咖啡深灰 */
-  --text-subtle: #9e9488;       /* 英文浅色 */
+  --text-main: #2b2521;         /* 浓缩咖啡炭黑 */
+  --text-muted: #6e645a;        /* 柔和次级文字 */
+  --text-light: #9e9488;        /* 辅助微弱说明 */
 
+  /* 葡萄牙标志色彩 */
+  --primary: #c95d3b;           /* 里斯本陶土橙红 */
+  --primary-bg: #faefe9;
+  --teal: #1d7b88;              /* 阿尔加维清澈海蓝 */
+  --teal-bg: #e6f3f5;
+  --green: #2e7d32;
+  --green-bg: #edf7ee;
+
+  --radius-sm: 8px;
   --radius-md: 14px;
   --radius-lg: 18px;
+  --radius-xl: 24px;
   --radius-full: 9999px;
 
-  --shadow-soft: 0 4px 14px rgba(100, 75, 50, 0.04), 0 1px 3px rgba(100, 75, 50, 0.02);
+  --shadow-sm: 0 2px 6px rgba(90, 65, 40, 0.04);
+  --shadow-card: 0 4px 16px rgba(90, 65, 40, 0.06), 0 1px 3px rgba(90, 65, 40, 0.02);
+  --shadow-float: 0 8px 24px rgba(90, 65, 40, 0.12);
 
+  /* 吸顶粘滞时防止被遮挡的内边距 */
+  scroll-padding-top: 86px;
   color-scheme: light;
 }
 
@@ -31,137 +48,1004 @@
   -webkit-tap-highlight-color: transparent;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: var(--font-sans);
   background-color: var(--bg-page);
   color: var(--text-main);
-  line-height: 1.5;
+  line-height: 1.6;
   -webkit-text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
   min-height: 100vh;
-  padding: 36px 16px;
+  padding: 24px 16px 60px;
   display: flex;
-  align-items: center;
   justify-content: center;
 }
 
 .travel-wrapper {
   width: 100%;
-  max-width: 480px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-/* ================= 头部 ================= */
-.page-header {
-  text-align: center;
-  padding: 8px 0 4px;
-}
-
-.main-title {
-  font-size: 1.6rem;
-  font-weight: 700;
-  letter-spacing: -0.01em;
-  color: var(--text-main);
-}
-
-/* ================= 双城卡片 ================= */
-.cities-container {
+  max-width: 540px;
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 
-.city-card {
-  background-color: var(--bg-card);
+/* ================= 1. 顶部 Header ================= */
+.page-header {
+  background: var(--bg-card);
   border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  box-shadow: var(--shadow-soft);
+  border-radius: var(--radius-xl);
+  padding: 22px 20px;
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.header-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.badge-pill {
+  font-size: 0.76rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  background: var(--bg-subtle);
+  color: var(--text-muted);
+}
+
+.badge-pill.highlight {
+  background: var(--primary-bg);
+  color: var(--primary);
+}
+
+.main-title {
+  font-size: 1.65rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--text-main);
+  line-height: 1.25;
+}
+
+.trip-dates {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* 双城节奏示意条 */
+.route-overview {
+  background: var(--bg-page);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.route-node {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.node-icon {
+  font-size: 1.5rem;
+}
+
+.node-text {
   display: flex;
   flex-direction: column;
 }
 
-.city-cover {
-  height: 110px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 16px 22px;
-}
-
-.cover-lisbon {
-  background: linear-gradient(135deg, #faede3 0%, #f7dfce 100%);
-}
-
-.cover-algarve {
-  background: linear-gradient(135deg, #eaf2f8 0%, #d8e8f2 100%);
-}
-
-.city-num {
-  font-size: 1.6rem;
-  font-weight: 800;
-  font-family: var(--font-mono);
-  opacity: 0.25;
+.node-text strong {
+  font-size: 0.85rem;
   color: var(--text-main);
 }
 
-.city-emoji {
-  font-size: 3rem;
-  filter: drop-shadow(0 3px 8px rgba(0, 0, 0, 0.08));
+.node-text span {
+  font-size: 0.72rem;
+  color: var(--text-light);
 }
 
-.city-content {
-  padding: 16px 20px;
+.route-arrow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 70px;
+}
+
+.arrow-line {
+  width: 100%;
+  height: 2px;
+  background: #d8c9b8;
+  position: relative;
+}
+
+.arrow-line::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: -3px;
+  width: 0;
+  height: 0;
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+  border-left: 6px solid #d8c9b8;
+}
+
+.arrow-tag {
+  font-size: 0.68rem;
+  color: var(--text-light);
+  margin-top: 4px;
+  white-space: nowrap;
+}
+
+/* 今日智能定位条 */
+.today-status-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  background: #fdfbf7;
+  border: 1px dashed var(--border-focus);
+  border-radius: var(--radius-md);
+  padding: 8px 12px;
 }
 
-.city-title-row {
+.status-indicator {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   gap: 8px;
 }
 
-.city-name {
-  font-size: 1.25rem;
+.pulse-dot {
+  width: 8px;
+  height: 8px;
+  background-color: var(--primary);
+  border-radius: 50%;
+  box-shadow: 0 0 0 0 rgba(201, 93, 59, 0.4);
+  animation: pulse-ring 2s infinite;
+}
+
+@keyframes pulse-ring {
+  0% { box-shadow: 0 0 0 0 rgba(201, 93, 59, 0.5); }
+  70% { box-shadow: 0 0 0 6px rgba(201, 93, 59, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(201, 93, 59, 0); }
+}
+
+.status-text {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.btn-locate-today {
+  background: var(--primary);
+  color: #ffffff;
+  border: none;
+  font-size: 0.76rem;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(201, 93, 59, 0.25);
+  transition: all 0.2s ease;
+}
+
+.btn-locate-today:hover,
+.btn-locate-today:active {
+  transform: translateY(-1px);
+  filter: brightness(1.05);
+}
+
+/* ================= 2. 主板块切换 Tabs ================= */
+.view-tabs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 4px;
+  box-shadow: var(--shadow-sm);
+}
+
+.view-tab {
+  background: transparent;
+  border: none;
+  font-family: inherit;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  padding: 10px 4px;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.view-tab.active {
+  background: var(--bg-page);
+  color: var(--primary);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+.view-section {
+  display: none;
+}
+
+.view-section.active {
+  display: block;
+}
+
+/* ================= 3. 吸顶天数横向胶囊导航 ================= */
+.day-nav-wrapper {
+  position: sticky;
+  top: 12px;
+  z-index: 90;
+  background: rgba(250, 248, 245, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 6px 8px;
+  box-shadow: var(--shadow-card);
+  margin-bottom: 14px;
+}
+
+.day-nav-container {
+  display: flex;
+  overflow-x: auto;
+  gap: 6px;
+  padding: 2px 0;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+
+.day-nav-container::-webkit-scrollbar {
+  display: none;
+}
+
+.day-pill {
+  flex-shrink: 0;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  padding: 6px 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: inherit;
+  transition: all 0.2s ease;
+}
+
+.day-pill .day-num {
+  font-size: 0.78rem;
+  font-weight: 800;
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+}
+
+.day-pill .day-brief {
+  font-size: 0.74rem;
+  color: var(--text-muted);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.day-pill.active {
+  background: var(--primary);
+  border-color: var(--primary);
+  box-shadow: 0 3px 10px rgba(201, 93, 59, 0.28);
+}
+
+.day-pill.active .day-num,
+.day-pill.active .day-brief {
+  color: #ffffff;
+}
+
+/* ================= 4. 每日日程卡片流 ================= */
+.itinerary-cards-flow {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.day-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  position: relative;
+}
+
+.day-card.is-active-day {
+  border-color: var(--primary);
+  box-shadow: 0 6px 20px rgba(201, 93, 59, 0.14);
+}
+
+.day-card-header {
+  padding: 16px 20px 14px;
+  background: linear-gradient(180deg, #fffcf9 0%, #ffffff 100%);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.day-badge-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.badge-day-id {
+  font-size: 0.74rem;
+  font-weight: 800;
+  font-family: var(--font-mono);
+  color: var(--primary);
+  letter-spacing: 0.04em;
+}
+
+.badge-day-date {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.day-title-col {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.day-theme-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-main);
+  line-height: 1.35;
+}
+
+.day-stay-tag {
+  font-size: 0.72rem;
+  color: var(--teal);
+  font-weight: 600;
+  margin-top: 2px;
+}
+
+.day-card-body {
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.timeline-slot {
+  display: flex;
+  gap: 14px;
+}
+
+.slot-time {
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: var(--text-light);
+  min-width: 34px;
+  padding-top: 3px;
+  text-transform: uppercase;
+}
+
+.slot-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.slot-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* 自定义复选打卡 */
+.custom-check {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.custom-check input[type="checkbox"] {
+  display: none;
+}
+
+.check-box {
+  width: 18px;
+  height: 18px;
+  border: 1.8px solid #c9beae;
+  border-radius: 5px;
+  margin-top: 2px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  transition: all 0.2s ease;
+}
+
+.check-box::after {
+  content: "";
+  width: 5px;
+  height: 9px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+  display: none;
+  margin-top: -1px;
+}
+
+.custom-check input:checked + .check-box {
+  background-color: var(--teal);
+  border-color: var(--teal);
+}
+
+.custom-check input:checked + .check-box::after {
+  display: block;
+}
+
+.item-text {
+  font-size: 0.88rem;
+  color: var(--text-main);
+  line-height: 1.45;
+  transition: opacity 0.2s ease;
+}
+
+.custom-check input:checked ~ .item-text {
+  text-decoration: line-through;
+  opacity: 0.45;
+}
+
+.slot-actions {
+  padding-left: 28px;
+}
+
+.mini-map-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--bg-page);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 0.74rem;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  transition: background 0.15s ease;
+}
+
+.mini-map-btn:hover,
+.mini-map-btn:active {
+  background: var(--bg-subtle);
+  color: var(--text-main);
+}
+
+.day-tip-box {
+  background: #faf6f0;
+  border-radius: var(--radius-md);
+  padding: 10px 14px;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  border-left: 3px solid var(--primary);
+}
+
+.tip-icon {
+  font-size: 0.95rem;
+}
+
+.tip-txt {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+/* ================= 5. 省心锦囊 VIEW ================= */
+.section-intro {
+  margin-bottom: 14px;
+}
+
+.intro-title {
+  font-size: 1.18rem;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.intro-desc {
+  font-size: 0.8rem;
+  color: var(--text-light);
+  margin-top: 2px;
+}
+
+.pocket-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 18px 20px;
+  margin-bottom: 14px;
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.pocket-card.priority-card {
+  border-color: var(--primary);
+  background: linear-gradient(180deg, #fffbf7 0%, #ffffff 100%);
+}
+
+.pocket-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.pocket-emoji {
+  font-size: 1.8rem;
+}
+
+.pocket-title {
+  font-size: 1rem;
   font-weight: 700;
   color: var(--text-main);
 }
 
-.city-en {
-  font-size: 0.82rem;
-  color: var(--text-subtle);
-  font-weight: 500;
+.pocket-sub {
+  font-size: 0.74rem;
+  color: var(--text-light);
 }
 
-.city-actions {
+.quote-box {
+  background: #faf7f2;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 14px;
+}
+
+.quote-pt {
+  font-size: 0.96rem;
+  font-weight: 700;
+  color: var(--primary);
+  line-height: 1.45;
+  margin-bottom: 8px;
+}
+
+.quote-zh {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+.card-btn-row {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-action {
+  flex: 1;
+  background: var(--bg-page);
+  border: 1px solid var(--border);
+  color: var(--text-main);
+  padding: 10px 14px;
+  border-radius: var(--radius-full);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.btn-action.primary {
+  background: var(--primary);
+  color: #ffffff;
+  border-color: var(--primary);
+  box-shadow: 0 2px 8px rgba(201, 93, 59, 0.25);
+}
+
+.btn-action:active {
+  transform: translateY(1px);
+}
+
+.pocket-text {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.rule-badge {
+  background: var(--teal-bg);
+  color: var(--teal);
+  font-size: 0.76rem;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: var(--radius-md);
+}
+
+.milk-guide-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.milk-col {
+  padding: 12px;
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.milk-col.good {
+  background: var(--green-bg);
+  border: 1px solid #c7e6c9;
+}
+
+.milk-col.avoid {
+  background: #fbf0f0;
+  border: 1px solid #f2cfcf;
+}
+
+.milk-tag {
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.milk-col.good .milk-tag { color: var(--green); }
+.milk-col.avoid .milk-tag { color: #c62828; }
+
+.milk-col strong {
+  font-size: 0.8rem;
+  color: var(--text-main);
+}
+
+.milk-col p {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  line-height: 1.35;
+}
+
+/* ================= 6. 住宿与自驾 VIEW ================= */
+.stay-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 18px 20px;
+  margin-bottom: 14px;
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.stay-tag-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.stay-chip {
+  font-size: 0.74rem;
+  font-weight: 700;
+  background: var(--primary-bg);
+  color: var(--primary);
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+}
+
+.stay-chip.auto-car {
+  background: var(--teal-bg);
+  color: var(--teal);
+}
+
+.stay-city {
+  font-size: 0.74rem;
+  color: var(--text-light);
+}
+
+.stay-name {
+  font-size: 1.08rem;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.address-copy-block {
+  background: var(--bg-page);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.addr-text {
+  font-size: 0.8rem;
+  font-family: var(--font-mono);
+  color: var(--text-main);
+  line-height: 1.35;
+  word-break: break-all;
+}
+
+.btn-copy-addr {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  font-size: 0.74rem;
+  font-weight: 600;
+  padding: 6px 10px;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  white-space: nowrap;
+  color: var(--text-main);
+  transition: background 0.15s ease;
+}
+
+.btn-copy-addr:active {
+  background: var(--bg-subtle);
+}
+
+.stay-meta-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.meta-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.meta-label {
+  font-size: 0.7rem;
+  color: var(--text-light);
+}
+
+.meta-val {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.stay-card-footer {
   display: flex;
 }
 
-.btn-city-link {
+.btn-card-map {
   display: inline-flex;
   align-items: center;
-  background-color: var(--bg-page);
-  border: 1px solid var(--border);
-  color: var(--text-main);
-  text-decoration: none;
-  font-size: 0.78rem;
+  gap: 6px;
+  font-size: 0.82rem;
   font-weight: 600;
-  padding: 6px 12px;
+  color: var(--teal);
+  text-decoration: none;
+  padding: 6px 0;
+}
+
+.car-rental-card .rental-tips {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.tip-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.tip-bullet {
+  font-size: 0.7rem;
+  margin-top: 3px;
+}
+
+/* ================= 7. 全屏点餐出示卡 Modal ================= */
+.flashcard-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(20, 16, 12, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.flashcard-overlay.active {
+  display: flex;
+}
+
+.flashcard-content {
+  background: #ffffff;
+  border-radius: var(--radius-xl);
+  padding: 28px 24px;
+  max-width: 480px;
+  width: 100%;
+  box-shadow: var(--shadow-float);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  text-align: center;
+  animation: modal-pop 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes modal-pop {
+  0% { transform: scale(0.92); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.btn-close-flashcard {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--bg-subtle);
+  border: none;
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flashcard-badge {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--primary);
+  background: var(--primary-bg);
+  padding: 4px 12px;
   border-radius: var(--radius-full);
-  transition: background-color 0.15s ease;
+  align-self: center;
 }
 
-.btn-city-link:active {
-  background-color: #eee7dd;
+.flashcard-pt {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--text-main);
+  line-height: 1.45;
+  background: #fdfaf6;
+  border: 2px dashed #e8d0bc;
+  padding: 16px;
+  border-radius: var(--radius-lg);
 }
 
+.flashcard-zh {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.flashcard-extra {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.extra-item {
+  background: var(--bg-page);
+  border-radius: var(--radius-md);
+  padding: 8px 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.extra-item span {
+  font-size: 0.68rem;
+  color: var(--text-light);
+}
+
+.extra-item strong {
+  font-size: 0.76rem;
+  color: var(--text-main);
+}
+
+.btn-done-flashcard {
+  background: var(--primary);
+  color: #ffffff;
+  border: none;
+  font-size: 0.92rem;
+  font-weight: 700;
+  padding: 12px;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  margin-top: 6px;
+}
+
+/* ================= 8. Toast 与页脚 ================= */
+.toast-tip {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(40px);
+  background: rgba(30, 24, 20, 0.92);
+  color: #ffffff;
+  padding: 10px 18px;
+  border-radius: var(--radius-full);
+  font-size: 0.82rem;
+  font-weight: 600;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.25s ease;
+  z-index: 1000;
+  white-space: nowrap;
+}
+
+.toast-tip.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+
+.page-footer {
+  text-align: center;
+  padding: 24px 0 10px;
+}
+
+.footer-note {
+  font-size: 0.74rem;
+  color: var(--text-light);
+}
+
+/* ================= 响应式调节 ================= */
 @media (max-width: 480px) {
   body {
-    padding: 24px 14px;
+    padding: 16px 12px 60px;
+  }
+
+  .main-title {
+    font-size: 1.45rem;
+  }
+
+  .day-card-header {
+    flex-direction: column;
     align-items: flex-start;
+  }
+
+  .day-title-col {
+    text-align: left;
+    align-items: flex-start;
+  }
+
+  .milk-guide-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .stay-meta-grid {
+    grid-template-columns: 1fr;
   }
 }
