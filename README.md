@@ -1,19 +1,36 @@
-# Lisbon
+# 私人自用旅行随身手册 (Travel Companion)
 
-A simple, minimal, and responsive static website hosted on GitHub Pages.
+一个温柔、明亮、响应式且带有灵动轻交互的私人旅行随身网页，专为手机端单手查看优化，直接托管于 GitHub Pages。
 
-🔗 **Live Site**: [https://arrickx.github.io/lisbon/](https://arrickx.github.io/lisbon/)
+🔗 **线上访问地址**: [https://arrickx.github.io/lisbon/](https://arrickx.github.io/lisbon/)
 
-## Structure
+---
 
-- `index.html` — Minimal static HTML content.
-- `style.css` — Clean, responsive CSS with light/dark mode support.
-- `icon.svg` — Site favicon.
-- `.nojekyll` — Ensures GitHub Pages serves static files directly.
+## 🎒 功能模块与交互特点
 
-## GitHub Pages Deployment
+1. **封面与随身天气提示**：
+   - 包含倒计时、旅程日期、当地气温与穿衣建议便签。
+2. **快捷浮动导航**：
+   - 一键横向滑动跳转至：住址导航、每日日程、行前清单、美食备选、紧急联络。
+3. **住宿出示卡（带一键复制）**：
+   - 当地语言地址一键复制（方便直接出示给当地出租车司机）。
+   - 门禁码、钥匙盒、房东电话与谷歌地图直达链接。
+4. **每日行程时间线（支持交互）**：
+   - `Day 1` / `Day 2` / `Day 3` / `Day 4` 天数即时过滤 Tabs。
+   - 每个地点支持打勾标记（自动划线并记住打卡状态）。
+5. **美食备选小卡片**：
+   - 甜点、正餐、海鲜、日落小酌推荐，不踩雷。
+6. **行前行李打包清单（带实时统计）**：
+   - 可交互打勾核对，实时统计 `X / 8 已装箱`，离线本地保存进度。
+7. **紧急速查备忘**：
+   - 当地 112 报警急救、领事保护电话、保单号。
 
-1. Go to repository **Settings** → **Pages**.
-2. Set **Source** to `Deploy from a branch`.
-3. Set **Branch** to `main` and folder to `/ (root)`.
-4. Click **Save**.
+---
+
+## 🛠️ 如何填写自己的内容
+
+打开 `index.html`，直接搜索所有的 `[...]` 占位符替换为你实际的：
+- 目的地名称、日期
+- 酒店名称与当地外文地址、门禁密码
+- 具体的每日游玩景点与时间
+- 餐厅与行前打包项目

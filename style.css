@@ -1,52 +1,53 @@
 /* =========================================================
-   自用核心信息空间 — 温柔明亮风样式
-   明亮、温润、护眼、清晰，无暗黑模式干扰
+   私人旅行手册 — 温柔明亮风画风与灵动交互
+   明快、温润、手机单手体验优化、无死板企业感
    ========================================================= */
 
 :root {
-  /* 基础字体：优质无衬线中文字体优先 */
   --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
 
-  /* 温柔暖调配色 */
-  --bg-page: #faf8f5;           /* 温暖柔和的浅米/宣纸底色 */
-  --bg-card: #ffffff;           /* 干净纯白卡片 */
-  --bg-subtle: #f4efe9;         /* 柔和浅米灰衬底 */
+  /* 温柔阳光系配色 */
+  --bg-page: #faf8f5;           /* 温暖柔和的暖米色底色 */
+  --bg-card: #ffffff;           /* 纯白卡片 */
+  --bg-subtle: #f4efe8;         /* 柔和米灰小底衬 */
   
-  --bg-callout: #fdf8ee;        /* 柔和暖奶油黄便签 */
-  --border-callout: #faeccd;    /* 便签浅金暖边框 */
-  --text-callout: #7c5e2d;
+  --bg-hero: linear-gradient(135deg, #fdf3ea 0%, #fbe8d8 100%); /* 晨光暖杏色 */
+  --hero-border: #f5dece;
 
-  --border: #ede6dc;           /* 极淡的暖调灰边框 */
-  --border-light: #f5f0e8;
+  --border: #ece5dc;           /* 极淡的暖灰边框 */
+  --border-light: #f5f0e9;
 
-  --text-main: #2d2723;         /* 温和咖啡深灰，不刺眼 */
-  --text-muted: #786f66;        /* 暖灰次要文字 */
-  --text-subtle: #a69e94;       /* 辅助微弱说明 */
+  --color-primary: #d26749;     /* 温暖陶土红 / 晚霞色 */
+  --color-primary-light: #faece6;
+  --color-accent-amber: #d9822b;/* 温暖金蜜色 */
+  --color-accent-sage: #538169; /* 恬淡鼠尾草绿 */
 
-  /* 温柔三态标签配色 */
-  --tag-progress-bg: #edf3f7;   --tag-progress-text: #3c6c82; /* 柔和雾蓝 */
-  --tag-pending-bg: #fcf1e6;    --tag-pending-text: #a85e2b;  /* 温暖浅杏 */
-  --tag-done-bg: #edf5ee;       --tag-done-text: #417a4a;     /* 恬淡抹茶 */
+  --text-main: #2d2723;         /* 温和咖啡深灰 */
+  --text-muted: #797067;        /* 柔和说明文字 */
+  --text-subtle: #a89f94;       /* 弱提示 */
 
-  /* 圆角与阴影 */
   --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 16px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
   --radius-full: 9999px;
 
-  --shadow-soft: 0 2px 8px rgba(90, 70, 50, 0.04), 0 1px 2px rgba(90, 70, 50, 0.02);
+  --shadow-soft: 0 3px 12px rgba(110, 80, 50, 0.05), 0 1px 3px rgba(110, 80, 50, 0.02);
+  --shadow-float: 0 6px 20px rgba(110, 80, 50, 0.08);
 
-  /* 明确指定明亮模式 */
   color-scheme: light;
 }
 
-/* 重置与盒模型 */
+/* 基础重置 */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
   -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
@@ -57,372 +58,714 @@ body {
   -webkit-text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
   min-height: 100vh;
-  padding: 24px 16px 48px;
+  padding-bottom: 60px;
 }
 
-.page-wrapper {
+.travel-wrapper {
   max-width: 620px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 20px;
+  padding: 16px 14px 40px;
 }
 
-/* ================= 头部区域 ================= */
-.hub-header {
+/* ================= 1. 顶部旅行封面 HERO ================= */
+.travel-hero {
+  background: var(--bg-hero);
+  border: 1px solid var(--hero-border);
+  border-radius: var(--radius-lg);
+  padding: 22px 18px 18px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid var(--border);
+  gap: 14px;
+  box-shadow: var(--shadow-soft);
+  position: relative;
+  overflow: hidden;
 }
 
-.header-status-row {
+.travel-hero::after {
+  content: "✈️";
+  position: absolute;
+  right: -10px;
+  top: -10px;
+  font-size: 5rem;
+  opacity: 0.12;
+  transform: rotate(-15deg);
+  pointer-events: none;
+}
+
+.hero-top-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 0.8rem;
 }
 
-.badge-internal {
+.pill-badge {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  background-color: #f3ece4;
-  color: #7a6a58;
+  background-color: rgba(255, 255, 255, 0.85);
+  color: var(--color-primary);
+  font-size: 0.76rem;
+  font-weight: 700;
   padding: 4px 10px;
   border-radius: var(--radius-full);
+  backdrop-filter: blur(8px);
+}
+
+.trip-countdown {
+  font-size: 0.78rem;
   font-weight: 600;
-  font-size: 0.75rem;
-}
-
-.badge-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background-color: #2ea043;
-}
-
-.header-timestamp {
-  color: var(--text-subtle);
-  font-size: 0.76rem;
-  font-family: var(--font-mono);
-}
-
-.hub-title {
-  font-size: 1.65rem;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  color: var(--text-main);
-  line-height: 1.25;
-}
-
-.hub-tagline {
-  font-size: 0.9rem;
-  color: var(--text-muted);
-  line-height: 1.5;
-}
-
-/* ================= 核心区域 ================= */
-.hub-main {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-
-.section {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.section-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.section-label {
-  font-size: 0.74rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  color: var(--text-subtle);
-  text-transform: uppercase;
-}
-
-.section-badge {
-  font-size: 0.72rem;
-  color: var(--text-muted);
-  background: var(--bg-subtle);
-  padding: 2px 8px;
+  color: var(--color-primary);
+  background: rgba(210, 103, 73, 0.12);
+  padding: 3px 10px;
   border-radius: var(--radius-full);
-  font-weight: 500;
 }
 
-/* 卡片容器通用 */
-.card {
-  background-color: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-soft);
-}
-
-/* 01. 核心状态卡片网格 */
-.grid-status {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-}
-
-.status-card {
-  padding: 14px 14px;
+.hero-content {
   display: flex;
   flex-direction: column;
   gap: 4px;
 }
 
-.status-kpi-title {
-  font-size: 0.75rem;
-  font-weight: 500;
-  color: var(--text-muted);
+.hero-destination {
+  font-size: 1.85rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--text-main);
+  line-height: 1.2;
 }
 
-.status-kpi-value {
-  font-size: 1.05rem;
+.hero-dates {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* 天气便签 */
+.weather-note-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: var(--radius-md);
+  padding: 10px 14px;
+}
+
+.weather-icon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.weather-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.weather-temp {
+  font-size: 0.82rem;
   font-weight: 700;
-  letter-spacing: -0.01em;
   color: var(--text-main);
 }
 
-.status-kpi-sub {
-  font-size: 0.72rem;
+.weather-desc {
+  font-size: 0.74rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+/* ================= 2. 快捷浮动导航 ================= */
+.quick-nav {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 4px 2px 8px;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.quick-nav::-webkit-scrollbar {
+  display: none;
+}
+
+.nav-chip {
+  flex-shrink: 0;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text-main);
+  text-decoration: none;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 7px 14px;
+  border-radius: var(--radius-full);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+  transition: all 0.15s ease;
+}
+
+.nav-chip:active {
+  transform: scale(0.95);
+  background-color: var(--bg-subtle);
+}
+
+/* ================= 3. 主内容区域 ================= */
+.travel-main {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
+
+.travel-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.section-title-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 0 4px;
+}
+
+.section-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-main);
+  letter-spacing: -0.01em;
+}
+
+.section-sub {
+  font-size: 0.75rem;
   color: var(--text-subtle);
 }
 
-/* 02. 置顶暖色便签盒 */
-.callout-card {
-  display: flex;
-  gap: 12px;
-  background-color: var(--bg-callout);
-  border: 1px solid var(--border-callout);
+/* 卡片通用 */
+.card-base {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border);
   border-radius: var(--radius-md);
-  padding: 13px 15px;
+  box-shadow: var(--shadow-soft);
 }
 
-.callout-icon {
-  font-size: 1.15rem;
-  flex-shrink: 0;
-  margin-top: 1px;
+/* ================= 3. 酒店住址卡 ================= */
+.stay-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  box-shadow: var(--shadow-soft);
 }
 
-.callout-body h3 {
-  font-size: 0.88rem;
+.stay-header {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.stay-tag {
+  font-size: 0.72rem;
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.stay-name {
+  font-size: 1.1rem;
   font-weight: 700;
-  margin-bottom: 3px;
-  color: var(--text-callout);
+  color: var(--text-main);
 }
 
-.callout-body p {
-  font-size: 0.82rem;
-  color: var(--text-muted);
-  line-height: 1.5;
-}
-
-/* 03. 事项进度列表 */
-.card-list {
-  overflow: hidden;
-}
-
-.list-row {
+.stay-address-box {
+  background-color: #fbf7f0;
+  border: 1px dashed #e8dccb;
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 13px 16px;
-  gap: 14px;
-  border-bottom: 1px solid var(--border-light);
+  gap: 12px;
 }
 
-.list-row:last-child {
-  border-bottom: none;
-}
-
-.row-main {
+.address-text {
   display: flex;
   flex-direction: column;
   gap: 2px;
 }
 
-.item-title {
+.lang-label {
+  font-size: 0.7rem;
+  color: var(--color-accent-amber);
+  font-weight: 600;
+}
+
+.address-val {
   font-size: 0.88rem;
   font-weight: 600;
   color: var(--text-main);
+  line-height: 1.4;
 }
 
-.item-desc {
-  font-size: 0.76rem;
-  color: var(--text-muted);
-}
-
-/* 状态标签 */
-.tag {
-  font-size: 0.72rem;
-  font-weight: 600;
-  padding: 3px 9px;
-  border-radius: var(--radius-full);
+.btn-copy {
   flex-shrink: 0;
+  background-color: #ffffff;
+  border: 1px solid #e0d4c2;
+  color: var(--text-main);
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 7px 11px;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  touch-action: manipulation;
+  transition: transform 0.15s ease, background-color 0.15s ease;
 }
 
-.tag-progress {
-  background-color: var(--tag-progress-bg);
-  color: var(--tag-progress-text);
+.btn-copy:active {
+  transform: scale(0.92);
+  background-color: var(--bg-subtle);
 }
 
-.tag-pending {
-  background-color: var(--tag-pending-bg);
-  color: var(--tag-pending-text);
-}
-
-.tag-done {
-  background-color: var(--tag-done-bg);
-  color: var(--tag-done-text);
-}
-
-/* 04. 常用直达入口网格 */
-.grid-links {
+.stay-details-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 10px;
 }
 
-.link-card {
+.stay-detail-item {
+  background-color: var(--bg-page);
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.detail-label {
+  font-size: 0.7rem;
+  color: var(--text-subtle);
+}
+
+.detail-val {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.detail-val code {
+  font-family: var(--font-mono);
+  color: var(--color-primary);
+}
+
+.stay-actions {
+  display: flex;
+}
+
+.btn-map-link {
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background-color: var(--bg-subtle);
+  color: var(--text-main);
+  text-decoration: none;
+  padding: 10px;
+  border-radius: var(--radius-full);
+  font-size: 0.82rem;
+  font-weight: 600;
+  border: 1px solid var(--border);
+  transition: background-color 0.15s ease;
+}
+
+.btn-map-link:active {
+  background-color: #e9e3da;
+}
+
+/* ================= 4. 行程与时间线 ================= */
+.day-tabs {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.day-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.day-tab {
+  flex-shrink: 0;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: all 0.15s ease;
+}
+
+.day-tab.active {
+  background-color: var(--color-primary);
+  color: #ffffff;
+  border-color: var(--color-primary);
+  box-shadow: 0 2px 6px rgba(210, 103, 73, 0.25);
+}
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.timeline-day-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.day-separator {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
+  padding: 6px 2px 2px;
+}
+
+.separator-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--color-primary);
+}
+
+.separator-text {
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.timeline-card {
   background-color: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
-  padding: 12px 14px;
-  text-decoration: none;
+  padding: 13px 15px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
   box-shadow: var(--shadow-soft);
-  transition: transform 0.1s ease, border-color 0.15s ease, background-color 0.15s ease;
+  transition: background-color 0.2s ease, opacity 0.2s ease;
 }
 
-.link-card:hover {
-  border-color: #d1c6b8;
-  background-color: #fffefb;
+.timeline-card.is-done {
+  opacity: 0.55;
+  background-color: var(--bg-page);
 }
 
-.link-card:active {
-  transform: scale(0.985);
+.timeline-card.is-done .card-heading {
+  text-decoration: line-through;
 }
 
-.link-icon {
-  font-size: 1.25rem;
-  flex-shrink: 0;
+.card-check {
+  margin-top: 2px;
 }
 
-.link-info {
+.check-box {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #cfc7bc;
+  border-radius: 6px;
+  outline: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
+  transition: all 0.15s ease;
+}
+
+.check-box:checked {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.check-box:checked::after {
+  content: "✓";
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 900;
+}
+
+.card-main {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  gap: 4px;
 }
 
-.link-title {
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--text-main);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+.card-time-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-.link-url {
-  font-size: 0.72rem;
-  color: var(--text-subtle);
+.time-badge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-primary);
   font-family: var(--font-mono);
 }
 
-/* 05. 核心参数表格 */
-.info-table {
-  overflow: hidden;
+.category-tag {
+  font-size: 0.72rem;
+  color: var(--text-subtle);
 }
 
-.table-row {
+.card-heading {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--text-main);
+  line-height: 1.35;
+}
+
+.card-desc {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  line-height: 1.45;
+}
+
+.card-tip {
+  margin-top: 4px;
+  background-color: var(--bg-subtle);
+  padding: 6px 10px;
+  border-radius: var(--radius-sm);
+  font-size: 0.74rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+/* ================= 5. 美食备选网格 ================= */
+.food-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.food-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 12px;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 11px 16px;
-  font-size: 0.82rem;
-  border-bottom: 1px solid var(--border-light);
+  gap: 10px;
+  box-shadow: var(--shadow-soft);
 }
 
-.table-row:last-child {
+.food-icon {
+  font-size: 1.4rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.food-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.food-name {
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.food-type {
+  font-size: 0.7rem;
+  color: var(--color-accent-amber);
+  font-weight: 600;
+}
+
+.food-desc {
+  font-size: 0.74rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+  margin-top: 2px;
+}
+
+/* ================= 6. 行李装箱清单 ================= */
+.packing-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 8px 14px;
+  box-shadow: var(--shadow-soft);
+}
+
+.packing-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.packing-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border-light);
+  cursor: pointer;
+  user-select: none;
+}
+
+.packing-item:last-child {
   border-bottom: none;
 }
 
-.table-key {
-  color: var(--text-muted);
-  font-weight: 500;
+.pack-checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 2px solid #cfc7bc;
+  border-radius: 5px;
+  outline: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
+  transition: all 0.15s ease;
+  flex-shrink: 0;
 }
 
-.table-value {
+.pack-checkbox:checked {
+  background-color: var(--color-accent-sage);
+  border-color: var(--color-accent-sage);
+}
+
+.pack-checkbox:checked::after {
+  content: "✓";
+  color: #ffffff;
+  font-size: 0.7rem;
+  font-weight: 900;
+}
+
+.pack-text {
+  font-size: 0.82rem;
   color: var(--text-main);
-  font-weight: 600;
-  text-align: right;
+  transition: color 0.15s ease, text-decoration 0.15s ease;
 }
 
-.table-value code {
-  font-family: var(--font-mono);
-  background-color: var(--bg-subtle);
-  padding: 2px 7px;
-  border-radius: 4px;
-  font-size: 0.78rem;
-  color: #605448;
-}
-
-/* ================= 底部版权 ================= */
-.hub-footer {
-  text-align: center;
-  font-size: 0.76rem;
+.pack-checkbox:checked + .pack-text {
   color: var(--text-subtle);
-  padding-top: 14px;
-  border-top: 1px solid var(--border);
+  text-decoration: line-through;
 }
 
-/* ================= 手机端适配 ================= */
+/* ================= 7. 紧急卡片 ================= */
+.emergency-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.em-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  box-shadow: var(--shadow-soft);
+}
+
+.em-label {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+.em-val {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.em-val code {
+  font-family: var(--font-mono);
+  color: var(--color-primary);
+}
+
+/* ================= 底部 ================= */
+.travel-footer {
+  text-align: center;
+  padding: 24px 10px 10px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.travel-footer p {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.footer-sub {
+  font-size: 0.74rem;
+  color: var(--text-subtle);
+}
+
+/* 吐司提示条 */
+.toast-tip {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background-color: rgba(45, 39, 35, 0.9);
+  color: #ffffff;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-float);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
+  z-index: 100;
+}
+
+.toast-tip.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+
+/* ================= 手机端自适应 ================= */
 @media (max-width: 520px) {
-  body {
-    padding: 16px 12px 36px;
+  .travel-wrapper {
+    padding: 12px 10px 30px;
   }
 
-  .grid-status {
+  .stay-details-grid {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  .food-grid {
     grid-template-columns: 1fr;
     gap: 8px;
   }
 
-  .grid-links {
+  .emergency-grid {
     grid-template-columns: 1fr;
-    gap: 8px;
-  }
-
-  .status-card {
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    padding: 12px 14px;
-  }
-
-  .status-kpi-sub {
-    display: none;
-  }
-
-  .table-row {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 2px;
-  }
-
-  .table-value {
-    text-align: left;
+    gap: 6px;
   }
 }

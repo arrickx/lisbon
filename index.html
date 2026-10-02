@@ -3,166 +3,389 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>[空间名称] — 内部自用中心</title>
-  <meta name="description" content="简洁明快的自用核心信息空间">
+  <title>[旅行目的地] · 私人行程手册</title>
+  <meta name="description" content="私人自用旅行随身手册与交互行程">
   <link rel="icon" type="image/svg+xml" href="icon.svg">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="page-wrapper">
+  <div class="travel-wrapper">
     
-    <!-- 顶部状态与标题 -->
-    <header class="hub-header">
-      <div class="header-status-row">
-        <span class="badge-internal">
-          <span class="badge-dot"></span> 内部专用
-        </span>
-        <span class="header-timestamp">[更新于 2026-10-01]</span>
+    <!-- 1. 旅程顶部封面与倒计时 -->
+    <header class="travel-hero">
+      <div class="hero-top-bar">
+        <span class="pill-badge">✈️ 私人自用行程</span>
+        <span class="trip-countdown" id="trip-countdown">[还有 12 天出发]</span>
       </div>
-      <h1 class="hub-title">[空间名称 / 项目代号]</h1>
-      <p class="hub-tagline">[一句话写明此空间的核心用途、阶段性目标或备忘备语]</p>
+      
+      <div class="hero-content">
+        <h1 class="hero-destination">[目的地名称 · 比如 里斯本]</h1>
+        <p class="hero-dates">📅 [2026.10.15 - 10.22 · 8天7晚行程]</p>
+      </div>
+
+      <!-- 随身天气与穿衣提示便签 -->
+      <div class="weather-note-card">
+        <div class="weather-icon">☀️</div>
+        <div class="weather-info">
+          <span class="weather-temp">[当地气温：18°C ~ 25°C · 晴朗舒适]</span>
+          <span class="weather-desc">[早晚温差较大，建议带一件轻便防风外套与舒适球鞋]</span>
+        </div>
+      </div>
     </header>
 
-    <main class="hub-main">
+    <!-- 2. 核心快捷浮动导航（一键跳至核心板块） -->
+    <nav class="quick-nav" aria-label="快捷板块">
+      <a href="#section-stay" class="nav-chip">🏨 住址导航</a>
+      <a href="#section-itinerary" class="nav-chip">🗺️ 每日日程</a>
+      <a href="#section-packing" class="nav-chip">🧳 行前清单</a>
+      <a href="#section-food" class="nav-chip">🥐 美食备选</a>
+      <a href="#section-emergency" class="nav-chip">🆘 紧急联络</a>
+    </nav>
 
-      <!-- 1. 核心状态速览（3个核心卡片） -->
-      <section class="section">
-        <div class="section-label">01 · 核心状态</div>
-        <div class="grid-status">
-          <div class="card status-card">
-            <span class="status-kpi-title">[核心阶段]</span>
-            <span class="status-kpi-value">[阶段一 · 进行中]</span>
-            <span class="status-kpi-sub">[当前主攻方向或简述]</span>
+    <main class="travel-main">
+
+      <!-- 3. 酒店住址与出示卡（带一键复制与地图导航） -->
+      <section id="section-stay" class="travel-section">
+        <div class="section-title-row">
+          <h2 class="section-title">🏨 住宿与落地指引</h2>
+          <span class="section-sub">出示给出租车司机 / 门禁备忘</span>
+        </div>
+
+        <div class="stay-card">
+          <div class="stay-header">
+            <span class="stay-tag">[入住 10.15 - 退房 10.22]</span>
+            <span class="stay-name">[酒店 / 民宿名称]</span>
           </div>
-          <div class="card status-card">
-            <span class="status-kpi-title">[近期目标]</span>
-            <span class="status-kpi-value">[10月中旬 / 验收]</span>
-            <span class="status-kpi-sub">[关键倒计时或节点]</span>
+
+          <div class="stay-address-box">
+            <div class="address-text">
+              <span class="lang-label">当地语言地址：</span>
+              <p id="local-address" class="address-val">[当地完整街道地址，例如：Rua Augusta 120, 1100-053 Lisboa]</p>
+            </div>
+            <button class="btn-copy" id="btn-copy-address" title="复制地址出示给司机">
+              <span>📋</span> 复制地址
+            </button>
           </div>
-          <div class="card status-card">
-            <span class="status-kpi-title">[资源 / 数据]</span>
-            <span class="status-kpi-value">[运行正常]</span>
-            <span class="status-kpi-sub">[额度、预算或系统状态]</span>
+
+          <div class="stay-details-grid">
+            <div class="stay-detail-item">
+              <span class="detail-label">门禁 / 密码</span>
+              <span class="detail-val"><code>[#1234 / 钥匙盒000]</code></span>
+            </div>
+            <div class="stay-detail-item">
+              <span class="detail-label">前台 / 房东电话</span>
+              <span class="detail-val">[+351 912 345 678]</span>
+            </div>
+            <div class="stay-detail-item">
+              <span class="detail-label">入住 / 退房</span>
+              <span class="detail-val">[15:00 入住 · 11:00 退房]</span>
+            </div>
+            <div class="stay-detail-item">
+              <span class="detail-label">交通方式</span>
+              <span class="detail-val">[地铁红线转蓝线 / Uber约15欧]</span>
+            </div>
+          </div>
+
+          <div class="stay-actions">
+            <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer" class="btn-map-link">
+              <span>🗺️</span> 谷歌地图一键导航 ↗
+            </a>
           </div>
         </div>
       </section>
 
-      <!-- 2. 置顶提醒 / 临时备忘框 -->
-      <section class="section">
-        <div class="callout-card">
-          <div class="callout-icon">📌</div>
-          <div class="callout-body">
-            <h3>[置顶提醒 / 重要备忘]</h3>
-            <p>[在这里直接写近期最重要的一句话、即时通知或容易遗忘的关键点，打开网页一眼就能看到。]</p>
+      <!-- 4. 交互式日程表（支持天数快速切换过滤 + 打勾完成） -->
+      <section id="section-itinerary" class="travel-section">
+        <div class="section-title-row">
+          <h2 class="section-title">🗺️ 每日行程安排</h2>
+          <span class="section-sub">点击可勾选已完成地点</span>
+        </div>
+
+        <!-- 天数切换 Tabs -->
+        <div class="day-tabs" role="tablist">
+          <button class="day-tab active" data-day="all">全部日程</button>
+          <button class="day-tab" data-day="d1">Day 1 · 抵达</button>
+          <button class="day-tab" data-day="d2">Day 2 · 老城</button>
+          <button class="day-tab" data-day="d3">Day 3 · 海滨</button>
+          <button class="day-tab" data-day="d4">Day 4 · 漫游</button>
+        </div>
+
+        <!-- 行程列表 -->
+        <div class="timeline" id="itinerary-timeline">
+
+          <!-- Day 1 -->
+          <div class="timeline-day-group" data-day-group="d1">
+            <div class="day-separator">
+              <span class="separator-dot"></span>
+              <span class="separator-text">Day 1 · [10.15 抵达与漫步初探]</span>
+            </div>
+
+            <article class="timeline-card" data-item-id="item-1">
+              <div class="card-check">
+                <input type="checkbox" id="check-1" class="check-box" aria-label="标记完成">
+              </div>
+              <div class="card-main">
+                <div class="card-time-row">
+                  <span class="time-badge">14:00</span>
+                  <span class="category-tag">✈️ 航班落地</span>
+                </div>
+                <h3 class="card-heading">[航班落地与接机办理入住]</h3>
+                <p class="card-desc">[提取行李、购买当地交通卡，前往酒店办理入住放行李。]</p>
+                <div class="card-tip">
+                  💡 <strong>贴士：</strong>[机场地铁站购买充值交通卡，比现金便宜很多]
+                </div>
+              </div>
+            </article>
+
+            <article class="timeline-card" data-item-id="item-2">
+              <div class="card-check">
+                <input type="checkbox" id="check-2" class="check-box" aria-label="标记完成">
+              </div>
+              <div class="card-main">
+                <div class="card-time-row">
+                  <span class="time-badge">17:30</span>
+                  <span class="category-tag">🌅 落日晚霞</span>
+                </div>
+                <h3 class="card-heading">[观景台俯瞰日落与晚风]</h3>
+                <p class="card-desc">[步行前往高处露台，看日光将整座红顶城市与海湾染成金色。]</p>
+                <div class="card-tip">
+                  💡 <strong>贴士：</strong>[附近小酒馆点一杯当地啤酒，听露天吉他艺人弹唱]
+                </div>
+              </div>
+            </article>
+
+            <article class="timeline-card" data-item-id="item-3">
+              <div class="card-check">
+                <input type="checkbox" id="check-3" class="check-box" aria-label="标记完成">
+              </div>
+              <div class="card-main">
+                <div class="card-time-row">
+                  <span class="time-badge">19:30</span>
+                  <span class="category-tag">🍽️ 欢迎晚餐</span>
+                </div>
+                <h3 class="card-heading">[老城区特色海鲜与传统餐馆]</h3>
+                <p class="card-desc">[品尝当地特色烤沙丁鱼、海鲜饭与经典甜点。]</p>
+              </div>
+            </article>
+          </div>
+
+          <!-- Day 2 -->
+          <div class="timeline-day-group" data-day-group="d2">
+            <div class="day-separator">
+              <span class="separator-dot"></span>
+              <span class="separator-text">Day 2 · [10.16 经典历史与电车]</span>
+            </div>
+
+            <article class="timeline-card" data-item-id="item-4">
+              <div class="card-check">
+                <input type="checkbox" id="check-4" class="check-box" aria-label="标记完成">
+              </div>
+              <div class="card-main">
+                <div class="card-time-row">
+                  <span class="time-badge">09:00</span>
+                  <span class="category-tag">☕ 晨间咖啡</span>
+                </div>
+                <h3 class="card-heading">[百年烘焙坊与热蛋挞]</h3>
+                <p class="card-desc">[点两只现烤刚出炉撒肉桂粉的蛋挞配香浓浓缩咖啡。]</p>
+              </div>
+            </article>
+
+            <article class="timeline-card" data-item-id="item-5">
+              <div class="card-check">
+                <input type="checkbox" id="check-5" class="check-box" aria-label="标记完成">
+              </div>
+              <div class="card-main">
+                <div class="card-time-row">
+                  <span class="time-badge">10:30</span>
+                  <span class="category-tag">🚋 经典穿梭</span>
+                </div>
+                <h3 class="card-heading">[复古木质黄色电车穿越街巷]</h3>
+                <p class="card-desc">[乘坐经典电车爬上陡峭石板山坡，穿梭在彩色瓷砖老巷中。]</p>
+                <div class="card-tip">
+                  💡 <strong>贴士：</strong>[人多时注意随身包，或者反向从终点站上车人更少]
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <!-- Day 3 -->
+          <div class="timeline-day-group" data-day-group="d3">
+            <div class="day-separator">
+              <span class="separator-dot"></span>
+              <span class="separator-text">Day 3 · [10.17 城堡与世界遗产]</span>
+            </div>
+
+            <article class="timeline-card" data-item-id="item-6">
+              <div class="card-check">
+                <input type="checkbox" id="check-6" class="check-box" aria-label="标记完成">
+              </div>
+              <div class="card-main">
+                <div class="card-time-row">
+                  <span class="time-badge">10:00</span>
+                  <span class="category-tag">🏰 历史古堡</span>
+                </div>
+                <h3 class="card-heading">[古老石砌要塞漫步]</h3>
+                <p class="card-desc">[登上古城墙远眺整片海域与大桥，树荫下午后小憩。]</p>
+              </div>
+            </article>
+          </div>
+
+          <!-- Day 4 -->
+          <div class="timeline-day-group" data-day-group="d4">
+            <div class="day-separator">
+              <span class="separator-dot"></span>
+              <span class="separator-text">Day 4 · [10.18 创意区与文艺漫步]</span>
+            </div>
+
+            <article class="timeline-card" data-item-id="item-7">
+              <div class="card-check">
+                <input type="checkbox" id="check-7" class="check-box" aria-label="标记完成">
+              </div>
+              <div class="card-main">
+                <div class="card-time-row">
+                  <span class="time-badge">14:00</span>
+                  <span class="category-tag">🎨 艺术市集</span>
+                </div>
+                <h3 class="card-heading">[旧厂区改造的设计书店与文创工坊]</h3>
+                <p class="card-desc">[漫逛独立买手店、巨大飞马机械书店与屋顶露天吧。]</p>
+              </div>
+            </article>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- 5. 美食与餐厅灵感备选（想吃随时挑） -->
+      <section id="section-food" class="travel-section">
+        <div class="section-title-row">
+          <h2 class="section-title">🥐 美食与咖啡灵感</h2>
+          <span class="section-sub">不知道吃什么时随时挑选</span>
+        </div>
+
+        <div class="food-grid">
+          <div class="food-card">
+            <div class="food-icon">🥧</div>
+            <div class="food-info">
+              <span class="food-name">[百年名店 · 葡式蛋挞]</span>
+              <span class="food-type">特色甜点 · [人均 3~5 欧]</span>
+              <p class="food-desc">[刚出炉外皮酥脆层次分明，微烫内馅奶香浓郁，撒肉桂粉糖粉最佳。]</p>
+            </div>
+          </div>
+
+          <div class="food-card">
+            <div class="food-icon">🐟</div>
+            <div class="food-info">
+              <span class="food-name">[老饕小馆 · 经典炒银丝鳕鱼]</span>
+              <span class="food-type">正餐推荐 · [人均 15~22 欧]</span>
+              <p class="food-desc">[Bacalhau à Brás，鳕鱼肉碎与细薯丝、鸡蛋黑橄榄快炒，极其鲜香。]</p>
+            </div>
+          </div>
+
+          <div class="food-card">
+            <div class="food-icon">🦐</div>
+            <div class="food-info">
+              <span class="food-name">[海鲜市场 · 蒜蓉橄榄油煎虾]</span>
+              <span class="food-type">海鲜夜宵 · [人均 20~30 欧]</span>
+              <p class="food-desc">[大虾配滚烫蒜油与芫荽，一定要用酥脆法棍面包蘸底汤吃。]</p>
+            </div>
+          </div>
+
+          <div class="food-card">
+            <div class="food-icon">🍷</div>
+            <div class="food-info">
+              <span class="food-name">[露台酒馆 · 绿酒与微醺]</span>
+              <span class="food-type">日落小酌 · [人均 6~12 欧]</span>
+              <p class="food-desc">[Vinho Verde 清爽微起泡白葡萄酒，果香轻盈酸度怡人，伴夕阳极佳。]</p>
+            </div>
           </div>
         </div>
       </section>
 
-      <!-- 3. 重点事项与进度跟踪 -->
-      <section class="section">
-        <div class="section-header">
-          <span class="section-label">02 · 重点事项与推进</span>
-          <span class="section-badge">3 项进行中</span>
+      <!-- 6. 行前行李打包清单（可实时交互打勾） -->
+      <section id="section-packing" class="travel-section">
+        <div class="section-title-row">
+          <h2 class="section-title">🧳 随身行李核对</h2>
+          <span class="section-sub" id="packing-status">0 / 8 已装箱</span>
         </div>
-        <div class="card card-list">
-          <div class="list-row">
-            <div class="row-main">
-              <span class="item-title">[事项一：完成第一阶段基础工作]</span>
-              <span class="item-desc">[负责人、协作备注或细节说明]</span>
-            </div>
-            <span class="tag tag-progress">进行中</span>
+
+        <div class="packing-card">
+          <div class="packing-list" id="packing-list">
+            <label class="packing-item">
+              <input type="checkbox" class="pack-checkbox" data-pack-id="p1">
+              <span class="pack-text">护照正本与有效签证 / 身份证件</span>
+            </label>
+            <label class="packing-item">
+              <input type="checkbox" class="pack-checkbox" data-pack-id="p2">
+              <span class="pack-text">境外支付信用卡 / 少量应急当地现金</span>
+            </label>
+            <label class="packing-item">
+              <input type="checkbox" class="pack-checkbox" data-pack-id="p3">
+              <span class="pack-text">欧洲两脚圆形转换插头 + 便携充电宝</span>
+            </label>
+            <label class="packing-item">
+              <input type="checkbox" class="pack-checkbox" data-pack-id="p4">
+              <span class="pack-text">防滑抓地舒适球鞋（石板坡道极滑，切忌皮鞋高跟）</span>
+            </label>
+            <label class="packing-item">
+              <input type="checkbox" class="pack-checkbox" data-pack-id="p5">
+              <span class="pack-text">太阳镜、防晒霜、轻薄防风防雨外套</span>
+            </label>
+            <label class="packing-item">
+              <input type="checkbox" class="pack-checkbox" data-pack-id="p6">
+              <span class="pack-text">个人常备药品（止痛、肠胃药、创口贴）</span>
+            </label>
+            <label class="packing-item">
+              <input type="checkbox" class="pack-checkbox" data-pack-id="p7">
+              <span class="pack-text">降噪耳机、眼罩与机上舒适U型枕</span>
+            </label>
+            <label class="packing-item">
+              <input type="checkbox" class="pack-checkbox" data-pack-id="p8">
+              <span class="pack-text">境外流量卡 eSIM / 激活漫游网络</span>
+            </label>
           </div>
-
-          <div class="list-row">
-            <div class="row-main">
-              <span class="item-title">[事项二：核心资料核对与确认]</span>
-              <span class="item-desc">[等待反馈或计划在周五前跟进]</span>
-            </div>
-            <span class="tag tag-pending">待处理</span>
-          </div>
-
-          <div class="list-row">
-            <div class="row-main">
-              <span class="item-title">[事项三：初始架构与页面上线]</span>
-              <span class="item-desc">[已完成基础布局与环境调试]</span>
-            </div>
-            <span class="tag tag-done">已完成</span>
-          </div>
-        </div>
-      </section>
-
-      <!-- 4. 常用入口与工具直达 -->
-      <section class="section">
-        <div class="section-header">
-          <span class="section-label">03 · 常用入口直达</span>
-        </div>
-        <div class="grid-links">
-          <a href="#" class="link-card">
-            <div class="link-icon">📁</div>
-            <div class="link-info">
-              <span class="link-title">[共享文档 / 云盘]</span>
-              <span class="link-url">pan.example.com ↗</span>
-            </div>
-          </a>
-
-          <a href="#" class="link-card">
-            <div class="link-icon">📊</div>
-            <div class="link-info">
-              <span class="link-title">[后台管理 / 控制台]</span>
-              <span class="link-url">admin.example.com ↗</span>
-            </div>
-          </a>
-
-          <a href="#" class="link-card">
-            <div class="link-icon">💬</div>
-            <div class="link-info">
-              <span class="link-title">[讨论组 / 会议链接]</span>
-              <span class="link-url">meet.example.com ↗</span>
-            </div>
-          </a>
-
-          <a href="#" class="link-card">
-            <div class="link-icon">🛠️</div>
-            <div class="link-info">
-              <span class="link-title">[常用工具 / 资源库]</span>
-              <span class="link-url">tools.example.com ↗</span>
-            </div>
-          </a>
         </div>
       </section>
 
-      <!-- 5. 核心参数与速查表 -->
-      <section class="section">
-        <div class="section-header">
-          <span class="section-label">04 · 关键信息备忘</span>
+      <!-- 7. 紧急求助与关键速查卡 -->
+      <section id="section-emergency" class="travel-section">
+        <div class="section-title-row">
+          <h2 class="section-title">🆘 紧急备忘与关键速查</h2>
+          <span class="section-sub">出游在外，随时备查</span>
         </div>
-        <div class="card info-table">
-          <div class="table-row">
-            <span class="table-key">[地址 / 归属地]</span>
-            <span class="table-value">[某某城市 / 具体地址 / 节点A]</span>
+
+        <div class="emergency-grid">
+          <div class="em-card">
+            <span class="em-label">当地急救 / 报警</span>
+            <span class="em-val">📞 <code>112</code> (欧洲通用)</span>
           </div>
-          <div class="table-row">
-            <span class="table-key">[联络 / 紧急人]</span>
-            <span class="table-value">[姓名 / 电话 / 微信]</span>
+          <div class="em-card">
+            <span class="em-label">中国领事保护热线</span>
+            <span class="em-val">📞 <code>+86-10-12308</code></span>
           </div>
-          <div class="table-row">
-            <span class="table-key">[IP / 关键凭证]</span>
-            <span class="table-value"><code>[192.168.1.100 / 秘钥备忘]</code></span>
+          <div class="em-card">
+            <span class="em-label">驻当地使馆领保</span>
+            <span class="em-val">[+351 963 355 431]</span>
           </div>
-          <div class="table-row">
-            <span class="table-key">[固定频次 / 例会]</span>
-            <span class="table-value">[每周三下午 14:00]</span>
+          <div class="em-card">
+            <span class="em-label">境外旅行保单号</span>
+            <span class="em-val"><code>[POL-2026-9876543]</code></span>
           </div>
         </div>
       </section>
 
     </main>
 
-    <!-- 底部信息 -->
-    <footer class="hub-footer">
-      <p>[内部自用看板] · 仅供我们自己查看与更新</p>
+    <!-- 底部温情备忘 -->
+    <footer class="travel-footer">
+      <p>祝旅途平安舒心 · 吹最惬意的晚风，看最浪漫的晚霞 🌅</p>
+      <span class="footer-sub">[内部私人旅行手册 · 随时更新]</span>
     </footer>
 
+    <!-- 吐司提示条 -->
+    <div id="toast" class="toast-tip" role="status" aria-live="polite"></div>
+
   </div>
+
+  <script src="app.js"></script>
 </body>
 </html>
