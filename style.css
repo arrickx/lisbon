@@ -192,27 +192,30 @@ body {
 /* 今日智能定位条 */
 .today-status-bar {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   background: #fdfbf7;
   border: 1px dashed var(--border-focus);
   border-radius: var(--radius-md);
-  padding: 8px 12px;
+  padding: 10px 12px;
+  gap: 10px;
 }
 
 .status-indicator {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
 }
 
 .pulse-dot {
-  width: 8px;
-  height: 8px;
+  width: 9px;
+  height: 9px;
   background-color: var(--primary);
   border-radius: 50%;
   box-shadow: 0 0 0 0 rgba(201, 93, 59, 0.4);
   animation: pulse-ring 2s infinite;
+  flex-shrink: 0;
 }
 
 @keyframes pulse-ring {
@@ -221,10 +224,57 @@ body {
   100% { box-shadow: 0 0 0 0 rgba(201, 93, 59, 0); }
 }
 
+.status-texts {
+  display: flex;
+  flex-direction: column;
+}
+
 .status-text {
-  font-size: 0.8rem;
-  font-weight: 600;
+  font-size: 0.82rem;
+  font-weight: 700;
   color: var(--text-main);
+  line-height: 1.35;
+}
+
+.status-sub {
+  font-size: 0.7rem;
+  color: var(--text-light);
+  font-family: var(--font-mono);
+}
+
+.status-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.sim-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: #f3ede4;
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+}
+
+.sim-label {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.sim-select {
+  background: #ffffff;
+  border: 1px solid var(--border);
+  color: var(--text-main);
+  font-size: 0.72rem;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  padding: 2px 4px;
+  outline: none;
+  cursor: pointer;
+  font-family: inherit;
 }
 
 .btn-locate-today {
@@ -238,6 +288,7 @@ body {
   cursor: pointer;
   box-shadow: 0 2px 6px rgba(201, 93, 59, 0.25);
   transition: all 0.2s ease;
+  white-space: nowrap;
 }
 
 .btn-locate-today:hover,
@@ -1009,6 +1060,63 @@ body {
 .toast-tip.show {
   transform: translateX(-50%) translateY(0);
   opacity: 1;
+}
+
+/* 动态“今天进行中”卡片标签 */
+.live-today-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #ffffff;
+  background: linear-gradient(135deg, #c95d3b, #d96f4c);
+  padding: 3px 9px;
+  border-radius: var(--radius-full);
+  box-shadow: 0 2px 6px rgba(201, 93, 59, 0.35);
+  margin-top: 4px;
+  animation: pulse-badge 2s infinite;
+}
+
+@keyframes pulse-badge {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+  100% { transform: scale(1); }
+}
+
+/* 离开今天时浮现的悬浮按钮 */
+.floating-back-today {
+  position: fixed;
+  bottom: 22px;
+  right: 20px;
+  z-index: 98;
+  background: linear-gradient(135deg, #c95d3b 0%, #b84f2f 100%);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  padding: 10px 16px;
+  border-radius: var(--radius-full);
+  font-size: 0.82rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 6px 20px rgba(201, 93, 59, 0.4), 0 2px 6px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(20px) scale(0.95);
+  pointer-events: none;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  font-family: inherit;
+}
+
+.floating-back-today.show {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+.floating-back-today:active {
+  transform: translateY(2px) scale(0.98);
 }
 
 .page-footer {

@@ -45,12 +45,32 @@
       <!-- 智能定位与今日状态提示栏 -->
       <div class="today-status-bar" id="today-status-bar">
         <div class="status-indicator">
-          <span class="pulse-dot"></span>
-          <span class="status-text" id="status-text">智能定位已就绪</span>
+          <span class="pulse-dot" id="status-pulse"></span>
+          <div class="status-texts">
+            <span class="status-text" id="status-text">同步里斯本当地时间中...</span>
+            <span class="status-sub" id="status-sub">时区：葡萄牙里斯本 (WEST/UTC+1)</span>
+          </div>
         </div>
-        <button type="button" class="btn-locate-today" id="btn-locate-today" title="快速定位到当前所选日期">
-          🎯 直达目标天
-        </button>
+        <div class="status-controls">
+          <div class="sim-wrapper" id="sim-wrapper" title="行前演练：模拟旅途中的任意一天">
+            <label for="sim-day-select" class="sim-label">⚡ 模拟演练：</label>
+            <select id="sim-day-select" class="sim-select" aria-label="选择模拟天数">
+              <option value="auto">自动 (按当前真实时间)</option>
+              <option value="1">D1 · 5/4 抵达</option>
+              <option value="2">D2 · 5/5 贝伦蛋挞</option>
+              <option value="3">D3 · 5/6 两栖车</option>
+              <option value="4">D4 · 5/7 观景漫步</option>
+              <option value="5">D5 · 5/8 水族馆</option>
+              <option value="6">D6 · 5/9 自驾南下</option>
+              <option value="7">D7 · 5/10 洞窟游船</option>
+              <option value="8">D8 · 5/11 悬崖木栈</option>
+              <option value="9">D9 · 5/12 返程还车</option>
+            </select>
+          </div>
+          <button type="button" class="btn-locate-today" id="btn-locate-today" title="快速定位到今天的日程卡片">
+            📍 聚焦今天
+          </button>
+        </div>
       </div>
     </header>
 
@@ -984,6 +1004,12 @@
       </button>
     </div>
   </div>
+
+  <!-- 滚动离开“今天”时浮现的快捷归位胶囊 -->
+  <button type="button" class="floating-back-today" id="btn-floating-today" aria-label="快捷返回今天">
+    <span class="float-icon">📍</span>
+    <span class="float-text" id="float-today-text">回到今天 (D01)</span>
+  </button>
 
   <!-- 轻量全局 Toast 提示 -->
   <div class="toast-tip" id="toast-tip" role="status" aria-live="polite"></div>
