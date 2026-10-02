@@ -1,7 +1,7 @@
 /**
- * 葡萄牙慢调之旅 · 核心交互与高精度定位引擎
+ * 葡萄牙慢调之旅 · 核心交互与高精度定位引擎 (DRY 重构版)
  * 
- * 核心设计原则（拒绝盲目记忆，精准时间同步）：
+ * 设计原则：
  * 1. 【高精度葡萄牙时间 (Europe/Lisbon)】：利用原生 Intl.DateTimeFormat，无论用户手机处于何种时区/漫游，
  *    100% 按照葡萄牙里斯本当地自然日历（WEST/UTC+1）判定当前是行程的哪一天。
  * 2. 【一天打开多次，永远直达“今天”】：在旅途期间，每次打开或从后台唤醒解锁，一律坚决自动聚焦到当天的卡片。
@@ -24,11 +24,34 @@ document.addEventListener("DOMContentLoaded", () => {
     "2027-05-12": 9,
   };
   const TRIP_TOTAL_DAYS = 9;
+  const TRIP_START_UTC = new Date("2027-05-04T00:00:00+01:00");
+  const TASK_STORAGE_KEY = "lisbon_trip_tasks_completed";
+
+  // --- DRY 统一本地存储辅助工具 ---
+  const storage = {
+    get(key, fallback = null, isSession = false) {
+      try {
+        const raw = (isSession ? sessionStorage : localStorage).getItem(key);
+        return raw ? JSON.parse(raw) : fallback;
+      } catch {
+        return fallback;
+      }
+    },
+    set(key, val, isSession = false) {
+      try {
+        (isSession ? sessionStorage : localStorage).setItem(key, JSON.stringify(val));
+      } catch {}
+    },
+    remove(key, isSession = false) {
+      try {
+        (isSession ? sessionStorage : localStorage).removeItem(key);
+      } catch {}
+    }
+  };
 
   // DOM 元素引用
   const dayPills = document.querySelectorAll(".day-pill");
   const dayCards = document.querySelectorAll(".day-card");
-  const dayNavScroll = document.getElementById("day-nav-scroll");
   const statusText = document.getElementById("status-text");
   const statusSub = document.getElementById("status-sub");
   const btnLocateToday = document.getElementById("btn-locate-today");
@@ -38,51 +61,40 @@ document.addEventListener("DOMContentLoaded", () => {
   const floatTodayText = document.getElementById("float-today-text");
   const toastEl = document.getElementById("toast-tip");
 
-  // 板块切换 DOM
   const viewTabs = document.querySelectorAll(".view-tab");
   const viewSections = document.querySelectorAll(".view-section");
-
-  // 点餐大字卡 Modal DOM
   const flashcardOverlay = document.getElementById("flashcard-overlay");
-  const btnShowFlashcard = document.getElementById("btn-show-flashcard");
-  const btnCloseFlashcard = document.getElementById("btn-close-flashcard");
-  const btnDoneFlashcard = document.getElementById("btn-done-flashcard");
 
   // 状态变量
-  let activeTodayDay = 1;      // 判定的“今天”（真实里斯本时间或模拟演练天数）
-  let currentViewingDay = 1;   // 用户当前视口正在查看的天数
+  let activeTodayDay = 1;      // 当前生效的“今天”（真实里斯本时间或模拟演练天数）
+  let currentViewingDay = 1;   // 用户视口当前所在天数
   let isManualScrolling = false;
   let scrollTimer = null;
-  let simulatedDaySetting = null; // null 为自动真实，数字 1-9 为模拟
+  let toastTimer = null;
 
-  // 从 sessionStorage 恢复之前的演练模式（仅用于行前测试）
-  try {
-    const savedSim = sessionStorage.getItem("lisbon_sim_day");
-    if (savedSim && savedSim !== "auto") {
-      simulatedDaySetting = parseInt(savedSim, 10);
-      if (simDaySelect) simDaySelect.value = String(simulatedDaySetting);
-    }
-  } catch (e) {}
+  // 恢复之前选择的模拟演练（仅在行前生效）
+  let simulatedDaySetting = storage.get("lisbon_sim_day", null, true);
+  if (simulatedDaySetting && simDaySelect) {
+    simDaySelect.value = String(simulatedDaySetting);
+  }
 
   // -------------------------------------------------------------
-  // 1. Toast 提示工具
+  // 1. Toast 提示
   // -------------------------------------------------------------
   function showToast(msg) {
     if (!toastEl) return;
     toastEl.textContent = msg;
     toastEl.classList.add("show");
-    setTimeout(() => {
-      toastEl.classList.remove("show");
-    }, 2200);
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toastEl.classList.remove("show"), 2200);
   }
 
   // -------------------------------------------------------------
-  // 2. 葡萄牙里斯本官方时间 (Europe/Lisbon) 精准计算引擎
+  // 2. 葡萄牙官方时间 (Europe/Lisbon) 判定
   // -------------------------------------------------------------
   function getLisbonState() {
     const now = new Date();
 
-    // 格式化葡萄牙当地 YYYY-MM-DD
     const lisbonDateStr = new Intl.DateTimeFormat("en-CA", {
       timeZone: "Europe/Lisbon",
       year: "numeric",
@@ -90,7 +102,6 @@ document.addEventListener("DOMContentLoaded", () => {
       day: "2-digit"
     }).format(now);
 
-    // 格式化葡萄牙当地时间 HH:mm
     const lisbonTimeStr = new Intl.DateTimeFormat("zh-CN", {
       timeZone: "Europe/Lisbon",
       hour: "2-digit",
@@ -99,90 +110,70 @@ document.addEventListener("DOMContentLoaded", () => {
     }).format(now);
 
     const realTripDay = TRIP_DATES[lisbonDateStr] || null;
+    const isBeforeTrip = now < TRIP_START_UTC;
+    const daysUntil = isBeforeTrip
+      ? Math.ceil((TRIP_START_UTC.getTime() - now.getTime()) / (1000 * 60 * 60 * 24))
+      : 0;
 
-    // 出发日时间戳对比
-    const tripStartUtc = new Date("2027-05-04T00:00:00+01:00");
-    const isBeforeTrip = now < tripStartUtc;
-    let daysUntil = 0;
-    if (isBeforeTrip) {
-      daysUntil = Math.ceil((tripStartUtc.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
-    }
-
-    return {
-      dateStr: lisbonDateStr,
-      timeStr: lisbonTimeStr,
-      realTripDay: realTripDay,
-      isBeforeTrip: isBeforeTrip,
-      daysUntil: daysUntil
-    };
+    return { dateStr: lisbonDateStr, timeStr: lisbonTimeStr, realTripDay, isBeforeTrip, daysUntil };
   }
 
   // -------------------------------------------------------------
-  // 3. 计算生效的“今日” (Today Resolver)
+  // 3. 计算生效的“今日”并刷新状态栏
   // -------------------------------------------------------------
   function resolveEffectiveToday() {
     const lisbon = getLisbonState();
 
-    // 真实旅行进行中 (2027-05-04 ~ 2027-05-12)
+    // A. 真实旅行期 (5/4 - 5/12)
     if (lisbon.realTripDay) {
-      // 旅途中完全隐藏模拟器，强制锁定真实葡萄牙日期
       if (simWrapper) simWrapper.style.display = "none";
-      if (statusText) {
-        statusText.textContent = `📍 葡萄牙今天：Day 0${lisbon.realTripDay} · 里斯本时间 ${lisbon.timeStr}`;
-      }
-      if (statusSub) {
-        statusSub.textContent = `当前为旅途中 · 打开页面永远自动聚焦今天`;
-      }
-      return {
-        effectiveToday: lisbon.realTripDay,
-        isRealTrip: true,
-        timeStr: lisbon.timeStr
-      };
+      if (statusText) statusText.textContent = `📍 葡萄牙今天：Day 0${lisbon.realTripDay} · 里斯本时间 ${lisbon.timeStr}`;
+      if (statusSub) statusSub.textContent = `当前为旅途中 · 打开页面永远自动聚焦今天`;
+      return { effectiveToday: lisbon.realTripDay, timeStr: lisbon.timeStr };
     }
 
-    // 行前准备中 (当前处于 2026/2027 出发前)
+    // B. 行前模拟演练期
     if (simWrapper) simWrapper.style.display = "flex";
 
     if (simulatedDaySetting && simulatedDaySetting >= 1 && simulatedDaySetting <= TRIP_TOTAL_DAYS) {
-      // 处于行前演练模式
-      if (statusText) {
-        statusText.textContent = `⚡ 模拟演练中：Day 0${simulatedDaySetting} · 里斯本 ${lisbon.timeStr}`;
-      }
-      if (statusSub) {
-        statusSub.textContent = `正在体验旅途中“一天多次打开自动聚焦该天”的效果`;
-      }
-      return {
-        effectiveToday: simulatedDaySetting,
-        isRealTrip: false,
-        timeStr: lisbon.timeStr
-      };
+      if (statusText) statusText.textContent = `⚡ 模拟演练中：Day 0${simulatedDaySetting} · 里斯本 ${lisbon.timeStr}`;
+      if (statusSub) statusSub.textContent = `正在体验旅途中“一天多次打开自动聚焦该天”的效果`;
+      return { effectiveToday: simulatedDaySetting, timeStr: lisbon.timeStr };
     }
 
-    // 默认真实日历模式（展示倒计时）
-    if (statusText) {
-      statusText.textContent = `✈️ 距 5/4 出发还有 ${lisbon.daysUntil} 天 · 里斯本 ${lisbon.timeStr}`;
-    }
-    if (statusSub) {
-      statusSub.textContent = `时区：Europe/Lisbon · 可在右侧选择天数模拟演练`;
-    }
-    return {
-      effectiveToday: 1, // 默认聚焦 Day 1 作为起点
-      isRealTrip: false,
-      timeStr: lisbon.timeStr
-    };
+    // C. 行前常规倒计时展示
+    if (statusText) statusText.textContent = `✈️ 距 5/4 出发还有 ${lisbon.daysUntil} 天 · 里斯本 ${lisbon.timeStr}`;
+    if (statusSub) statusSub.textContent = `时区：Europe/Lisbon · 可在右侧选择天数模拟演练`;
+    return { effectiveToday: 1, timeStr: lisbon.timeStr };
   }
 
   // -------------------------------------------------------------
-  // 4. 更新卡片上的“今天进行中”动态标识
+  // 4. DRY 胶囊高亮与横向居中定位
+  // -------------------------------------------------------------
+  function setActivePill(dayNum) {
+    dayPills.forEach((pill) => {
+      const pDay = parseInt(pill.getAttribute("data-day"), 10);
+      const isTarget = pDay === dayNum;
+      pill.classList.toggle("active", isTarget);
+      if (isTarget) {
+        pill.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+      }
+    });
+  }
+
+  // -------------------------------------------------------------
+  // 5. 更新卡片今日动态徽章与浮动按钮文案
   // -------------------------------------------------------------
   function updateTodayBadges(todayDay, timeStr) {
     dayCards.forEach((card) => {
       const dayNum = parseInt(card.getAttribute("data-day"), 10);
       const headerTitleCol = card.querySelector(".day-title-col");
       const existingBadge = card.querySelector(".live-today-tag");
+      const isToday = dayNum === todayDay;
 
-      if (dayNum === todayDay) {
-        card.classList.add("is-active-day");
+      card.classList.toggle("is-active-day", isToday);
+
+      if (isToday) {
         if (!existingBadge && headerTitleCol) {
           const badge = document.createElement("span");
           badge.className = "live-today-tag";
@@ -191,20 +182,18 @@ document.addEventListener("DOMContentLoaded", () => {
         } else if (existingBadge) {
           existingBadge.innerHTML = `📍 今天进行中 · 里斯本 ${timeStr}`;
         }
-      } else {
-        card.classList.remove("is-active-day");
-        if (existingBadge) existingBadge.remove();
+      } else if (existingBadge) {
+        existingBadge.remove();
       }
     });
 
-    // 更新浮动回到今天按钮文案
     if (floatTodayText) {
       floatTodayText.textContent = `回到今天 (D0${todayDay})`;
     }
   }
 
   // -------------------------------------------------------------
-  // 5. 滚动聚焦指定天数卡片
+  // 6. 滚动聚焦指定天数卡片
   // -------------------------------------------------------------
   function scrollToDay(dayNumber, smooth = true) {
     const targetCard = document.getElementById(`day-${dayNumber}`);
@@ -213,24 +202,13 @@ document.addEventListener("DOMContentLoaded", () => {
     isManualScrolling = true;
     currentViewingDay = dayNumber;
 
-    // 1. 同步顶部胶囊高亮与横向居中滚动
-    dayPills.forEach((pill) => {
-      const pDay = parseInt(pill.getAttribute("data-day"), 10);
-      if (pDay === dayNumber) {
-        pill.classList.add("active");
-        pill.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
-      } else {
-        pill.classList.remove("active");
-      }
-    });
+    setActivePill(dayNumber);
 
-    // 2. 纵向滚动到卡片位置（配合 scroll-padding-top 不会被导航遮挡）
     targetCard.scrollIntoView({
       behavior: smooth ? "smooth" : "auto",
       block: "start"
     });
 
-    // 3. 判断是否需要显示“回到今天”浮动按钮
     updateFloatingTodayButton();
 
     clearTimeout(scrollTimer);
@@ -240,38 +218,30 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // -------------------------------------------------------------
-  // 6. 浮动“回到今天”胶囊显隐逻辑
+  // 7. 浮动“回到今天”胶囊显隐控制
   // -------------------------------------------------------------
   function updateFloatingTodayButton() {
     if (!btnFloatingToday) return;
-
-    // 只有在当前不在查看“今天”卡片时，才浮现快捷归位按钮
-    if (currentViewingDay !== activeTodayDay) {
-      btnFloatingToday.classList.add("show");
-    } else {
-      btnFloatingToday.classList.remove("show");
-    }
+    const isAwayFromToday = currentViewingDay !== activeTodayDay;
+    btnFloatingToday.classList.toggle("show", isAwayFromToday);
   }
 
   // -------------------------------------------------------------
-  // 7. 页面启动与重新唤醒自适应 (Sync & Auto-Locate)
+  // 8. 页面启动与重新唤醒自适应
   // -------------------------------------------------------------
   function syncAndLocateToday(smooth = false, showNotification = false) {
-    const { effectiveToday, isRealTrip, timeStr } = resolveEffectiveToday();
+    const { effectiveToday, timeStr } = resolveEffectiveToday();
     activeTodayDay = effectiveToday;
     currentViewingDay = effectiveToday;
 
-    // 更新各卡片今日标识
     updateTodayBadges(activeTodayDay, timeStr);
 
-    // 检查 URL 是否有强制指定
     const urlParams = new URLSearchParams(window.location.search);
     const dayFromQuery = parseInt(urlParams.get("day"), 10);
     const targetDay = (dayFromQuery >= 1 && dayFromQuery <= TRIP_TOTAL_DAYS)
       ? dayFromQuery
       : activeTodayDay;
 
-    // 执行定位
     scrollToDay(targetDay, smooth);
 
     if (showNotification) {
@@ -279,13 +249,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // -------------------------------------------------------------
-  // 8. 应对“一天打开多次”与手机锁屏解锁唤醒监听
-  // -------------------------------------------------------------
-  // 当用户在手机上重新切回浏览器、或锁屏数小时后再次亮屏时触发
+  // 手机锁屏唤醒 & 后台切回监听
   document.addEventListener("visibilitychange", () => {
     if (document.visibilityState === "visible") {
-      // 重新检查葡萄牙时间，若已跨过午夜零点，无缝平滑切至新的一天
       const { effectiveToday } = resolveEffectiveToday();
       if (effectiveToday !== activeTodayDay) {
         syncAndLocateToday(true, true);
@@ -293,14 +259,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  window.addEventListener("pageshow", () => {
-    syncAndLocateToday(false, false);
-  });
+  window.addEventListener("pageshow", () => syncAndLocateToday(false, false));
 
   // -------------------------------------------------------------
   // 9. 交互事件绑定
   // -------------------------------------------------------------
-  // 点击“聚焦今天”按钮
   if (btnLocateToday) {
     btnLocateToday.addEventListener("click", () => {
       switchView("itinerary");
@@ -309,7 +272,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // 点击悬浮“回到今天”胶囊
   if (btnFloatingToday) {
     btnFloatingToday.addEventListener("click", () => {
       scrollToDay(activeTodayDay, true);
@@ -317,24 +279,22 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // 行前演练切换下拉框
   if (simDaySelect) {
     simDaySelect.addEventListener("change", (e) => {
       const val = e.target.value;
       if (val === "auto") {
         simulatedDaySetting = null;
-        try { sessionStorage.removeItem("lisbon_sim_day"); } catch (err) {}
+        storage.remove("lisbon_sim_day", true);
         showToast("已恢复自动日历模式");
       } else {
         simulatedDaySetting = parseInt(val, 10);
-        try { sessionStorage.setItem("lisbon_sim_day", String(simulatedDaySetting)); } catch (err) {}
+        storage.set("lisbon_sim_day", simulatedDaySetting, true);
         showToast(`已切换演练模式：模拟今天为 Day 0${simulatedDaySetting}`);
       }
       syncAndLocateToday(true, false);
     });
   }
 
-  // 点击顶部天数胶囊
   dayPills.forEach((pill) => {
     pill.addEventListener("click", () => {
       const dayNum = parseInt(pill.getAttribute("data-day"), 10);
@@ -344,7 +304,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // -------------------------------------------------------------
-  // 10. Scrollspy: 上下滑动时感知当前可视天数卡片
+  // 10. Scrollspy 视口感知
   // -------------------------------------------------------------
   if ("IntersectionObserver" in window) {
     const observer = new IntersectionObserver(
@@ -356,26 +316,14 @@ document.addEventListener("DOMContentLoaded", () => {
             const dayNum = parseInt(entry.target.getAttribute("data-day"), 10);
             if (dayNum) {
               currentViewingDay = dayNum;
-
-              // 联动顶部胶囊高亮并横向滑动居中
-              dayPills.forEach((pill) => {
-                const pDay = parseInt(pill.getAttribute("data-day"), 10);
-                if (pDay === dayNum) {
-                  pill.classList.add("active");
-                  pill.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
-                } else {
-                  pill.classList.remove("active");
-                }
-              });
-
-              // 联动更新悬浮“回到今天”按钮状态
+              setActivePill(dayNum);
               updateFloatingTodayButton();
             }
           }
         });
       },
       {
-        rootMargin: "-25% 0px -55% 0px", // 视口中上部判断带
+        rootMargin: "-25% 0px -55% 0px",
         threshold: 0
       }
     );
@@ -388,22 +336,13 @@ document.addEventListener("DOMContentLoaded", () => {
   // -------------------------------------------------------------
   function switchView(targetView) {
     viewTabs.forEach((tab) => {
-      if (tab.getAttribute("data-view") === targetView) {
-        tab.classList.add("active");
-      } else {
-        tab.classList.remove("active");
-      }
+      tab.classList.toggle("active", tab.getAttribute("data-view") === targetView);
     });
 
     viewSections.forEach((sec) => {
-      if (sec.id === `view-${targetView}`) {
-        sec.classList.add("active");
-      } else {
-        sec.classList.remove("active");
-      }
+      sec.classList.toggle("active", sec.id === `view-${targetView}`);
     });
 
-    // 切换离开日程页时隐藏回到今天按钮
     if (targetView !== "itinerary" && btnFloatingToday) {
       btnFloatingToday.classList.remove("show");
     } else if (targetView === "itinerary") {
@@ -414,86 +353,53 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   viewTabs.forEach((tab) => {
-    tab.addEventListener("click", () => {
-      const view = tab.getAttribute("data-view");
-      switchView(view);
-    });
+    tab.addEventListener("click", () => switchView(tab.getAttribute("data-view")));
   });
 
   // -------------------------------------------------------------
-  // 12. 带娃点餐大字卡 (Fullscreen Flashcard)
+  // 12. 带娃点餐大字卡 Modal 控制
   // -------------------------------------------------------------
-  function openFlashcard() {
-    if (flashcardOverlay) {
-      flashcardOverlay.classList.add("active");
-      flashcardOverlay.setAttribute("aria-hidden", "false");
-    }
+  function toggleFlashcard(isOpen) {
+    if (!flashcardOverlay) return;
+    flashcardOverlay.classList.toggle("active", isOpen);
+    flashcardOverlay.setAttribute("aria-hidden", isOpen ? "false" : "true");
   }
 
-  function closeFlashcard() {
-    if (flashcardOverlay) {
-      flashcardOverlay.classList.remove("active");
-      flashcardOverlay.setAttribute("aria-hidden", "true");
-    }
-  }
-
-  if (btnShowFlashcard) btnShowFlashcard.addEventListener("click", openFlashcard);
-  if (btnCloseFlashcard) btnCloseFlashcard.addEventListener("click", closeFlashcard);
-  if (btnDoneFlashcard) btnDoneFlashcard.addEventListener("click", closeFlashcard);
-  if (flashcardOverlay) {
-    flashcardOverlay.addEventListener("click", (e) => {
-      if (e.target === flashcardOverlay) closeFlashcard();
-    });
-  }
+  document.getElementById("btn-show-flashcard")?.addEventListener("click", () => toggleFlashcard(true));
+  document.getElementById("btn-close-flashcard")?.addEventListener("click", () => toggleFlashcard(false));
+  document.getElementById("btn-done-flashcard")?.addEventListener("click", () => toggleFlashcard(false));
+  flashcardOverlay?.addEventListener("click", (e) => {
+    if (e.target === flashcardOverlay) toggleFlashcard(false);
+  });
 
   // -------------------------------------------------------------
-  // 13. 一键复制文本
+  // 13. DRY 统一复制文本处理 (属性委托机制)
   // -------------------------------------------------------------
-  function copyText(text, successMsg) {
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(text).then(() => {
-        showToast(successMsg || "📋 已复制到剪贴板！");
-      }).catch(() => {
-        showToast("复制失败，请长按手动复制");
-      });
-    } else {
-      showToast("已选择文本，请长按复制");
-    }
-  }
-
-  const btnCopyQuote = document.getElementById("btn-copy-quote");
-  if (btnCopyQuote) {
-    btnCopyQuote.addEventListener("click", () => {
-      const quote = btnCopyQuote.getAttribute("data-copy");
-      copyText(quote, "📋 已复制葡语点餐句，可直接出示或发送！");
-    });
-  }
-
-  const copyAddrButtons = document.querySelectorAll(".btn-copy-addr");
-  copyAddrButtons.forEach((btn) => {
+  document.querySelectorAll("[data-copy], [data-copy-target]").forEach((btn) => {
     btn.addEventListener("click", () => {
+      const directText = btn.getAttribute("data-copy");
       const targetId = btn.getAttribute("data-copy-target");
-      const textEl = document.getElementById(targetId);
-      if (textEl) {
-        copyText(textEl.textContent.trim(), "📋 已复制当地地址，可直接出示给司机！");
+      const text = directText || (targetId && document.getElementById(targetId)?.textContent.trim());
+      const msg = btn.getAttribute("data-copy-msg") || "📋 已复制到剪贴板！";
+
+      if (!text) return;
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(() => showToast(msg)).catch(() => {
+          showToast("复制失败，请长按手动复制");
+        });
+      } else {
+        showToast("请长按文本复制");
       }
     });
   });
 
   // -------------------------------------------------------------
-  // 14. 每日打卡进度记忆 (localStorage)
+  // 14. 行程打卡勾选记忆
   // -------------------------------------------------------------
-  const TASK_STORAGE_KEY = "lisbon_trip_tasks_completed";
-  let completedTasks = [];
-  try {
-    const saved = localStorage.getItem(TASK_STORAGE_KEY);
-    if (saved) completedTasks = JSON.parse(saved);
-  } catch (e) {
-    completedTasks = [];
-  }
+  let completedTasks = storage.get(TASK_STORAGE_KEY, []);
 
-  const taskCheckboxes = document.querySelectorAll(".task-check");
-  taskCheckboxes.forEach((checkbox) => {
+  document.querySelectorAll(".task-check").forEach((checkbox) => {
     const taskId = checkbox.getAttribute("data-task");
     if (taskId && completedTasks.includes(taskId)) {
       checkbox.checked = true;
@@ -506,12 +412,10 @@ document.addEventListener("DOMContentLoaded", () => {
       } else {
         completedTasks = completedTasks.filter((id) => id !== taskId);
       }
-      try {
-        localStorage.setItem(TASK_STORAGE_KEY, JSON.stringify(completedTasks));
-      } catch (e) {}
+      storage.set(TASK_STORAGE_KEY, completedTasks);
     });
   });
 
-  // 执行启动定位
+  // 启动定位
   syncAndLocateToday(false, false);
 });
