@@ -1,421 +1,348 @@
 /**
- * 葡萄牙慢调之旅 · 核心交互与高精度定位引擎 (DRY 重构版)
- * 
- * 设计原则：
- * 1. 【高精度葡萄牙时间 (Europe/Lisbon)】：利用原生 Intl.DateTimeFormat，无论用户手机处于何种时区/漫游，
- *    100% 按照葡萄牙里斯本当地自然日历（WEST/UTC+1）判定当前是行程的哪一天。
- * 2. 【一天打开多次，永远直达“今天”】：在旅途期间，每次打开或从后台唤醒解锁，一律坚决自动聚焦到当天的卡片。
- * 3. 【无感浮动归位 (Back to Today)】：若用户临时翻看其他日期，右下角优雅浮现「回到今天」胶囊，一键瞬滑归位。
- * 4. 【行前模拟演练】：在 2027年5月 出发前，提供行前倒计时与“模拟演练选择器”，随时测试在旅途中任何一天的定位体验。
- * 5. 【视口联动 (Scrollspy)】：上下滑动时，吸顶胶囊导航实时横向平滑居中联动。
+ * 葡萄牙家庭行 · v2
+ * 所有行程内容来自 data.js (window.TRIP)；这里只做：时间判定 + 渲染 + 事件。
+ *
+ * 测试入口（不出现在 UI 上）：
+ *   ?now=2027-05-06T15:00   伪造“里斯本当前时间”
+ *   ?day=3                  直接打开某一天
+ *   ?tab=trip|pocket        直接打开某个 Tab
  */
+(() => {
+  'use strict';
 
-document.addEventListener("DOMContentLoaded", () => {
-  // 葡萄牙行程真实日历映射 (2027年5月4日 - 2027年5月12日)
-  const TRIP_DATES = {
-    "2027-05-04": 1,
-    "2027-05-05": 2,
-    "2027-05-06": 3,
-    "2027-05-07": 4,
-    "2027-05-08": 5,
-    "2027-05-09": 6,
-    "2027-05-10": 7,
-    "2027-05-11": 8,
-    "2027-05-12": 9,
+  const T = window.TRIP;
+  const DAYS = T.days;
+  const $ = (s) => document.querySelector(s);
+  const pad = (n) => String(n).padStart(2, '0');
+  const WEEK = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
+  const GRACE_MIN = 5 * 60 * 1000;   // 手动导航后 5 分钟内，切回来不打断
+  const DONE_AFTER = 90;             // 最后一站之后 90 分钟视为当天结束
+
+  /* ------------------------------------------------------------------ *
+   * 1. 时间：永远用里斯本时间（手机可能开着美国时区）
+   * ------------------------------------------------------------------ */
+  const FMT = new Intl.DateTimeFormat('en-CA', {
+    timeZone: T.tz, year: 'numeric', month: '2-digit', day: '2-digit',
+    hour: '2-digit', minute: '2-digit', hourCycle: 'h23'
+  });
+  const params = new URLSearchParams(location.search);
+
+  function lisbonNow() {
+    const q = params.get('now');
+    const m = q && q.match(/^(\d{4})-(\d{2})-(\d{2})(?:T(\d{2}):(\d{2}))?/);
+    if (m) return { date: `${m[1]}-${m[2]}-${m[3]}`, min: (+m[4] || 0) * 60 + (+m[5] || 0) };
+    const p = Object.fromEntries(FMT.formatToParts(new Date()).map((x) => [x.type, x.value]));
+    return { date: `${p.year}-${p.month}-${p.day}`, min: (+p.hour % 24) * 60 + +p.minute };
+  }
+
+  const utc = (d) => { const [y, m, dd] = d.split('-').map(Number); return Date.UTC(y, m - 1, dd); };
+  const dayDiff = (a, b) => Math.round((utc(b) - utc(a)) / 864e5);
+  const toMin = (t) => { const [h, m] = t.split(':').map(Number); return h * 60 + m; };
+  const weekday = (d) => WEEK[new Date(utc(d)).getUTCDay()];
+
+  /** 当前处于哪种模式，以及“今天”是第几天 */
+  function getClock() {
+    const now = lisbonNow();
+    const diff = dayDiff(T.start, now.date);
+    if (diff < 0) return { ...now, mode: 'before', todayN: 1, until: -diff };
+    if (diff < DAYS.length) return { ...now, mode: 'live', todayN: diff + 1 };
+    return { ...now, mode: 'after', todayN: DAYS.length };
+  }
+
+  /** 当日停靠点状态：cur = 现在，next = 下一站，done = 当天已结束 */
+  function stopState(day, clk) {
+    const ts = day.stops.map((s) => toMin(s.t));
+    let cur = -1;
+    ts.forEach((t, i) => { if (t <= clk.min) cur = i; });
+    const done = clk.min >= ts[ts.length - 1] + DONE_AFTER;
+    const next = done ? -1 : cur + 1 < ts.length ? cur + 1 : -1;
+    return { cur, next, done };
+  }
+
+  /* ------------------------------------------------------------------ *
+   * 2. 小工具
+   * ------------------------------------------------------------------ */
+  const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const enc = encodeURIComponent;
+
+  const fmtMin = (m) => (m >= 60 ? `${Math.floor(m / 60)} 小时${m % 60 ? ` ${m % 60} 分` : ''}` : `${m} 分钟`);
+  const slotOf = (t) => { const h = toMin(t) / 60; return h < 12 ? '上午' : h < 17 ? '下午' : h < 20 ? '傍晚' : '晚上'; };
+  const dateLabel = (d) => `${+d.slice(5, 7)}月${+d.slice(8, 10)}日 ${weekday(d)}`;
+
+  const dayDrive = (day) => day.stops.reduce((a, s) => (s.leg && s.leg.mode !== 'walk' ? { min: a.min + s.leg.min, n: a.n + 1 } : a), { min: 0, n: 0 });
+
+  /** stop / stay → 可导航的目的地（没有信息则返回 null） */
+  const place = (o) => (o.at ? T.stays[o.at] : o);
+  const dest = (o) => (o.lat != null ? `${o.lat},${o.lng}` : o.query || null);
+
+  const navUrl = (o, mode) => `https://www.google.com/maps/dir/?api=1&destination=${enc(dest(o))}${mode === 'walk' ? '&travelmode=walking' : ''}`;
+  const uberUrl = (o) => {
+    const target = o.lat != null
+      ? `dropoff[latitude]=${o.lat}&dropoff[longitude]=${o.lng}`
+      : `dropoff[formatted_address]=${enc(o.query)}`;
+    return `https://m.uber.com/ul/?action=setPickup&pickup=my_location&${target}&dropoff[nickname]=${enc(o.name)}`;
   };
-  const TRIP_TOTAL_DAYS = 9;
-  const TRIP_START_UTC = new Date("2027-05-04T00:00:00+01:00");
-  const TASK_STORAGE_KEY = "lisbon_trip_tasks_completed";
 
-  // --- DRY 统一本地存储辅助工具 ---
-  const storage = {
-    get(key, fallback = null, isSession = false) {
-      try {
-        const raw = (isSession ? sessionStorage : localStorage).getItem(key);
-        return raw ? JSON.parse(raw) : fallback;
-      } catch {
-        return fallback;
-      }
-    },
-    set(key, val, isSession = false) {
-      try {
-        (isSession ? sessionStorage : localStorage).setItem(key, JSON.stringify(val));
-      } catch {}
-    },
-    remove(key, isSession = false) {
-      try {
-        (isSession ? sessionStorage : localStorage).removeItem(key);
-      } catch {}
-    }
+  const legText = (leg, first) => {
+    if (!leg) return '';
+    const from = first ? '从住处出发 · ' : '';
+    if (leg.mode === 'walk') return `🚶 ${from}步行约 ${fmtMin(leg.min)}`;
+    if (leg.mode === 'drive') return `🚗 ${from}自驾约 ${fmtMin(leg.min)}${leg.km ? ` · ${leg.km} km` : ''}`;
+    return `🚕 ${from}约 ${fmtMin(leg.min)}${leg.eur ? ` · ~€${leg.eur}` : ''}`;
   };
 
-  // DOM 元素引用
-  const dayPills = document.querySelectorAll(".day-pill");
-  const dayCards = document.querySelectorAll(".day-card");
-  const statusText = document.getElementById("status-text");
-  const statusSub = document.getElementById("status-sub");
-  const btnLocateToday = document.getElementById("btn-locate-today");
-  const simWrapper = document.getElementById("sim-wrapper");
-  const simDaySelect = document.getElementById("sim-day-select");
-  const btnFloatingToday = document.getElementById("btn-floating-today");
-  const floatTodayText = document.getElementById("float-today-text");
-  const toastEl = document.getElementById("toast-tip");
+  const btn = (label, href, primary) => `<a class="btn${primary ? ' primary' : ''}" href="${href}" target="_blank" rel="noopener">${label}</a>`;
+  const copyBtn = (label, text) => `<button type="button" class="btn" data-copy="${esc(text)}">${label}</button>`;
 
-  const viewTabs = document.querySelectorAll(".view-tab, .tab-item");
-  const viewSections = document.querySelectorAll(".view-section");
-  const flashcardOverlay = document.getElementById("flashcard-overlay");
-
-  // 状态变量
-  let activeTodayDay = 1;      // 当前生效的“今天”（真实里斯本时间或模拟演练天数）
-  let currentViewingDay = 1;   // 用户视口当前所在天数
-  let isManualScrolling = false;
-  let scrollTimer = null;
-  let toastTimer = null;
-
-  // 恢复之前选择的模拟演练（仅在行前生效）
-  let simulatedDaySetting = storage.get("lisbon_sim_day", null, true);
-  if (simulatedDaySetting && simDaySelect) {
-    simDaySelect.value = String(simulatedDaySetting);
+  /** 给一个停靠点生成【叫车 / 导航】按钮 */
+  function stopActions(stop) {
+    const p = place(stop);
+    if (!dest(p)) return '';
+    const mode = stop.leg && stop.leg.mode;
+    const nav = (primary) => btn('🧭 导航', navUrl(p, mode), primary);
+    if (mode === 'uber') return `<div class="actions">${btn('🚕 叫 Uber', uberUrl(p), true)}${nav(false)}</div>`;
+    return `<div class="actions">${nav(true)}</div>`;
   }
 
-  // -------------------------------------------------------------
-  // 1. Toast 提示
-  // -------------------------------------------------------------
-  function showToast(msg) {
-    if (!toastEl) return;
-    toastEl.textContent = msg;
-    toastEl.classList.add("show");
-    clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => toastEl.classList.remove("show"), 2200);
+  /* ------------------------------------------------------------------ *
+   * 3. 渲染：「今天」/ 某一天详情（同一个组件）
+   * ------------------------------------------------------------------ */
+  function renderStopRow(s, i, st) {
+    const past = st && (st.done || i < st.cur);
+    const cur = st && !st.done && i === st.cur;
+    const p = place(s);
+    const go = dest(p) ? `<a class="go" href="${navUrl(p, s.leg && s.leg.mode)}" target="_blank" rel="noopener" aria-label="导航到${esc(s.name)}">🧭</a>` : '<span></span>';
+    const leg = s.leg ? `<li class="leg">${legText(s.leg, i === 0)}</li>` : '';
+    return `${leg}<li class="stop${s.hl ? ' hl' : ''}${past ? ' past' : ''}${cur ? ' cur' : ''}">
+      <div class="t">${s.t}<small>${slotOf(s.t)}</small></div>
+      <span class="dot"></span>
+      <div class="b"><div class="name">${esc(s.name)}</div>${s.note ? `<div class="note">${esc(s.note)}</div>` : ''}</div>
+      ${go}
+    </li>`;
   }
 
-  // -------------------------------------------------------------
-  // 2. 葡萄牙官方时间 (Europe/Lisbon) 判定
-  // -------------------------------------------------------------
-  function getLisbonState() {
-    const now = new Date();
-
-    const lisbonDateStr = new Intl.DateTimeFormat("en-CA", {
-      timeZone: "Europe/Lisbon",
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit"
-    }).format(now);
-
-    const lisbonTimeStr = new Intl.DateTimeFormat("zh-CN", {
-      timeZone: "Europe/Lisbon",
-      hour: "2-digit",
-      minute: "2-digit",
-      hour12: false
-    }).format(now);
-
-    const realTripDay = TRIP_DATES[lisbonDateStr] || null;
-    const isBeforeTrip = now < TRIP_START_UTC;
-    const daysUntil = isBeforeTrip
-      ? Math.ceil((TRIP_START_UTC.getTime() - now.getTime()) / (1000 * 60 * 60 * 24))
-      : 0;
-
-    return { dateStr: lisbonDateStr, timeStr: lisbonTimeStr, realTripDay, isBeforeTrip, daysUntil };
-  }
-
-  // -------------------------------------------------------------
-  // 3. 计算生效的“今日”并刷新状态栏
-  // -------------------------------------------------------------
-  function resolveEffectiveToday() {
-    const lisbon = getLisbonState();
-
-    // A. 真实旅行期 (5/4 - 5/12)
-    if (lisbon.realTripDay) {
-      if (simWrapper) simWrapper.style.display = "none";
-      if (statusText) statusText.textContent = `📍 葡萄牙今天：Day 0${lisbon.realTripDay} · 里斯本时间 ${lisbon.timeStr}`;
-      if (statusSub) statusSub.textContent = `当前为旅途中 · 打开页面永远自动聚焦今天`;
-      return { effectiveToday: lisbon.realTripDay, timeStr: lisbon.timeStr };
+  function renderLiveCards(day, st) {
+    if (st.done) return '<div class="card"><div class="eyebrow">🌙 今天的行程结束了</div><div class="note">好好休息，明天继续。</div></div>';
+    let html = '';
+    if (st.cur >= 0) {
+      const s = day.stops[st.cur];
+      html += `<div class="card now"><div class="eyebrow">现在 · ${slotOf(s.t)}</div><div class="name">${esc(s.name)}</div>${s.note ? `<div class="note">${esc(s.note)}</div>` : ''}</div>`;
+    } else {
+      html += '<div class="card"><div class="eyebrow">今天还没开始</div></div>';
     }
-
-    // B. 行前模拟演练期
-    if (simWrapper) simWrapper.style.display = "flex";
-
-    if (simulatedDaySetting && simulatedDaySetting >= 1 && simulatedDaySetting <= TRIP_TOTAL_DAYS) {
-      if (statusText) statusText.textContent = `⚡ 模拟演练中：Day 0${simulatedDaySetting} · 里斯本 ${lisbon.timeStr}`;
-      if (statusSub) statusSub.textContent = `正在体验旅途中“一天多次打开自动聚焦该天”的效果`;
-      return { effectiveToday: simulatedDaySetting, timeStr: lisbon.timeStr };
+    if (st.next >= 0) {
+      const s = day.stops[st.next];
+      html += `<div class="card next"><div class="eyebrow">下一站 · ${s.t}</div><div class="name">${esc(s.name)}</div>
+        ${s.note ? `<div class="note">${esc(s.note)}</div>` : ''}
+        ${s.leg ? `<div class="legline">${legText(s.leg, false)}</div>` : ''}
+        ${stopActions(s)}</div>`;
     }
-
-    // C. 行前常规倒计时展示
-    if (statusText) statusText.textContent = `✈️ 距 5/4 出发还有 ${lisbon.daysUntil} 天 · 里斯本 ${lisbon.timeStr}`;
-    if (statusSub) statusSub.textContent = `时区：Europe/Lisbon · 可在右侧选择天数模拟演练`;
-    return { effectiveToday: 1, timeStr: lisbon.timeStr };
+    return html;
   }
 
-  // -------------------------------------------------------------
-  // 4. DRY 胶囊高亮与横向居中定位
-  // -------------------------------------------------------------
-  function setActivePill(dayNum) {
-    dayPills.forEach((pill) => {
-      const pDay = parseInt(pill.getAttribute("data-day"), 10);
-      const isTarget = pDay === dayNum;
-      pill.classList.toggle("active", isTarget);
-      if (isTarget) {
-        pill.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
-      }
+  function renderStayCard(day, live) {
+    if (!day.stay) return '';
+    const s = T.stays[day.stay];
+    const copy = s.address || s.name;
+    return `<div class="card stay"><div class="eyebrow">${live ? '今晚住' : '当晚住'}</div>
+      <div class="name">${esc(s.name)}</div><div class="status">${esc(s.status || '')}</div>
+      <div class="actions">${btn('🚕 回住处', uberUrl(s), true)}${copyBtn('📋 复制地址', copy)}</div></div>`;
+  }
+
+  function renderDay(day, ctx) {
+    const live = ctx.live;
+    const st = live ? stopState(day, ctx.clk) : null;
+    const dr = dayDrive(day);
+    const driveChip = dr.n ? `🚗 今日车程约 ${fmtMin(dr.min)} · ${dr.n} 段` : '🚶 今天基本步行';
+    return `
+      ${ctx.banner}
+      <div><div class="day-date">${dateLabel(day.date)} · ${esc(T.cities[day.city])}</div>
+        <h1 class="day-title">${esc(day.title)}</h1>
+        <div class="day-drive">${driveChip}</div></div>
+      ${live ? renderLiveCards(day, st) : ''}
+      <div class="sec-h">${live ? '今日完整安排' : '当天安排'}</div>
+      <ol class="tl">${day.stops.map((s, i) => renderStopRow(s, i, st)).join('')}</ol>
+      ${day.tip ? `<div class="tip"><span>💡</span><span>${esc(day.tip)}</span></div>` : ''}
+      ${renderStayCard(day, live)}`;
+  }
+
+  /* ------------------------------------------------------------------ *
+   * 4. 渲染：「全程」「随身」、顶栏
+   * ------------------------------------------------------------------ */
+  function renderTrip(clk) {
+    const cities = [...new Set(DAYS.map((d) => d.city))];
+    const ratio = cities.map((c) => `<i class="${c}" style="flex:${T.stays[c].nights}"></i>`).join('');
+    const groups = cities.map((c) => {
+      const rows = DAYS.filter((d) => d.city === c).map((d) => {
+        const dr = dayDrive(d);
+        const isToday = clk.mode === 'live' && d.n === clk.todayN;
+        return `<button type="button" class="row" data-city="${c}" data-day="${d.n}">
+          <span class="n">D${d.n}</span>
+          <span class="m"><span class="d">${+d.date.slice(5, 7)}/${+d.date.slice(8, 10)} ${weekday(d.date)}${isToday ? '<span class="badge">今天</span>' : ''}</span><span class="ti">${esc(d.title)}</span></span>
+          <span class="dr">${dr.n ? `🚗 ${fmtMin(dr.min)}` : '🚶'}</span><span class="chev">›</span></button>`;
+      }).join('');
+      return `<div class="grp-h" data-city="${c}">${esc(T.cities[c])} · ${T.stays[c].nights} 晚</div>${rows}`;
+    }).join('');
+    return `<div class="trip-sum">${DAYS.length} 天 ${T.nights} 晚 · ${T.party}</div><div class="ratio">${ratio}</div>${groups}`;
+  }
+
+  function renderStayPocket(s) {
+    return `<div class="card stay"><div class="name">${esc(s.name)}</div><div class="status">${esc(s.status || '')}</div>
+      <div class="addr${s.address ? '' : ' pending'}">${s.address ? esc(s.address) : '地址待订单确认'}</div>
+      <div class="actions">${copyBtn('📋 复制', s.address || s.name)}${btn('🧭 导航', navUrl(s), false)}${btn('🚕 叫 Uber', uberUrl(s), true)}</div></div>`;
+  }
+
+  function renderPocket() {
+    const poc = T.pocket.map((p) => `<details class="poc"><summary><span class="ic">${p.icon}</span><span class="ttl"><b>${esc(p.title)}</b><i>${esc(p.summary)}</i></span></summary>
+      <div class="pb">${p.body}${p.copy ? `<div class="actions">${copyBtn(`📋 ${p.copyLabel || '复制'}`, p.copy)}</div>` : ''}</div></details>`).join('');
+    return `
+      <div class="card flash-card"><div class="name">👶 点餐大字卡</div><div class="note">蔬菜浓汤 + 白米饭，少盐不辣，直接给服务员看</div>
+        <div class="actions"><button type="button" class="btn primary" data-flash>出示给服务员</button></div></div>
+      <div class="sec-h">住处</div>
+      ${Object.values(T.stays).map(renderStayPocket).join('')}
+      <div class="sec-h">小抄</div>
+      ${poc}`;
+  }
+
+  function renderHead(clk, viewN) {
+    const live = clk.mode === 'live';
+    $('#top-main').innerHTML = live ? `Day <b>${clk.todayN}</b> / ${DAYS.length}`
+      : clk.mode === 'before' ? `距出发 <b>${clk.until}</b> 天` : `旅程完成 · ${DAYS.length} 天`;
+    $('#clock').textContent = `里斯本 ${pad(Math.floor(clk.min / 60))}:${pad(clk.min % 60)}`;
+
+    $('#prog').innerHTML = DAYS.map((d) => {
+      const cls = [
+        clk.mode === 'after' || (live && d.n < clk.todayN) ? 'done' : '',
+        live && d.n === clk.todayN ? 'today' : '',
+        d.n === viewN && (state.viewDay !== null || !live) ? 'view' : ''
+      ].join(' ');
+      return `<button type="button" class="seg ${cls}" data-city="${d.city}" data-n="${d.n}" data-day="${d.n}" aria-label="第 ${d.n} 天"></button>`;
+    }).join('');
+  }
+
+  /* ------------------------------------------------------------------ *
+   * 5. 状态与总渲染
+   * ------------------------------------------------------------------ */
+  const state = { tab: 'today', viewDay: null, fromTrip: false, lastNav: 0 };
+  let lastSig = '';
+
+  const panels = { today: $('#p-today'), trip: $('#p-trip'), pocket: $('#p-pocket') };
+
+  function render() {
+    const clk = getClock();
+    const viewN = state.viewDay ?? clk.todayN;
+    const day = DAYS[viewN - 1];
+
+    document.body.dataset.tab = state.tab;
+    document.body.dataset.mode = clk.mode;
+    document.body.dataset.city = day.city;
+    document.querySelectorAll('.tab').forEach((t) => {
+      if (t.dataset.tab === state.tab) t.setAttribute('aria-current', 'page'); else t.removeAttribute('aria-current');
     });
-  }
+    Object.entries(panels).forEach(([k, el]) => { el.hidden = k !== state.tab; });
 
-  // -------------------------------------------------------------
-  // 5. 更新卡片今日动态徽章与浮动按钮文案
-  // -------------------------------------------------------------
-  function updateTodayBadges(todayDay, timeStr) {
-    dayCards.forEach((card) => {
-      const dayNum = parseInt(card.getAttribute("data-day"), 10);
-      const headerTitleCol = card.querySelector(".day-title-col");
-      const existingBadge = card.querySelector(".live-today-tag");
-      const isToday = dayNum === todayDay;
+    renderHead(clk, viewN);
 
-      card.classList.toggle("is-active-day", isToday);
+    // 面板内容只在“关键状态变了”时才重绘，避免每分钟刷新导致页面跳动
+    const live = clk.mode === 'live' && viewN === clk.todayN;
+    const st = live ? stopState(day, clk) : { cur: -2, done: false };
+    const sig = [state.tab, viewN, clk.mode, clk.todayN, st.cur, st.done, state.fromTrip].join('|');
+    if (sig === lastSig) return;
+    lastSig = sig;
 
-      if (isToday) {
-        if (!existingBadge && headerTitleCol) {
-          const badge = document.createElement("span");
-          badge.className = "live-today-tag";
-          badge.innerHTML = `📍 今天进行中 · 里斯本 ${timeStr}`;
-          headerTitleCol.appendChild(badge);
-        } else if (existingBadge) {
-          existingBadge.innerHTML = `📍 今天进行中 · 里斯本 ${timeStr}`;
-        }
-      } else if (existingBadge) {
-        existingBadge.remove();
-      }
-    });
-
-    if (floatTodayText) {
-      floatTodayText.textContent = `回到今天 (D0${todayDay})`;
+    if (state.tab === 'today') {
+      panels.today.innerHTML = renderDay(day, { live, clk, banner: renderBanner(clk, viewN) });
+    } else if (state.tab === 'trip') {
+      panels.trip.innerHTML = renderTrip(clk);
+    } else {
+      panels.pocket.innerHTML = renderPocket();
     }
   }
 
-  // -------------------------------------------------------------
-  // 6. 滚动聚焦指定天数卡片
-  // -------------------------------------------------------------
-  function scrollToDay(dayNumber, smooth = true) {
-    const targetCard = document.getElementById(`day-${dayNumber}`);
-    if (!targetCard) return;
-
-    isManualScrolling = true;
-    currentViewingDay = dayNumber;
-
-    setActivePill(dayNumber);
-
-    targetCard.scrollIntoView({
-      behavior: smooth ? "smooth" : "auto",
-      block: "start"
-    });
-
-    updateFloatingTodayButton();
-
-    clearTimeout(scrollTimer);
-    scrollTimer = setTimeout(() => {
-      isManualScrolling = false;
-    }, 700);
+  function renderBanner(clk, viewN) {
+    const away = clk.mode === 'live' && viewN !== clk.todayN;
+    let text = '';
+    let action = '';
+    if (state.fromTrip) action = '<button type="button" data-act="back-trip">← 返回全程</button>';
+    else if (away) { text = `正在查看 Day ${viewN}`; action = '<button type="button" data-act="today">回到今天</button>'; }
+    else if (clk.mode === 'before') text = '出发前预览 · 点上方进度条看任意一天';
+    else if (clk.mode === 'after') text = '旅程已结束 · 点上方进度条回看';
+    if (!text && !action) return '';
+    if (state.fromTrip && !text) text = `Day ${viewN}`;
+    return `<div class="banner"><span>${text}</span>${action}</div>`;
   }
 
-  // -------------------------------------------------------------
-  // 7. 浮动“回到今天”胶囊显隐控制
-  // -------------------------------------------------------------
-  function updateFloatingTodayButton() {
-    if (!btnFloatingToday) return;
-    const isAwayFromToday = currentViewingDay !== activeTodayDay;
-    btnFloatingToday.classList.toggle("show", isAwayFromToday);
+  function go(patch) {
+    Object.assign(state, patch);
+    state.lastNav = Date.now();
+    lastSig = '';
+    render();
+    window.scrollTo(0, 0);
   }
 
-  // -------------------------------------------------------------
-  // 8. 页面启动与重新唤醒自适应
-  // -------------------------------------------------------------
-  function syncAndLocateToday(smooth = false, showNotification = false) {
-    const { effectiveToday, timeStr } = resolveEffectiveToday();
-    activeTodayDay = effectiveToday;
-    currentViewingDay = effectiveToday;
+  /* ------------------------------------------------------------------ *
+   * 6. 事件
+   * ------------------------------------------------------------------ */
+  function toast(msg) {
+    const el = $('#toast');
+    el.textContent = msg;
+    el.classList.add('show');
+    clearTimeout(toast.t);
+    toast.t = setTimeout(() => el.classList.remove('show'), 1800);
+  }
 
-    updateTodayBadges(activeTodayDay, timeStr);
-
-    const urlParams = new URLSearchParams(window.location.search);
-    const dayFromQuery = parseInt(urlParams.get("day"), 10);
-    const targetDay = (dayFromQuery >= 1 && dayFromQuery <= TRIP_TOTAL_DAYS)
-      ? dayFromQuery
-      : activeTodayDay;
-
-    scrollToDay(targetDay, smooth);
-
-    if (showNotification) {
-      showToast(`🎯 已自动定位至今日行程 (Day 0${targetDay})`);
+  async function copyText(text) {
+    try { await navigator.clipboard.writeText(text); }
+    catch {
+      const ta = Object.assign(document.createElement('textarea'), { value: text });
+      document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove();
     }
+    toast('已复制');
   }
 
-  // 手机锁屏唤醒 & 后台切回监听
-  document.addEventListener("visibilitychange", () => {
-    if (document.visibilityState === "visible") {
-      const { effectiveToday } = resolveEffectiveToday();
-      if (effectiveToday !== activeTodayDay) {
-        syncAndLocateToday(true, true);
-      }
+  document.addEventListener('click', (e) => {
+    const t = e.target.closest('[data-tab],[data-day],[data-act],[data-copy],[data-flash],[data-close-flash]');
+    if (!t) return;
+    if (t.dataset.copy != null) return copyText(t.dataset.copy);
+    if (t.dataset.flash != null) return $('#flash').showModal();
+    if (t.dataset.closeFlash != null) return $('#flash').close();
+    if (t.dataset.act === 'today') return go({ tab: 'today', viewDay: null, fromTrip: false });
+    if (t.dataset.act === 'back-trip') return go({ tab: 'trip', viewDay: null, fromTrip: false });
+    if (t.dataset.day) {
+      const fromTrip = t.classList.contains('row');
+      return go({ tab: 'today', viewDay: +t.dataset.day, fromTrip });
+    }
+    if (t.dataset.tab) {
+      // 点“今天”Tab = 永远回到今天
+      return go({ tab: t.dataset.tab, viewDay: null, fromTrip: false });
     }
   });
 
-  window.addEventListener("pageshow", () => syncAndLocateToday(false, false));
+  $('#flash').addEventListener('click', (e) => { if (e.target === e.currentTarget) e.currentTarget.close(); });
 
-  // -------------------------------------------------------------
-  // 9. 交互事件绑定
-  // -------------------------------------------------------------
-  if (btnLocateToday) {
-    btnLocateToday.addEventListener("click", () => {
-      switchView("itinerary");
-      scrollToDay(activeTodayDay, true);
-      showToast(`📍 已直达今天 (Day 0${activeTodayDay})`);
-    });
-  }
-
-  if (btnFloatingToday) {
-    btnFloatingToday.addEventListener("click", () => {
-      scrollToDay(activeTodayDay, true);
-      showToast(`📍 已返回今天 (Day 0${activeTodayDay})`);
-    });
-  }
-
-  if (simDaySelect) {
-    simDaySelect.addEventListener("change", (e) => {
-      const val = e.target.value;
-      if (val === "auto") {
-        simulatedDaySetting = null;
-        storage.remove("lisbon_sim_day", true);
-        showToast("已恢复自动日历模式");
-      } else {
-        simulatedDaySetting = parseInt(val, 10);
-        storage.set("lisbon_sim_day", simulatedDaySetting, true);
-        showToast(`已切换演练模式：模拟今天为 Day 0${simulatedDaySetting}`);
-      }
-      syncAndLocateToday(true, false);
-    });
-  }
-
-  dayPills.forEach((pill) => {
-    pill.addEventListener("click", () => {
-      const dayNum = parseInt(pill.getAttribute("data-day"), 10);
-      switchView("itinerary");
-      scrollToDay(dayNum, true);
-    });
-  });
-
-  // -------------------------------------------------------------
-  // 10. Scrollspy 视口感知
-  // -------------------------------------------------------------
-  if ("IntersectionObserver" in window) {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (isManualScrolling) return;
-
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const dayNum = parseInt(entry.target.getAttribute("data-day"), 10);
-            if (dayNum) {
-              currentViewingDay = dayNum;
-              setActivePill(dayNum);
-              updateFloatingTodayButton();
-            }
-          }
-        });
-      },
-      {
-        rootMargin: "-25% 0px -55% 0px",
-        threshold: 0
-      }
-    );
-
-    dayCards.forEach((card) => observer.observe(card));
-  }
-
-  // -------------------------------------------------------------
-  // 11. 板块切换 (日程 / 省心锦囊 / 住址交通)
-  // -------------------------------------------------------------
-  function switchView(targetView) {
-    viewTabs.forEach((tab) => {
-      tab.classList.toggle("active", tab.getAttribute("data-view") === targetView);
-    });
-
-    viewSections.forEach((sec) => {
-      sec.classList.toggle("active", sec.id === `view-${targetView}`);
-    });
-
-    if (targetView !== "itinerary" && btnFloatingToday) {
-      btnFloatingToday.classList.remove("show");
-    } else if (targetView === "itinerary") {
-      updateFloatingTodayButton();
+  /** 重新判定：从后台切回 / 解锁 / bfcache 恢复。手动导航 5 分钟之后切回，一律回到“今天” */
+  function wake() {
+    if (Date.now() - state.lastNav > GRACE_MIN && (state.tab !== 'today' || state.viewDay !== null)) {
+      state.tab = 'today'; state.viewDay = null; state.fromTrip = false;
+      lastSig = '';
+      window.scrollTo(0, 0);
     }
-
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    render();
   }
+  document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') wake(); });
+  window.addEventListener('pageshow', (e) => { if (e.persisted) wake(); });
+  setInterval(() => { if (document.visibilityState === 'visible') render(); }, 60000);
 
-  viewTabs.forEach((tab) => {
-    tab.addEventListener("click", () => switchView(tab.getAttribute("data-view")));
-  });
+  /* ------------------------------------------------------------------ *
+   * 7. 启动
+   * ------------------------------------------------------------------ */
+  const qDay = +params.get('day');
+  if (qDay >= 1 && qDay <= DAYS.length) state.viewDay = qDay;
+  const qTab = params.get('tab');
+  if (['today', 'trip', 'pocket'].includes(qTab)) state.tab = qTab;
+  render();
 
-  // -------------------------------------------------------------
-  // 12. 带娃点餐大字卡 Modal 控制
-  // -------------------------------------------------------------
-  function toggleFlashcard(isOpen) {
-    if (!flashcardOverlay) return;
-    flashcardOverlay.classList.toggle("active", isOpen);
-    flashcardOverlay.setAttribute("aria-hidden", isOpen ? "false" : "true");
+  if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
+    navigator.serviceWorker.register('sw.js').catch(() => {});
   }
-
-  document.getElementById("btn-show-flashcard")?.addEventListener("click", () => toggleFlashcard(true));
-  document.getElementById("btn-close-flashcard")?.addEventListener("click", () => toggleFlashcard(false));
-  document.getElementById("btn-done-flashcard")?.addEventListener("click", () => toggleFlashcard(false));
-  flashcardOverlay?.addEventListener("click", (e) => {
-    if (e.target === flashcardOverlay) toggleFlashcard(false);
-  });
-
-  // -------------------------------------------------------------
-  // 13. DRY 统一复制文本处理 (属性委托机制)
-  // -------------------------------------------------------------
-  document.querySelectorAll("[data-copy], [data-copy-target]").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const directText = btn.getAttribute("data-copy");
-      const targetId = btn.getAttribute("data-copy-target");
-      const text = directText || (targetId && document.getElementById(targetId)?.textContent.trim());
-      const msg = btn.getAttribute("data-copy-msg") || "📋 已复制到剪贴板！";
-
-      if (!text) return;
-
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(text).then(() => showToast(msg)).catch(() => {
-          showToast("复制失败，请长按手动复制");
-        });
-      } else {
-        showToast("请长按文本复制");
-      }
-    });
-  });
-
-  // -------------------------------------------------------------
-  // 14. 行程打卡勾选记忆
-  // -------------------------------------------------------------
-  let completedTasks = storage.get(TASK_STORAGE_KEY, []);
-
-  document.querySelectorAll(".task-check").forEach((checkbox) => {
-    const taskId = checkbox.getAttribute("data-task");
-    if (taskId && completedTasks.includes(taskId)) {
-      checkbox.checked = true;
-    }
-
-    checkbox.addEventListener("change", () => {
-      if (checkbox.checked) {
-        if (!completedTasks.includes(taskId)) completedTasks.push(taskId);
-        showToast("🎉 已打卡该项行程！");
-      } else {
-        completedTasks = completedTasks.filter((id) => id !== taskId);
-      }
-      storage.set(TASK_STORAGE_KEY, completedTasks);
-    });
-  });
-
-  // 启动定位
-  syncAndLocateToday(false, false);
-});
+})();
