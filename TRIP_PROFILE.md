@@ -371,3 +371,20 @@
 在预订界面（Booking / Expedia / 官网）的备注栏直接粘贴：
 > *"We are traveling with 4 adults and 1 infant under 2 years old. Please arrange a single-level apartment (strictly NO duplex/internal stairs if Sea View/Standard booked), preferably with elevator access or ground floor. If a roof terrace apartment is assigned, please provide a stair safety gate for the infant. We also request 1 baby cot/crib. Thank you very much!"*
 
+---
+
+### ⑤ 感恩节 / 黑五（Black Friday）促销规律与“零风险锁房”实战策略
+
+* **感恩节/黑五会打折吗？**
+  * **平台大促机制**：感恩节是美国节日，欧洲主要跟进 **Black Friday / Cyber Week（11 月底）**。届时 Booking.com / Expedia 会推出全场酒店黑五专区，标称折扣常在 **15% ~ 30% off**。
+  * **Belmar 自身往年规律**：Belmar 会参与部分早鸟（Early Booking）或黑五促销，但主要针对淡季或基础单间房型。
+* ⚠️ **两大真实市场博弈（不建议干等黑五）**：
+  1. **极度稀缺的房型库存（随时可能卖完）**：Belmar 的海景双卧（Sea View）和天台双卧（Roof Terrace）全度假村仅有个位数套，房态页目前已赫然提示 **"Only 1 room left!"（仅剩 1 间）**！一旦被其他家庭抢走，到了黑五连房都没有了。
+  2. **动态调价套路（先涨后折）**：热门 5 月平季随着库存减少，酒店算法会自动抬高基准价；即使黑五打个 9 折，最终折后总价可能比现在的 €756 还贵。
+* **🛡️ 顶级对冲策略：【利用“免费取消”现在先锁房，黑五再捡漏】**
+  * **第 1 步（现在立刻锁房）**：当前截图价格全都有 **"Free cancellation subject to conditions"（免费取消）**。现在立刻以当前底价（如 Sea View €756 / Roof Terrace €783 / Standard €630）下单锁死，**一分钱不扣，先把名额稳稳占住**，保底不被别人抢走。
+  * **第 2 步（11 月底黑五二次比价）**：到了感恩节/黑五那天，打开手机看一眼：
+    * **如果黑五真的降价了**（比如跌到 €600 且支持免费取消）：直接下一单新的，成功后再一键退掉之前 €756 的旧订单，**秒赚差价，无缝套利**！
+    * **如果黑五没降价、或者房间早就被抢光了**：你们稳坐钓鱼台，手里早就捏着 €756 的稀缺海景好房。
+
+
