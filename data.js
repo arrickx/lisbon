@@ -102,11 +102,11 @@ window.TRIP = {
     },
     {
       n: 7, date: '2027-05-10', city: 'algarve', stay: 'algarve',
-      title: 'Benagil 洞窟游船',
-      tip: '选带遮阳篷的正规动力游船，不要选皮划艇进洞。',
+      title: '野生海豚 / 洞窟出海',
+      tip: '带娃务必选双体大船 (Catamaran) 更加平稳，不选颠簸的小快艇 (RIB)；码头就在拉各斯游艇港。',
       stops: [
-        { t: '09:30', name: 'Benagil 海蚀洞窟游船', note: '从 Portimão / Carvoeiro 出发，平稳中型艇开进“上帝之眼”', lat: 37.0869, lng: -8.4219, hl: true, leg: { mode: 'drive', min: 35, km: 40 } },
-        { t: '13:30', name: '回住处 · 沙滩泳池', note: '挖沙踏浪，酒店泳池戏水', at: 'algarve', leg: { mode: 'drive', min: 35, km: 40 } },
+        { t: '09:30', name: 'Marina de Lagos 出海', note: '乘平稳双体船探秘野生海豚巡航 / Benagil 洞窟', lat: 37.1086, lng: -8.6744, hl: true, leg: { mode: 'drive', min: 8, km: 3 } },
+        { t: '13:30', name: '回住处 · 沙滩泳池', note: 'Porto de Mós 挖沙踏浪，酒店泳池戏水', at: 'algarve', leg: { mode: 'drive', min: 8, km: 3 } },
         { t: '18:30', name: '阳台晚餐 · 看日落', note: '吹海风，来杯 Vinho Verde' }
       ]
     },
