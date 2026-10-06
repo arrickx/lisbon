@@ -18,26 +18,26 @@ window.TRIP = {
 
   stays: {
     lisbon: {
-      name: 'Hyatt Regency Lisbon',
+      name: 'Hyatt Regency Lisbon (里斯本凯悦酒店)',
       short: '里斯本 · Hyatt Regency',
       query: 'Hyatt Regency Lisbon, Lisboa, Portugal',
       address: null,
-      status: '主选 · 2 大 1 小 (Cat 4 积分兑换 · 现金 €0) · 5 晚',
+      status: '【里斯本 5 晚】主选 · 2 大 1 小 (Cat 4 积分兑换 · 现金 €0) · 5 晚',
       nights: 5
     },
     lisbonAlt: {
-      name: 'Upon Lisbon Prime Residences',
+      name: 'Upon Lisbon Prime Residences (里斯本服务公寓)',
       short: '里斯本 · Upon 两卧公寓',
       query: 'Upon Lisbon Prime Residences, Lisboa, Portugal',
       address: null,
-      status: '备用 · 4 大 1 小 (100㎡ 两卧大公寓)'
+      status: '【里斯本备用】4 大 1 小 (100㎡ 两卧大公寓)'
     },
     algarve: {
-      name: 'Belmar Spa & Beach Resort',
+      name: 'Belmar Spa & Beach Resort (贝尔马水疗海滩度假村)',
       short: '拉各斯 · Belmar 度假村',
       query: 'Belmar Spa & Beach Resort, Lagos, Portugal',
       address: null,
-      status: '首选 2 Bedroom Apartment - Sea View（平层）· 3 晚',
+      status: '【拉各斯 3 晚】首选 1 Bedroom Apartment (单房/一卧海景套房 · 约 €360~€480) · 3 晚',
       nights: 3
     }
   },
