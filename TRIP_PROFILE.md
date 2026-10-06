@@ -82,6 +82,7 @@
 2. **黑五二次对冲**：11 月底感恩节/黑五大促（Black Friday Deals）若降价，新订一单再退旧单，稳赚差价；
 3. **Special Requests（英文备注小抄，直接复制）**：
    > *"We are traveling with 2 adults and 1 infant under 2 years old. Please arrange a single-level One-Bedroom apartment (strictly NO duplex/internal stairs), preferably ground floor or with elevator access. We also request 1 baby cot/crib. Thank you!"*
+4. **入住防坑（严禁美式“三明治小费法”）**：欧洲/度假公寓坚决不适用在护照夹现金博取升房（前台无私自越权权限，会被视为误会或行贿）。前台办理入住小费为 €0；优化房位全靠亲子礼貌备注免费调换，或现场大方询问官方折价升级（Paid Upgrade）。
 
 ---
 
