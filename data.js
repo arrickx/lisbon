@@ -13,24 +13,24 @@ window.TRIP = {
   start: '2027-05-04',
   tz: 'Europe/Lisbon',
   nights: 8,
-  party: '4 大 1 小',
+  party: '2 大 1 小 (主选) · 备选 4 大 1 小',
   cities: { lisbon: '里斯本', algarve: '阿尔加维 · 拉各斯' },
 
   stays: {
     lisbon: {
-      name: 'Upon Lisbon Prime Residences',
-      short: '里斯本 · Upon 两卧公寓',
-      query: 'Upon Lisbon Prime Residences, Lisboa, Portugal',
-      address: null,
-      status: '首选 · 4 大 1 小 · 5 晚',
-      nights: 5
-    },
-    lisbonAlt: {
       name: 'Hyatt Regency Lisbon',
       short: '里斯本 · Hyatt Regency',
       query: 'Hyatt Regency Lisbon, Lisboa, Portugal',
       address: null,
-      status: '备选 · 2 大 1 小时使用'
+      status: '主选 · 2 大 1 小 (Cat 4 积分/现金 1 间房) · 5 晚',
+      nights: 5
+    },
+    lisbonAlt: {
+      name: 'Upon Lisbon Prime Residences',
+      short: '里斯本 · Upon 两卧公寓',
+      query: 'Upon Lisbon Prime Residences, Lisboa, Portugal',
+      address: null,
+      status: '备用 · 4 大 1 小 (100㎡ 两卧大公寓)'
     },
     algarve: {
       name: 'Belmar Spa & Beach Resort',
@@ -48,9 +48,9 @@ window.TRIP = {
       title: '抵达 · 倒时差',
       tip: '第一天不排景点，专心倒时差。2 岁以下幼童坐 Uber / 出租车可抱坐后排（葡萄牙交规豁免），大人先系好安全带。',
       stops: [
-        { t: '14:00', name: '抵达里斯本机场 (LIS)', note: '取行李，叫 UberXL（6~7 座），走快速路直达', lat: 38.7742, lng: -9.1342 },
-        { t: '15:00', name: '入住里斯本公寓', note: '放行李，宝宝喝奶小憩', at: 'lisbon', leg: { mode: 'uber', min: 18, km: 10, eur: 18 } },
-        { t: '17:30', name: '住处周边平坦步道散步', note: '推车顺畅，倒时差，别走太远' },
+        { t: '14:00', name: '抵达里斯本机场 (LIS)', note: '取行李，叫 UberX 直达 Hyatt Regency 大堂', lat: 38.7742, lng: -9.1342 },
+        { t: '15:00', name: '入住 Hyatt Regency', note: '放行李，宝宝喝奶小憩', at: 'lisbon', leg: { mode: 'uber', min: 18, km: 10, eur: 12 } },
+        { t: '17:30', name: '特茹河畔平坦步道散步', note: '推车顺畅，倒时差，河边看日落' },
         { t: '19:00', name: '附近晚餐', note: '蔬菜浓汤 + 米饭，早点休息' }
       ]
     },
@@ -102,10 +102,10 @@ window.TRIP = {
     {
       n: 6, date: '2027-05-09', city: 'algarve', stay: 'algarve',
       title: '自驾南下 · 拉各斯',
-      tip: '坚决选油车。后备箱摘掉隔板，20 寸登机箱两两叠放，推车折叠立侧面。租车必须加租幼儿座椅（约 €8~10/天，ISOFIX）。过收费站走绿色 V 通道。',
+      tip: '坚决选油车。2大1小首选三厢轿车 (Sedan)，封闭后备箱防盗安全性完胜 SUV，轻松放下 2 个 20 寸箱 + 婴儿车。柜台加租幼儿座椅。过收费站走绿色 V 通道。',
       stops: [
         { t: '09:30', name: '退房', note: '睡到自然醒，吃好早餐', at: 'lisbon' },
-        { t: '10:30', name: '机场提车', note: '油车 · Via Verde 盒子 · 幼儿座椅 · 刷 Chase 蓝宝石并拒绝柜台 CDW', lat: 38.7742, lng: -9.1342, leg: { mode: 'uber', min: 18, km: 10, eur: 18 } },
+        { t: '10:30', name: '机场提紧凑型轿车', note: '自动挡轿车 · Via Verde 盒子 · 幼儿座椅 · 刷 Chase 蓝宝石并拒绝柜台 CDW', lat: 38.7742, lng: -9.1342, leg: { mode: 'uber', min: 18, km: 10, eur: 12 } },
         { t: '14:00', name: '入住 Belmar 度假村', note: 'A2 高速全封闭，中途大型服务区换尿布、喝咖啡', at: 'algarve', leg: { mode: 'drive', min: 150, km: 250 } },
         { t: '16:30', name: '超市采购', note: '纯房模式，买早餐与零食', query: 'Supermercado Lagos Portugal', leg: { mode: 'drive', min: 10 } },
         { t: '18:30', name: '沙滩 Cafe 晚餐', note: '步行 5 分钟，铜锅海鲜或简单晚餐', leg: { mode: 'walk', min: 5 } }
