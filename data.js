@@ -39,13 +39,6 @@ window.TRIP = {
       address: null,
       status: '【拉各斯首选】1-Bedroom Sea View (一卧海景套房 · 室内温水池宝宝可用 · 自带洗衣机 · 免费车库) · 3 晚',
       nights: 3
-    },
-    algarveAlt: {
-      name: 'Martinhal Sagres Beach Family Resort (马丁哈尔亲子度假村)',
-      short: '萨格里什 · Martinhal 亲子天花板',
-      query: 'Martinhal Sagres Beach Family Resort, Portugal',
-      address: null,
-      status: '【高配备选】欧洲亲子天花板 (专设28℃婴儿温水池 · 免费提供温奶器/消毒器/推车/有机辅食泥) · 3 晚'
     }
   },
 
