@@ -51,62 +51,43 @@
 
 ---
 
-## 🏨 3. 驻地住宿全景指南 (两地三家酒店·全景归属与比选大盘)
+## 🏨 3. 驻地住宿全景指南 (核心结论与锁定方案)
 
-> 💡 **两地酒店一眼看清（谁是谁、在哪座城市）：**  
-> 1. **城市一【里斯本 Lisbon】（第 1~5 晚，共 5 晚）** ➡️ **Hyatt Regency Lisbon（里斯本凯悦酒店，5 星级奢华酒店）**：位于首都里斯本市区特茹河畔，全额用 **Hyatt 积分兑换（现金支出 €0）**，住 1 间标准大床/双床房（免费加婴儿床）。  
-> 2. **城市二【阿尔加维·拉各斯 Lagos】（第 6~8 晚，共 3 晚）两大高性价比主力备选（买机票后比价二选一）**：  
->    * **候选 A【居家实用大空间】：Belmar Spa & Beach Resort（4 星服务式套房度假村）**：One-Bedroom 海景套房（65~75㎡），带独立大厨房、客房内独立洗衣机、**免费地下车库（€0）**，纯房模式（自己做早饭或沙滩 Cafe）。  
->    * **候选 B【五星享乐含双早】：Iberostar Selection Lagos Algarve（5 星奢华海滨度假酒店）**：直通 Meia Praia 纯平大沙滩，**包每天豪华双人自助早餐**，累积 **IHG One Rewards** 积分与会员升房权益，4 个大泳池+儿童戏水池+室内恒温泳池，室内车库 €7/天，无室内洗衣机。
+> 💡 **两地住宿极简结论：**  
+> 1. **里斯本（第 1~5 晚，共 5 晚）** ➡️ **Hyatt Regency Lisbon（5 星级）**：特茹河畔，全额用 **Cat 4 凯悦积分兑换（现金支出 €0）**，住 1 间标准房（免费加婴儿床）。  
+> 2. **拉各斯（第 6~8 晚，共 3 晚）** ➡️ **Belmar Spa & Beach Resort（4 星海滨套房度假村）**：拉各斯本地，现金订 **One-Bedroom Sea View（一卧海景套房）**，3 晚约 €450 欧。
 
 ---
 
-### ① 前 5 晚【里斯本市区】：Hyatt Regency Lisbon（里斯本凯悦酒店）
-* **定位与优势**：5 星级凯悦正牌奢华酒店，坐落于特茹河畔。只需 1 间大床/双床房，带超大景观阳台、大理石卫浴、婴儿床服务，下楼即是平整沿河漫步道，亲子度假感顶级。
-* **订房方式：【已锁定：World of Hyatt 积分兑换（现金 €0 / $0）】**：
-  * 该酒店为 **Hyatt Category 4**，每晚仅需 **15,000 积分**（5 晚合计 75,000 积分，或使用 Chase 凯悦联名卡赠送的 Cat 1-4 免费免房券 FN）；
-  * **现金实付 $0 / €0**，直接省下原本现金需付的 €1,250 ~ €1,500 欧！
-* *(👥 10% 备用：若为 4 大 1 小，现金订 2 间 Hyatt 偏贵，备用方案切换至 **Upon Lisbon Prime Residences** 100㎡ 两卧两卫大公寓，整套 €900~€1,350 / 5晚)*。
+### ① 里斯本 5 晚：Hyatt Regency Lisbon（凯悦酒店）
+* **定位**：5 星级正牌奢华酒店，特茹河畔，推车沿河漫步极舒适。
+* **支付方式：【锁定积分兑换，现金 €0】**：Cat 4 每晚仅需 15,000 积分（5 晚合计 75,000 积分 / FN 免房券），立省 €1,250~€1,500 现金房费。
 
 ---
 
-### ② 后 3 晚【阿尔加维拉各斯】：Belmar vs Iberostar 双雄深度对比大盘
+### ② 拉各斯 3 晚：精选驻地方案
 
-| 对比维度 | 🏡 候选 A：Belmar Spa & Beach Resort | 🌊 候选 B：Iberostar Selection Lagos Algarve 🏆 |
-| :--- | :--- | :--- |
-| **酒店星级与风格** | 4 星级服务式套房度假村（悠闲居家） | **5 星级奢华海滨度假酒店（纯正度假）** |
-| **推荐房型与面积** | **One-Bedroom Apartment（一卧套房，61~75 ㎡）** | **Double Room Sea View（海景大床房，35~40 ㎡）** |
-| **独立卧室隔断** | **有独立关门的卧室**（宝宝 8 点入睡后，大人在客厅自由活动） | **传统大开间**（宝宝睡后大人在海景阳台活动或调暗灯光） |
-| **🍳 早餐包含情况** | **纯房不含早**（在房间大厨房自制，或沙滩 Cafe 约 €20~25/天） | **✅ 免费包含每天双人五星级丰盛自助早餐**（现切火腿、鲜榨橙汁、欧式热食，省心省钱） |
-| **🚗 自驾停车费用** | **✅ 100% 免费室内地下车库（€0 / 3天）**，电梯直通客房 | **室内地下车库约 €7 欧/天（3 天共 €21 欧）**；酒店门前路侧划线位在 5 月平季通常空旷且免费 |
-| **🧺 独立洗衣机** | **✅ 客房内标配博世独立洗衣机**（随脏随洗） | ❌ **客房无洗衣机**（仅付费送洗）；需多备几套宝宝衣服，或在里斯本 Hyatt 退房前洗完带过来 |
-| **🍳 厨房与辅食** | **全尺寸完整大厨房**（冰箱/电磁炉/烤箱/洗碗机） | 仅迷你吧小冰箱与电热水壶，无炉灶（适合不想做饭的家庭） |
-| **💳 忠诚度会员系统** | 独立度假村，无会员积分体系 | **✅ 深度接入 IHG One Rewards！** 现金入住享大额积分累积、房晚定级，持卡会员享免费升房与礼遇 |
-| **🏖️ 海滩与推车** | 紧邻 Porto de Mós 悬崖海湾（下坡路段，海浪较野） | **紧邻 Meia Praia 纯平大沙滩**（拉各斯最长最缓海滩，推婴儿车沿滨海木栈道纯平无阻） |
-| **🏊 泳池与儿童设施** | 4 个室外泳池 + 1 个室内恒温泳池 | 4 个室外泳池 + **专门儿童 Aquafun 浅水区** + **室内恒温泳池** |
-| **💶 3 晚预估总价** | 约 **€360 ~ €480 欧**（不含早餐） | 约 **€420 ~ €550 欧**（**已包含全家丰盛自助双早**） |
-| **💡 综合决策建议** | 极度依赖客房洗衣机、追求超大空间一室一厅的家庭首选 | **若目测价格比 Belmar 更便宜或持平，且送双早+IHG会员累积，性价比直接拉满，强烈推荐！** |
+#### 🥇 【主力首选】Belmar Spa & Beach Resort（拉各斯本地 · 综合之王）
+* **房型选择**：**One-Bedroom Apartment - Sea View（海景单房套房，61~75 ㎡）**。
+* **为什么是最优解（四大核心事实）**：
+  1. **🏊 室内恒温泳池官方明确允许幼童进入**：16 岁以下儿童在家长陪同下完全允许使用室内温水池（注：Iberostar 因 SPA 室内池限制 16+ 成人已被淘汰）；
+  2. **🚪 独立卧室隔断门**：宝宝晚上 8 点入睡后关门，大人在 30㎡ 客厅和海景阳台自由看电视、喝酒聊天，作息互不干扰；
+  3. **🧺 客房自带独立洗衣机 + 全套厨房**：随洗随烘宝宝衣服，做辅食热奶极方便；
+  4. **🚗 100% 免费地下车库（€0）**：电梯直通客房。
+* **预估价格**：3 晚海景套房约 **€450 欧**（纯房自理早餐）。
 
----
-
-### ③ 预订实操与黑五对冲策略
-* **零风险锁房战术（买好机票后操作）**：
-  * 机票出票后，在 Booking.com / 官网以当前底价选 **"Free cancellation"（免费取消）**，把 Belmar 的海景一卧或 Iberostar 的海景房下单占位；
-  * 11 月底感恩节/黑五大促（Black Friday Deals）若出现降价，新订一单再退旧单，稳赚差价；若没降价，底价好房已锁定。
-* **Special Requests（英文备注小抄，直接复制）**：
-  * **若订 Belmar**：
-    > *"We are traveling with 2 adults and 1 infant under 2 years old. Please arrange a single-level One-Bedroom apartment (strictly NO duplex/internal stairs), preferably ground floor or with elevator access. We also request 1 baby cot/crib. Thank you!"*
-  * **若订 Iberostar**：
-    > *"We are traveling with 2 adults and 1 infant under 2 years old. Please arrange a quiet room facing the ocean and prepare 1 baby cot/crib in the room. Thank you!"*
+#### 🥈 【高配备选】Martinhal Sagres Beach Family Resort（萨格里什 · 欧洲亲子天花板）
+* **定位**：距拉各斯 30 分钟车程，专为 0~2 岁婴幼儿量身定制的顶级度假村。
+* **神级配置**：专设 **28℃ 婴儿温水浅水池**；免费提供**奶瓶消毒器、恒温温奶器、推车、防摔床围**；全餐厅**免费提供现磨有机宝宝辅食泥**。
+* **预估价格**：1-Bedroom 独栋度假屋 3 晚约 **€660 ~ €850 欧**（全包五星级豪华家庭早餐）。适合极度看重保姆级婴儿设施且预算宽裕的家庭。
 
 ---
 
-### ③ 预订实操与黑五对冲策略
-* **零风险锁房战术**：
-  * 待机票日期敲定后，立即在 Booking.com / 官网以当前底价选 **"Free cancellation"（免费取消）** 下单占位（海景套房库存仅 1~2 套）；
-  * 11 月底感恩节/黑五大促（Black Friday Deals）若出现降价，新订一单再退旧单，稳赚差价；若没降价，底价好房已锁定。
-* **Special Requests（英文备注小抄，直接复制）**：
-  > *"We are traveling with 2 adults and 1 infant under 2 years old. Please arrange a single-level One-Bedroom apartment (strictly NO duplex/internal stairs), preferably ground floor or with elevator access. We also request 1 baby cot/crib. Thank you!"*
+### ③ 预订实操（买好机票后操作）
+1. **零成本锁房**：机票出票后，在 Booking.com / 官网以当前底价选 **"Free cancellation"（免费取消）**，锁定 Belmar 的海景一卧占位；
+2. **黑五二次对冲**：11 月底感恩节/黑五大促（Black Friday Deals）若降价，新订一单再退旧单，稳赚差价；
+3. **Special Requests（英文备注小抄，直接复制）**：
+   > *"We are traveling with 2 adults and 1 infant under 2 years old. Please arrange a single-level One-Bedroom apartment (strictly NO duplex/internal stairs), preferably ground floor or with elevator access. We also request 1 baby cot/crib. Thank you!"*
 
 ---
 

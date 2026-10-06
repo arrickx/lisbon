@@ -37,15 +37,15 @@ window.TRIP = {
       short: '拉各斯 · Belmar 度假村',
       query: 'Belmar Spa & Beach Resort, Lagos, Portugal',
       address: null,
-      status: '【拉各斯候选 A】1-Bedroom Apartment (一卧海景套房 · 独立洗衣机大厨房 · 免费车库) · 3 晚',
+      status: '【拉各斯首选】1-Bedroom Sea View (一卧海景套房 · 室内温水池宝宝可用 · 自带洗衣机 · 免费车库) · 3 晚',
       nights: 3
     },
-    algarveIberostar: {
-      name: 'Iberostar Selection Lagos Algarve (拉各斯伊比利亚之星精选酒店)',
-      short: '拉各斯 · Iberostar 5星',
-      query: 'Iberostar Selection Lagos Algarve, Portugal',
+    algarveAlt: {
+      name: 'Martinhal Sagres Beach Family Resort (马丁哈尔亲子度假村)',
+      short: '萨格里什 · Martinhal 亲子天花板',
+      query: 'Martinhal Sagres Beach Family Resort, Portugal',
       address: null,
-      status: '【拉各斯候选 B】5 星奢华海景房 (含豪华双早 · IHG会员累积/升房 · 纯平Meia Praia沙滩 · 车位€7/天) · 3 晚'
+      status: '【高配备选】欧洲亲子天花板 (专设28℃婴儿温水池 · 免费提供温奶器/消毒器/推车/有机辅食泥) · 3 晚'
     }
   },
 
