@@ -37,8 +37,15 @@ window.TRIP = {
       short: '拉各斯 · Belmar 度假村',
       query: 'Belmar Spa & Beach Resort, Lagos, Portugal',
       address: null,
-      status: '【拉各斯 3 晚】首选 1 Bedroom Apartment (单房/一卧海景套房 · 约 €360~€480) · 3 晚',
+      status: '【拉各斯候选 A】1-Bedroom Apartment (一卧海景套房 · 独立洗衣机大厨房 · 免费车库) · 3 晚',
       nights: 3
+    },
+    algarveIberostar: {
+      name: 'Iberostar Selection Lagos Algarve (拉各斯伊比利亚之星精选酒店)',
+      short: '拉各斯 · Iberostar 5星',
+      query: 'Iberostar Selection Lagos Algarve, Portugal',
+      address: null,
+      status: '【拉各斯候选 B】5 星奢华海景房 (含豪华双早 · IHG会员累积/升房 · 纯平Meia Praia沙滩 · 车位€7/天) · 3 晚'
     }
   },
 
