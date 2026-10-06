@@ -22,7 +22,7 @@ window.TRIP = {
       short: '里斯本 · Hyatt Regency',
       query: 'Hyatt Regency Lisbon, Lisboa, Portugal',
       address: null,
-      status: '主选 · 2 大 1 小 (Cat 4 积分/现金 1 间房) · 5 晚',
+      status: '主选 · 2 大 1 小 (Cat 4 积分兑换 · 现金 €0) · 5 晚',
       nights: 5
     },
     lisbonAlt: {
