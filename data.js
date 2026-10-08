@@ -116,9 +116,9 @@ window.TRIP = {
       title: '出海 · 沙滩日',
       tip: '海豚巡航务必选 Catamaran（平稳大型双体船，带洗手间与遮阳舱），严禁选 RIB 快艇——颠簸，不适合 2 岁幼童。',
       stops: [
-        { t: '09:30', name: 'Lagos Marina 海豚巡航', note: '平稳双体船，5 月野生海豚看到率很高；备选 Benagil 洞穴', query: 'Marina de Lagos, Portugal', hl: true, leg: { mode: 'drive', min: 17, km: 10 } },
+        { t: '09:30', name: 'Lagos Marina 海豚巡航', note: '平稳双体船，5 月野生海豚看到率很高；备选 Benagil 洞穴', query: 'Marina de Lagos, Portugal', hl: true, leg: { mode: 'drive', min: 6, km: 3.5 } },
         { t: '13:00', name: 'Meia Praia 沙滩', note: '大型停车场，挖沙踏浪', query: 'Meia Praia, Lagos, Portugal', leg: { mode: 'drive', min: 5, km: 3 } },
-        { t: '16:00', name: '回度假村泳池', note: '', at: 'algarve', leg: { mode: 'drive', min: 13, km: 8 } }
+        { t: '16:00', name: '回度假村泳池', note: '', at: 'algarve', leg: { mode: 'drive', min: 8, km: 5 } }
       ]
     },
     {
@@ -126,9 +126,9 @@ window.TRIP = {
       title: '悬崖木栈道 · 古城海鲜',
       tip: '悬崖木栈道全新、全平、无台阶，推车友好；海边风大，带防风帽。',
       stops: [
-        { t: '09:30', name: 'Ponta da Piedade 悬崖木栈道', note: '金黄悬崖与翡翠海水，推车一路到底', lat: 37.0833, lng: -8.6694, hl: true, leg: { mode: 'drive', min: 12, km: 7 } },
+        { t: '09:30', name: 'Ponta da Piedade 悬崖木栈道', note: '金黄悬崖与翡翠海水，推车一路到底', lat: 37.0833, lng: -8.6694, hl: true, leg: { mode: 'drive', min: 4, km: 2.2 } },
         { t: '12:30', name: '拉各斯古城 · 现捞海鲜', note: '鹅卵石老街，开车仅 5 分钟', lat: 37.1028, lng: -8.6742, leg: { mode: 'drive', min: 5, km: 2 } },
-        { t: '15:30', name: '回度假村休息', note: '泳池 / 阳台日落', at: 'algarve', leg: { mode: 'drive', min: 13, km: 8 } }
+        { t: '15:30', name: '回度假村休息', note: '泳池 / 阳台日落', at: 'algarve', leg: { mode: 'drive', min: 5, km: 2.5 } }
       ]
     },
     {
