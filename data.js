@@ -13,31 +13,31 @@ window.TRIP = {
   start: '2027-05-04',
   tz: 'Europe/Lisbon',
   nights: 8,
-  party: '2 大 1 小 (主选) · 备选 4 大 1 小',
+  party: '4 大 1 小 (99% 主选) · 备选 2 大 1 小',
   cities: { lisbon: '里斯本', algarve: '阿尔加维 · 拉各斯' },
 
   stays: {
     lisbon: {
-      name: 'Hyatt Regency Lisbon (里斯本凯悦酒店)',
-      short: '里斯本 · Hyatt Regency',
-      query: 'Hyatt Regency Lisbon, Lisboa, Portugal',
-      address: null,
-      status: '【里斯本 5 晚】主选 · 2 大 1 小 (Cat 4 积分兑换 · 现金 €0) · 5 晚',
-      nights: 5
-    },
-    lisbonAlt: {
       name: 'Upon Lisbon Prime Residences (里斯本服务公寓)',
       short: '里斯本 · Upon 两卧公寓',
       query: 'Upon Lisbon Prime Residences, Lisboa, Portugal',
       address: null,
-      status: '【里斯本备用】4 大 1 小 (100㎡ 两卧大公寓)'
+      status: '【里斯本主选】4 大 1 小 (80㎡ / 861 sq ft 两卧两卫大公寓 · 楼顶恒温泳池) · 5 晚',
+      nights: 5
+    },
+    lisbonAlt: {
+      name: 'Hyatt Regency Lisbon (里斯本凯悦酒店)',
+      short: '里斯本 · Hyatt Regency',
+      query: 'Hyatt Regency Lisbon, Lisboa, Portugal',
+      address: null,
+      status: '【里斯本备选】2 大 1 小 (Cat 4 积分兑换 · 现金 €0)'
     },
     algarve: {
       name: 'Belmar Spa & Beach Resort (贝尔马水疗海滩度假村)',
       short: '拉各斯 · Belmar 度假村',
       query: 'Belmar Spa & Beach Resort, Lagos, Portugal',
       address: null,
-      status: '【拉各斯首选】1-Bedroom Sea View (一卧海景套房 · 室内温水池宝宝可用 · 自带洗衣机 · 免费车库) · 3 晚',
+      status: '【拉各斯首选】2-Bedroom Sea View (两卧海景平层套房 · 91~96㎡ · 室内温水池宝宝可用 · 自带洗衣机 · 免费车库) · 3 晚',
       nights: 3
     }
   },
