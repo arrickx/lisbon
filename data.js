@@ -112,7 +112,7 @@ window.TRIP = {
       tip: '提三厢轿车，装安全座椅。高速巡航白噪音正好是宝宝 12:00~13:30 午睡神器！入住 Belmar 后步行 5 分钟踩沙滩。',
       stops: [
         { t: '08:45', name: '退房出发', note: '前台 1 分钟退房，打车去机场租车中心', at: 'lisbon' },
-        { t: '09:15', name: '机场提三厢轿车', note: 'Hertz PC 提车，装儿童座椅，激活 Via Verde', lat: 38.7742, lng: -9.1342, leg: { mode: 'uber', min: 18, km: 10, eur: 12 } },
+        { t: '09:15', name: '机场提紧凑型 SUV', note: '提自动挡 Nissan Qashqai 或同级，装儿童座椅，激活 Via Verde', lat: 38.7742, lng: -9.1342, leg: { mode: 'uber', min: 18, km: 10, eur: 12 } },
         { t: '10:00', name: 'A2 高速自驾南下', note: '中途服务区换尿布，高速巡航宝宝安稳午睡', leg: { mode: 'drive', min: 150, km: 250 } },
         { t: '13:30', name: '入住 Belmar 度假村', note: '地库电梯直通海景一卧，大冰箱放牛奶', at: 'algarve' },
         { t: '16:00', name: 'Porto de Mós 细沙海滩', note: '步行 5 分钟，踩沙踏浪看悬崖', leg: { mode: 'walk', min: 5 } },
