@@ -82,7 +82,7 @@ window.TRIP = {
       stops: [
         { t: '09:00', name: '商业广场 · Baixa', note: '沿河纯平地，早晨游客稀少，拍照大气看帆船', query: 'Praça do Comércio, Lisboa', leg: { mode: 'uber', min: 15, km: 8, eur: 12 } },
         { t: '10:30', name: '奥古斯塔步行街漫步', note: '平坦石板路慢逛，看街头艺人表演', query: 'Arco da Rua Augusta, Lisboa', leg: { mode: 'walk', min: 5 } },
-        { t: '11:45', name: 'Chiado 亲子午餐', note: '薄煎牛肉蛋饭 Bitoque，给宝宝补充体力' },
+        { t: '11:45', name: 'Chiado 亲子午餐', note: '薄煎牛肉蛋饭 Bitoque，给宝宝补充体力', query: 'Chiado, Lisboa' },
         { t: '13:00', name: '回 Upon 深度午休', note: '回房大床充能 3 小时，傍晚两栖车状态满格', at: 'lisbon', leg: { mode: 'uber', min: 15, km: 8, eur: 12 } },
         { t: '16:00', name: 'HippoTrip 水陆两栖巴士', note: '16:00 黄金场！冲入特茹河激起巨浪！备背包垫高屁股看海，水上可抱坐', query: 'HippoTrip Lisboa', hl: true, leg: { mode: 'uber', min: 12, km: 7, eur: 11 } },
         { t: '18:00', name: 'Doca Peixe 码头晚餐', note: '正对 425 大桥与游艇，吃完打车回 Upon', query: 'Doca Peixe, Doca de Santo Amaro, Lisboa', leg: { mode: 'walk', min: 2 } }
