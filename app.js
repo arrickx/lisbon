@@ -111,7 +111,7 @@
     const past = st && (st.done || i < st.cur);
     const cur = st && !st.done && i === st.cur;
     const p = place(s);
-    const go = dest(p) ? `<a class="go" href="${navUrl(p, s.leg && s.leg.mode)}" target="_blank" rel="noopener" aria-label="导航到${esc(s.name)}">🧭</a>` : '<span></span>';
+    const go = dest(p) ? `<a class="go" href="${navUrl(p, s.leg && s.leg.mode)}" target="_blank" rel="noopener" aria-label="导航到${esc(s.name)}"><span>↗</span></a>` : '<span></span>';
     const leg = s.leg ? `<li class="leg">${legText(s.leg, i === 0)}</li>` : '';
     return `${leg}<li class="stop${s.hl ? ' hl' : ''}${past ? ' past' : ''}${cur ? ' cur' : ''}">
       <div class="t">${s.t}<small>${slotOf(s.t)}</small></div>
@@ -121,18 +121,20 @@
     </li>`;
   }
 
-  function renderLiveCards(day, st) {
-    if (st.done) return '<div class="card"><div class="eyebrow">🌙 今天的行程结束了</div><div class="note">好好休息，明天继续。</div></div>';
+  const etaText = (t, nowMin) => {
+    const d = toMin(t) - nowMin;
+    return d <= 0 ? '现在出发' : d < 60 ? `${d} 分钟后` : `${fmtMin(d)}后`;
+  };
+
+  function renderLiveCards(day, st, clk) {
+    if (st.done) return '<div class="nowbar"><span>🌙</span><b>今天的行程结束了，好好休息</b></div>';
     let html = '';
-    if (st.cur >= 0) {
-      const s = day.stops[st.cur];
-      html += `<div class="card now"><div class="eyebrow">现在 · ${slotOf(s.t)}</div><div class="name">${esc(s.name)}</div>${s.note ? `<div class="note">${esc(s.note)}</div>` : ''}</div>`;
-    } else {
-      html += '<div class="card"><div class="eyebrow">今天还没开始</div></div>';
-    }
+    if (st.cur >= 0) html += `<div class="nowbar"><i class="pulse"></i><span>现在</span><b>${esc(day.stops[st.cur].name)}</b></div>`;
+    else html += '<div class="nowbar"><span>今天还没开始</span></div>';
     if (st.next >= 0) {
       const s = day.stops[st.next];
-      html += `<div class="card next"><div class="eyebrow">下一站 · ${s.t}</div><div class="name">${esc(s.name)}</div>
+      html += `<div class="card next"><div class="next-h"><span class="eyebrow">下一站 · <b class="big">${s.t}</b></span><span class="eta" data-eta="${s.t}">${etaText(s.t, clk.min)}</span></div>
+        <div class="name">${esc(s.name)}</div>
         ${s.note ? `<div class="note">${esc(s.note)}</div>` : ''}
         ${s.leg ? `<div class="legline">${legText(s.leg, false)}</div>` : ''}
         ${stopActions(s)}</div>`;
@@ -153,13 +155,15 @@
     const live = ctx.live;
     const st = live ? stopState(day, ctx.clk) : null;
     const dr = dayDrive(day);
-    const driveChip = dr.n ? `🚗 今日车程约 ${fmtMin(dr.min)} · ${dr.n} 段` : '🚶 今天基本步行';
+    const driveChip = dr.n ? `🚗 车程约 ${fmtMin(dr.min)} · ${dr.n} 段` : '🚶 基本步行';
     return `
       ${ctx.banner}
-      <div><div class="day-date">${dateLabel(day.date)} · ${esc(T.cities[day.city])}</div>
+      <div class="hero">
+        <div class="hero-top"><span>${dateLabel(day.date)}</span><span>${esc(T.cities[day.city])}</span></div>
         <h1 class="day-title">${esc(day.title)}</h1>
-        <div class="day-drive">${driveChip}</div></div>
-      ${live ? renderLiveCards(day, st) : ''}
+        <div class="hero-chips"><span>${driveChip}</span><span>📍 ${day.stops.length} 站</span></div>
+      </div>
+      ${live ? renderLiveCards(day, st, ctx.clk) : ''}
       <div class="sec-h">${live ? '今日完整安排' : '当天安排'}</div>
       <ol class="tl">${day.stops.map((s, i) => renderStopRow(s, i, st)).join('')}</ol>
       ${day.tip ? `<div class="tip"><span>💡</span><span>${esc(day.tip)}</span></div>` : ''}
@@ -216,7 +220,7 @@
         live && d.n === clk.todayN ? 'today' : '',
         d.n === viewN && (state.viewDay !== null || !live) ? 'view' : ''
       ].join(' ');
-      return `<button type="button" class="seg ${cls}" data-city="${d.city}" data-n="${d.n}" data-day="${d.n}" aria-label="第 ${d.n} 天"></button>`;
+      return `<button type="button" class="chip ${cls}" data-city="${d.city}" data-day="${d.n}" aria-label="第 ${d.n} 天"><small>${weekday(d.date).slice(1)}</small><b>${+d.date.slice(8, 10)}</b></button>`;
     }).join('');
   }
 
@@ -242,6 +246,7 @@
     Object.entries(panels).forEach(([k, el]) => { el.hidden = k !== state.tab; });
 
     renderHead(clk, viewN);
+    document.querySelectorAll('[data-eta]').forEach((el) => { el.textContent = etaText(el.dataset.eta, clk.min); });
 
     // 面板内容只在“关键状态变了”时才重绘，避免每分钟刷新导致页面跳动
     const live = clk.mode === 'live' && viewN === clk.todayN;
