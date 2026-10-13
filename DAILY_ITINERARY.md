@@ -6,8 +6,7 @@
 > * **里斯本 5 晚**：【Upon Lisbon Prime Residences】（80 ㎡ 两卧两卫大套房 · 楼顶恒温泳池）  
 > * **拉各斯 3 晚**：【Belmar Spa & Beach Resort】（91~96 ㎡ 两卧海景平层套房 · 室内温水池宝宝可用 · 免费车库）  
 > **交通衔接**：里斯本市内全程 **UberXL / Bolt XL（双 App 比价 · 6~7 座大车）** 点对点 ➡️ 阿尔加维自驾 **Nissan Qashqai（紧凑型自动挡 SUV）**  
-> 🧭 **三册互联快速导航**：  
-> * 📅 **逐日慢游方案 (当前手册)** 👉 [DAILY_ITINERARY.md](file:///Users/R/Documents/antigravity/lisbon/DAILY_ITINERARY.md)（上午/下午双段式 · 美食灵感 · 随身包清单）  
+> 🧭 **相关手册跳转**：  
 > * 📋 **4大1小总概览档案** 👉 [TRIP_PROFILE_4A1C.md](file:///Users/R/Documents/antigravity/lisbon/TRIP_PROFILE_4A1C.md)（两卧套房深度评测 · 打车自驾 · 行李穿搭）  
 > * 🎫 **门票与营业核查** 👉 [TICKETS_AND_HOURS.md](file:///Users/R/Documents/antigravity/lisbon/TICKETS_AND_HOURS.md)（逐日歇业排查 · 仅2项需抢票 · 官方渠道指引）
 
@@ -163,10 +162,9 @@
 
 ---
 
-## 🧭 全景手册快速跳转
+## 🧭 相关手册跳转
 
 | 手册名称 | 核心内容 | 直达链接 |
 | :--- | :--- | :--- |
-| 📅 **逐日慢游方案 (当前手册)** | 9 天上午/下午双段式松弛节奏、景点玩法、特色餐厅推荐 | 👉 [DAILY_ITINERARY.md](file:///Users/R/Documents/antigravity/lisbon/DAILY_ITINERARY.md) |
 | 📋 **4大1小全景档案** | Upon & Belmar 两卧套房深度评测、Uber/Bolt XL 与自驾、TAP 乘机与行李 | 👉 [TRIP_PROFILE_4A1C.md](file:///Users/R/Documents/antigravity/lisbon/TRIP_PROFILE_4A1C.md) |
 | 🎫 **门票与营业核查** | 逐日营业状态排查、HippoTrip/水族馆官网抢票、海豚巡航退改渠道 | 👉 [TICKETS_AND_HOURS.md](file:///Users/R/Documents/antigravity/lisbon/TICKETS_AND_HOURS.md) |
