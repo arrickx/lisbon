@@ -57,13 +57,13 @@ window.TRIP = {
     {
       n: 2, date: '2027-05-05', city: 'lisbon', stay: 'lisbon',
       title: '贝伦文化日',
-      tip: '宝宝 7 点起、8:45 出发。09:00 进蛋挞老店免排队！修道院外广场与大草坪放电。中午 12:45 回 Upon 睡足 3 小时。',
+      tip: '宝宝 7 点起、9:00 从容出门。蛋挞老店免排长队！修道院外广场放电。13:00~16:00 回 Upon 睡足 3 小时。',
       stops: [
-        { t: '09:00', name: 'Pastéis de Belém 蛋挞老店', note: '09:00免排队堂食，外皮酥脆、奶馅温热，有高脚椅', lat: 38.6975, lng: -9.2032, leg: { mode: 'uber', min: 15, km: 10, eur: 12 } },
+        { t: '09:15', name: 'Pastéis de Belém 蛋挞老店', note: '免排长队堂食，外皮酥脆、奶馅温热，有高脚椅', lat: 38.6975, lng: -9.2032, leg: { mode: 'uber', min: 15, km: 10, eur: 12 } },
         { t: '10:00', name: '热罗尼莫斯修道院外广场', note: '纯平回廊与贝伦大草坪，宝宝奔跑放电看大桥', lat: 38.6979, lng: -9.2068, leg: { mode: 'walk', min: 5 } },
         { t: '11:15', name: '发现者纪念碑 · 贝伦草坪', note: '大草坪放电看大桥帆船', lat: 38.6937, lng: -9.2056, leg: { mode: 'walk', min: 10 } },
         { t: '12:00', name: '贝伦区亲子午餐', note: '清蒸海鱼配土豆泥 (Sem sal)' },
-        { t: '12:45', name: '回 Upon 两卧套房深睡', note: '叫 UberXL 秒回公寓，拉遮光帘大床睡足 3 小时', at: 'lisbon', leg: { mode: 'uber', min: 15, km: 10, eur: 12 } },
+        { t: '13:00', name: '回 Upon 两卧套房深睡', note: '叫 UberXL 秒回公寓，拉遮光帘大床睡足 3 小时', at: 'lisbon', leg: { mode: 'uber', min: 15, km: 10, eur: 12 } },
         { t: '16:00', name: 'LX Factory 创意园', note: '飞天自行车书店 Ler Devagar，工业风手作小店与露天咖啡', lat: 38.7030, lng: -9.1786, leg: { mode: 'uber', min: 12, km: 7, eur: 10 } },
         { t: '18:00', name: '露天海鲜晚餐', note: '烤章鱼与海鲜饭，吃完 UberXL 回 Upon 休息' }
       ]
@@ -75,8 +75,8 @@ window.TRIP = {
       stops: [
         { t: '09:00', name: '商业广场 · Baixa', note: '沿河纯平地，早晨游客稀少，拍照大气看帆船', lat: 38.7075, lng: -9.1364, leg: { mode: 'uber', min: 15, km: 8, eur: 12 } },
         { t: '10:30', name: '奥古斯塔步行街漫步', note: '平坦石板路慢逛，看街头艺人表演', lat: 38.7100, lng: -9.1370, leg: { mode: 'walk', min: 5 } },
-        { t: '11:30', name: 'Chiado 亲子午餐', note: '薄煎牛肉蛋饭 Bitoque，给宝宝补充体力' },
-        { t: '12:45', name: '回 Upon 深度午休', note: '回房大床充能 3 小时，傍晚两栖车状态满格', at: 'lisbon', leg: { mode: 'uber', min: 15, km: 8, eur: 12 } },
+        { t: '11:45', name: 'Chiado 亲子午餐', note: '薄煎牛肉蛋饭 Bitoque，给宝宝补充体力' },
+        { t: '13:00', name: '回 Upon 深度午休', note: '回房大床充能 3 小时，傍晚两栖车状态满格', at: 'lisbon', leg: { mode: 'uber', min: 15, km: 8, eur: 12 } },
         { t: '16:45', name: 'HippoTrip 水陆两栖车', note: '冲入特茹河激起巨浪！正规两栖大巴有幼儿救生衣', query: 'HippoTrip Lisboa', hl: true, leg: { mode: 'uber', min: 12, km: 7, eur: 11 } },
         { t: '18:30', name: 'Doca Peixe 码头晚餐', note: '正对 425 大桥与游艇，吃完打车回 Upon', leg: { mode: 'walk', min: 2 } }
       ]
@@ -89,7 +89,7 @@ window.TRIP = {
         { t: '09:05', name: 'Senhora do Monte 观景台', note: '最高峰俯瞰红屋顶与河谷，清晨无游客争抢', lat: 38.7196, lng: -9.1328, leg: { mode: 'uber', min: 18, km: 8, eur: 12 } },
         { t: '10:00', name: '顺坡漫步看 28 路电车', note: '顺坡向下滑行，途经圣卢西亚观景台、大教堂', lat: 38.7099, lng: -9.1330, leg: { mode: 'walk', min: 25 } },
         { t: '11:45', name: '山脚平地午餐', note: '鮟鱇鱼海鲜泡饭 Arroz de Tamboril (无细刺)' },
-        { t: '12:45', name: '回 Upon 深度午休', note: 'UberXL 秒回公寓，拉帘大床深睡 3 小时', at: 'lisbon', leg: { mode: 'uber', min: 15, km: 7, eur: 11 } },
+        { t: '13:00', name: '回 Upon 深度午休', note: 'UberXL 秒回公寓，拉帘大床深睡 3 小时', at: 'lisbon', leg: { mode: 'uber', min: 15, km: 7, eur: 11 } },
         { t: '16:00', name: '自由大道名牌街 (LV / 咖啡亭)', note: '买名牌组逛 LV 旗舰店(退税12~15%)；长辈推车在梧桐林荫小亭喝咖啡', query: 'Louis Vuitton Lisboa Avenida da Liberdade', hl: true, leg: { mode: 'uber', min: 10, km: 5, eur: 9 } },
         { t: '18:30', name: '自由大道周边晚餐', note: '传统名店享用海鲜大餐，吃完打车回 Upon' }
       ]
