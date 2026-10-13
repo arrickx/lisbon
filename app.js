@@ -208,20 +208,11 @@
       ${poc}`;
   }
 
-  function renderHead(clk, viewN) {
+  function renderHead(clk) {
     const live = clk.mode === 'live';
     $('#top-main').innerHTML = live ? `Day <b>${clk.todayN}</b> / ${DAYS.length}`
       : clk.mode === 'before' ? `距出发 <b>${clk.until}</b> 天` : `旅程完成 · ${DAYS.length} 天`;
     $('#clock').textContent = `里斯本 ${pad(Math.floor(clk.min / 60))}:${pad(clk.min % 60)}`;
-
-    $('#prog').innerHTML = DAYS.map((d) => {
-      const cls = [
-        clk.mode === 'after' || (live && d.n < clk.todayN) ? 'done' : '',
-        live && d.n === clk.todayN ? 'today' : '',
-        d.n === viewN && (state.viewDay !== null || !live) ? 'view' : ''
-      ].join(' ');
-      return `<button type="button" class="chip ${cls}" data-city="${d.city}" data-day="${d.n}" aria-label="第 ${d.n} 天"><small>${weekday(d.date).slice(1)}</small><b>${+d.date.slice(8, 10)}</b></button>`;
-    }).join('');
   }
 
   /* ------------------------------------------------------------------ *
@@ -245,7 +236,7 @@
     });
     Object.entries(panels).forEach(([k, el]) => { el.hidden = k !== state.tab; });
 
-    renderHead(clk, viewN);
+    renderHead(clk);
     document.querySelectorAll('[data-eta]').forEach((el) => { el.textContent = etaText(el.dataset.eta, clk.min); });
 
     // 面板内容只在“关键状态变了”时才重绘，避免每分钟刷新导致页面跳动
@@ -270,8 +261,8 @@
     let action = '';
     if (state.fromTrip) action = '<button type="button" data-act="back-trip">← 返回全程</button>';
     else if (away) { text = `正在查看 Day ${viewN}`; action = '<button type="button" data-act="today">回到今天</button>'; }
-    else if (clk.mode === 'before') text = '出发前预览 · 点上方进度条看任意一天';
-    else if (clk.mode === 'after') text = '旅程已结束 · 点上方进度条回看';
+    else if (clk.mode === 'before') text = '出发前预览 · 在「全程」里选某一天';
+    else if (clk.mode === 'after') text = '旅程已结束 · 在「全程」里回看';
     if (!text && !action) return '';
     if (state.fromTrip && !text) text = `Day ${viewN}`;
     return `<div class="banner"><span>${text}</span>${action}</div>`;
