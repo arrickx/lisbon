@@ -2,7 +2,10 @@
 
 > **适用行程**：4 位成人（含两位长辈）+ 1 位幼童（<2 岁，差 1 个月满 2 周岁）  
 > **出行日期**：5/4 (周二) ~ 5/12 (周三)（里斯本 5 晚 + 阿尔加维 3 晚）  
-> **核查原则**：针对真实出行日期（逐日核对周几营业情况、当地节假日、是否闭门、现场排队痛点、购票渠道防坑）。
+> **核查原则**：针对真实出行日期（逐日核对周几营业情况、当地节假日、是否闭门、现场排队痛点、购票渠道防坑）  
+> **关联总行程手册**：  
+> * 📅 **逐日慢游方案** 👉 [DAILY_ITINERARY.md](file:///Users/R/Documents/antigravity/lisbon/DAILY_ITINERARY.md)（上午/下午双段式节奏 · 交通与美食灵感）  
+> * 📋 **4大1小总概览档案** 👉 [TRIP_PROFILE_4A1C.md](file:///Users/R/Documents/antigravity/lisbon/TRIP_PROFILE_4A1C.md)（房型配置 · 打车与自驾 · 极简打包）
 
 ---
 
@@ -163,3 +166,10 @@
 * [ ] **到达拉各斯前 2 天 (5/8 左右)**：
   * 查看阿尔加维风浪天气预报，在 GetYourGuide 预订 **5/10 (周一) 09:30 Catamaran 双体船看海豚**。
 * [ ] **其余项目**：全部无票随心走，现场直接入场！
+
+---
+
+## 🔗 相关全景手册快捷跳转
+
+* 📅 **每日慢调度假方案** 👉 [DAILY_ITINERARY.md](file:///Users/R/Documents/antigravity/lisbon/DAILY_ITINERARY.md)（上午/下午双段式结构 · 随身妈咪包清单 · 餐厅避坑）
+* 📋 **4大1小总概览与配置档案** 👉 [TRIP_PROFILE_4A1C.md](file:///Users/R/Documents/antigravity/lisbon/TRIP_PROFILE_4A1C.md)（两卧套房深度评测 · Uber/Bolt XL 与自驾 · 极简行李单）
