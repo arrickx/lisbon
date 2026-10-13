@@ -335,7 +335,7 @@
     setTimeout(() => panel.classList.remove('slide-next', 'slide-prev'), 320);
   }
 
-  function showFlipIndicator(targetN, dir, dist) {
+  function showFlipIndicator(targetN, dist) {
     const ind = $('#flip-indicator');
     if (!ind || targetN < 1 || targetN > DAYS.length) return;
     const targetDay = DAYS[targetN - 1];
@@ -347,10 +347,8 @@
       thresholdTriggered = false;
     }
     ind.hidden = false;
-    ind.className = `flip-indicator ${dir === 'next' ? 'bottom' : 'top'}${ready ? ' ready' : ''}`;
-    const arrow = dir === 'next' ? '↑' : '↓';
-    const action = dir === 'next' ? '上滑查看' : '下拉返回';
-    ind.innerHTML = `<span class="fi-arrow">${arrow}</span><span>${ready ? `松手切换至 Day ${targetN} · ${esc(targetDay.title)}` : `${arrow} 继续${action} Day ${targetN} · ${esc(targetDay.title)}`}</span>`;
+    ind.className = `flip-indicator${ready ? ' ready' : ''}`;
+    ind.innerHTML = `<span class="fi-arrow">↑</span><span>${ready ? `松手切换至 Day ${targetN} · ${esc(targetDay.title)}` : `↑ 继续上滑查看 Day ${targetN} · ${esc(targetDay.title)}`}</span>`;
   }
 
   function hideFlipIndicator() {
@@ -383,17 +381,11 @@
     const docEl = document.documentElement;
     const scrollBottom = docEl.scrollHeight - window.innerHeight - window.scrollY;
 
-    // 1. 位于页面底部，手指继续往上拉（dy < 0）-> 切换到下一天
+    // 仅在页面底部继续往上拉时触发下一天翻页（顶部下拉保留给浏览器原生刷新/回弹）
     if (dy < -10 && scrollBottom <= 8 && viewN < DAYS.length) {
       pullDir = 'next';
       pullDist = Math.min(100, Math.max(0, -dy * 0.5));
-      showFlipIndicator(viewN + 1, 'next', pullDist);
-    }
-    // 2. 位于页面顶部，手指继续往下拉（dy > 0）-> 切换到上一天
-    else if (dy > 10 && window.scrollY <= 4 && viewN > 1) {
-      pullDir = 'prev';
-      pullDist = Math.min(100, Math.max(0, dy * 0.5));
-      showFlipIndicator(viewN - 1, 'prev', pullDist);
+      showFlipIndicator(viewN + 1, pullDist);
     } else {
       hideFlipIndicator();
       pullDir = null;
@@ -428,12 +420,6 @@
       if (wheelAccum > 120) {
         wheelAccum = 0;
         switchDay(viewN + 1, 'next');
-      }
-    } else if (e.deltaY < 0 && window.scrollY <= 4 && viewN > 1) {
-      wheelAccum += e.deltaY;
-      if (wheelAccum < -120) {
-        wheelAccum = 0;
-        switchDay(viewN - 1, 'prev');
       }
     } else {
       wheelAccum = 0;
