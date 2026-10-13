@@ -307,7 +307,7 @@
   }
 
   document.addEventListener('click', (e) => {
-    const t = e.target.closest('[data-tab],[data-day],[data-act],[data-copy],[data-flash],[data-close-flash]');
+    const t = e.target.closest('.tab[data-tab],[data-day],[data-act],[data-copy],[data-flash],[data-close-flash]');
     if (!t) return;
     if (t.dataset.copy != null) return copyText(t.dataset.copy);
     if (t.dataset.flash != null) return $('#flash').showModal();
