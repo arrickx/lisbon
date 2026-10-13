@@ -6,8 +6,8 @@
  *  - stop.t     建议时间 "HH:MM"，用于判断“现在 / 下一站”并决定显示的时段
  *  - stop.leg   从上一站到本站的交通段 {mode:'uber'|'walk'|'drive', min, km?, eur?}
  *  - stop.at    指向 stays 里的住处（入住/退房/回住处），导航与叫车使用住处信息
- *  - stop.query 没有精确坐标时，用文字让 Google / Uber 自己解析
- *  - 没有 lat/lng、query、at 的 stop 不显示导航按钮
+ *  - stop.query 具体地点名称/可搜索地址（不用经纬度/Pin，方便在地图与 Uber/Bolt 里直接搜出精确 POI）
+ *  - 没有 query 或 at 的 stop 不显示导航按钮
  */
 window.TRIP = {
   start: '2027-05-04',
@@ -55,7 +55,7 @@ window.TRIP = {
       title: '抵达 · 倒时差',
       tip: '第一天不排景点，专心倒时差。2 岁以下幼童坐 Uber / 出租车可抱坐后排（葡萄牙交规豁免），大人先系好安全带。',
       stops: [
-        { t: '14:00', name: '抵达里斯本机场 (LIS)', note: '机舱口取推车，家庭通道出关取行李，叫 UberXL 直达 Upon', lat: 38.7742, lng: -9.1342 },
+        { t: '14:00', name: '抵达里斯本机场 (LIS)', note: '机舱口取推车，家庭通道出关取行李，叫 UberXL 直达 Upon', query: 'Aeroporto de Lisboa (LIS)' },
         { t: '15:15', name: '入住 Upon Lisbon 两卧公寓', note: '入住 80㎡ 两卧两卫套房，大床熟睡倒时差', at: 'lisbon', leg: { mode: 'uber', min: 12, km: 6, eur: 12 } },
         { t: '17:30', name: '楼顶恒温泳池 / 街道慢步', note: '无边恒温池俯瞰市区晚霞，或平路漫步' },
         { t: '18:30', name: '附近传统晚餐', note: '蔬菜浓汤拌白米饭，大人吃烤鱼与海鲜饭' }
@@ -66,12 +66,12 @@ window.TRIP = {
       title: '贝伦文化日',
       tip: '贝伦区沿河全平推车无障碍。上午百年老店堂食现烤热蛋挞、修道院草坪放电看大桥；下午 LX Factory 创意园露天咖啡漫生活。',
       stops: [
-        { t: '09:15', name: 'Pastéis de Belém 蛋挞老店', note: '免排长队堂食，外皮酥脆、奶馅温热，有高脚椅', lat: 38.6975, lng: -9.2032, leg: { mode: 'uber', min: 15, km: 10, eur: 12 } },
-        { t: '10:00', name: '热罗尼莫斯修道院外广场', note: '纯平回廊与贝伦大草坪，宝宝奔跑放电看大桥', lat: 38.6979, lng: -9.2068, leg: { mode: 'walk', min: 5 } },
-        { t: '11:15', name: '发现者纪念碑 · 贝伦草坪', note: '大草坪放电看大桥帆船', lat: 38.6937, lng: -9.2056, leg: { mode: 'walk', min: 10 } },
+        { t: '09:15', name: 'Pastéis de Belém 蛋挞老店', note: '免排长队堂食，外皮酥脆、奶馅温热，有高脚椅', query: 'Pastéis de Belém, Lisboa', leg: { mode: 'uber', min: 15, km: 10, eur: 12 } },
+        { t: '10:00', name: '热罗尼莫斯修道院外广场', note: '纯平回廊与贝伦大草坪，宝宝奔跑放电看大桥', query: 'Mosteiro dos Jerónimos, Lisboa', leg: { mode: 'walk', min: 5 } },
+        { t: '11:15', name: '发现者纪念碑 · 贝伦草坪', note: '大草坪放电看大桥帆船', query: 'Padrão dos Descobrimentos, Lisboa', leg: { mode: 'walk', min: 10 } },
         { t: '12:00', name: '贝伦区亲子午餐', note: '清蒸海鱼配土豆泥 (Sem sal)' },
         { t: '13:00', name: '回 Upon 两卧套房深睡', note: '叫 UberXL 秒回公寓，拉遮光帘大床睡足 3 小时', at: 'lisbon', leg: { mode: 'uber', min: 15, km: 10, eur: 12 } },
-        { t: '16:00', name: 'LX Factory 创意园', note: '飞天自行车书店 Ler Devagar，工业风手作小店与露天咖啡', lat: 38.7030, lng: -9.1786, leg: { mode: 'uber', min: 12, km: 7, eur: 10 } },
+        { t: '16:00', name: 'LX Factory 创意园', note: '飞天自行车书店 Ler Devagar，工业风手作小店与露天咖啡', query: 'LX Factory, Lisboa', leg: { mode: 'uber', min: 12, km: 7, eur: 10 } },
         { t: '18:00', name: '露天海鲜晚餐', note: '烤章鱼与海鲜饭，吃完 UberXL 回 Upon 休息' }
       ]
     },
@@ -80,12 +80,12 @@ window.TRIP = {
       title: '老城 + 水陆两栖车',
       tip: '商业广场沿河纯平看海风帆船，奥古斯塔步行街慢逛。下午 HippoTrip 水陆两栖车老少皆宜冲入河中激起巨浪！',
       stops: [
-        { t: '09:00', name: '商业广场 · Baixa', note: '沿河纯平地，早晨游客稀少，拍照大气看帆船', lat: 38.7075, lng: -9.1364, leg: { mode: 'uber', min: 15, km: 8, eur: 12 } },
-        { t: '10:30', name: '奥古斯塔步行街漫步', note: '平坦石板路慢逛，看街头艺人表演', lat: 38.7100, lng: -9.1370, leg: { mode: 'walk', min: 5 } },
+        { t: '09:00', name: '商业广场 · Baixa', note: '沿河纯平地，早晨游客稀少，拍照大气看帆船', query: 'Praça do Comércio, Lisboa', leg: { mode: 'uber', min: 15, km: 8, eur: 12 } },
+        { t: '10:30', name: '奥古斯塔步行街漫步', note: '平坦石板路慢逛，看街头艺人表演', query: 'Arco da Rua Augusta, Lisboa', leg: { mode: 'walk', min: 5 } },
         { t: '11:45', name: 'Chiado 亲子午餐', note: '薄煎牛肉蛋饭 Bitoque，给宝宝补充体力' },
         { t: '13:00', name: '回 Upon 深度午休', note: '回房大床充能 3 小时，傍晚两栖车状态满格', at: 'lisbon', leg: { mode: 'uber', min: 15, km: 8, eur: 12 } },
         { t: '16:00', name: 'HippoTrip 水陆两栖巴士', note: '16:00 黄金场！冲入特茹河激起巨浪！备背包垫高屁股看海，水上可抱坐', query: 'HippoTrip Lisboa', hl: true, leg: { mode: 'uber', min: 12, km: 7, eur: 11 } },
-        { t: '18:00', name: 'Doca Peixe 码头晚餐', note: '正对 425 大桥与游艇，吃完打车回 Upon', leg: { mode: 'walk', min: 2 } }
+        { t: '18:00', name: 'Doca Peixe 码头晚餐', note: '正对 425 大桥与游艇，吃完打车回 Upon', query: 'Doca Peixe, Doca de Santo Amaro, Lisboa', leg: { mode: 'walk', min: 2 } }
       ]
     },
     {
@@ -93,8 +93,8 @@ window.TRIP = {
       title: '观景 · 自由大道名牌街',
       tip: '汽车直达最高峰圣母山顶俯瞰全城，顺坡漫步看电车。下午自由大道绝妙分流：买名牌 (LV) + 长辈林荫小亭咖啡闲坐看街景。',
       stops: [
-        { t: '09:05', name: 'Senhora do Monte 观景台', note: '最高峰俯瞰红屋顶与河谷，清晨无游客争抢', lat: 38.7196, lng: -9.1328, leg: { mode: 'uber', min: 18, km: 8, eur: 12 } },
-        { t: '10:00', name: '顺坡漫步看 28 路电车', note: '顺坡向下滑行，途经圣卢西亚观景台、大教堂', lat: 38.7099, lng: -9.1330, leg: { mode: 'walk', min: 25 } },
+        { t: '09:05', name: 'Senhora do Monte 观景台', note: '最高峰俯瞰红屋顶与河谷，清晨无游客争抢', query: 'Miradouro da Senhora do Monte, Lisboa', leg: { mode: 'uber', min: 18, km: 8, eur: 12 } },
+        { t: '10:00', name: '顺坡漫步看 28 路电车', note: '顺坡向下滑行，途经圣卢西亚观景台、大教堂', query: 'Miradouro de Santa Luzia, Lisboa', leg: { mode: 'walk', min: 25 } },
         { t: '11:45', name: '山脚平地午餐', note: '鮟鱇鱼海鲜泡饭 Arroz de Tamboril (无细刺)' },
         { t: '13:00', name: '回 Upon 深度午休', note: 'UberXL 秒回公寓，拉帘大床深睡 3 小时', at: 'lisbon', leg: { mode: 'uber', min: 15, km: 7, eur: 11 } },
         { t: '16:00', name: '自由大道名牌街 (LV / 咖啡亭)', note: '买名牌组逛 LV 旗舰店(退税12~15%)；长辈推车在梧桐林荫小亭喝咖啡', query: 'Louis Vuitton Lisboa Avenida da Liberdade', hl: true, leg: { mode: 'uber', min: 10, km: 5, eur: 9 } },
@@ -106,7 +106,7 @@ window.TRIP = {
       title: '亲子日 · 水族馆',
       tip: '世博园区全平无车无障碍。上午海洋水族馆纯平缓坡看翻车鱼与海獭企鹅；下午空中缆车看大桥，采购自驾物资。',
       stops: [
-        { t: '09:45', name: '里斯本海洋水族馆 Oceanário', note: '10:00 开馆首批进！全馆纯平坡道，500万升中央水缸', lat: 38.7634, lng: -9.0937, hl: true, leg: { mode: 'uber', min: 15, km: 9, eur: 12 } },
+        { t: '09:45', name: '里斯本海洋水族馆 Oceanário', note: '10:00 开馆首批进！全馆纯平坡道，500万升中央水缸', query: 'Oceanário de Lisboa', hl: true, leg: { mode: 'uber', min: 15, km: 9, eur: 12 } },
         { t: '12:00', name: '滨海轻食午餐', note: '烤三文鱼配甜薯泥，食材新鲜健康' },
         { t: '13:00', name: '滨海林荫道推车午睡 / 回房', note: '3km 纯平无车林荫长廊，推车轻晃秒睡或回 Upon 大床睡' },
         { t: '15:00', name: '滨海景观缆车', note: '空中看达伽马大桥与河口', query: 'Telecabine Lisboa Parque das Nações', leg: { mode: 'walk', min: 5 } },
@@ -120,11 +120,11 @@ window.TRIP = {
       tip: '提自动挡 Nissan Qashqai 紧凑型 SUV，A2 高速路况极佳平稳南下；入住 Belmar 两卧海景平层，步行 5 分钟漫步沙滩看落日。',
       stops: [
         { t: '08:45', name: '退房出发', note: '前台 1 分钟快速退房，UberXL 10 分钟到机场租车中心', at: 'lisbon' },
-        { t: '09:15', name: '机场提紧凑型 SUV', note: '提自动挡 Nissan Qashqai，装儿童座椅，激活 Via Verde，装入4箱+推车', lat: 38.7742, lng: -9.1342, leg: { mode: 'uber', min: 10, km: 6, eur: 10 } },
+        { t: '09:15', name: '机场提紧凑型 SUV', note: '提自动挡 Nissan Qashqai，装儿童座椅，激活 Via Verde，装入4箱+推车', query: 'Aeroporto de Lisboa (LIS)', leg: { mode: 'uber', min: 10, km: 6, eur: 10 } },
         { t: '10:00', name: 'A2 高速自驾南下', note: '中途服务区换尿布，高速巡航宝宝安稳午睡', leg: { mode: 'drive', min: 150, km: 250 } },
         { t: '13:30', name: '入住 Belmar 度假村', note: '地库电梯直通两卧海景平层，大冰箱放牛奶', at: 'algarve' },
-        { t: '16:00', name: 'Porto de Mós 细沙海滩', note: '步行 5 分钟，踩沙踏浪看悬崖', leg: { mode: 'walk', min: 5 } },
-        { t: '18:00', name: '沙滩 Campimar 晚餐', note: '现捞烤大明虾配海景日落', leg: { mode: 'walk', min: 3 } }
+        { t: '16:00', name: 'Porto de Mós 细沙海滩', note: '步行 5 分钟，踩沙踏浪看悬崖', query: 'Praia de Porto de Mós, Lagos', leg: { mode: 'walk', min: 5 } },
+        { t: '18:00', name: '沙滩 Campimar 晚餐', note: '现捞烤大明虾配海景日落', query: 'Campimar Beach Restaurant, Lagos', leg: { mode: 'walk', min: 3 } }
       ]
     },
     {
@@ -144,8 +144,8 @@ window.TRIP = {
       title: '悬崖木栈道 · 古城慢时光',
       tip: 'Ponta da Piedade 全新纯平无障碍悬崖木栈道看海；Chico Zé 现捞炭烤海鱼；下午古城慢品顶级手工 Gelato 与海边告别晚宴。',
       stops: [
-        { t: '08:45', name: 'Ponta da Piedade 悬崖木栈道', note: '全平无障碍木板路，晨光顺光无暴晒', lat: 37.0833, lng: -8.6694, hl: true, leg: { mode: 'drive', min: 4, km: 2.2 } },
-        { t: '11:30', name: 'Chico Zé 现捞炭烤海鲜', note: '11:30 开门第一批入座零等位，炭烤海鲷鱼极香', leg: { mode: 'drive', min: 5, km: 3 } },
+        { t: '08:45', name: 'Ponta da Piedade 悬崖木栈道', note: '全平无障碍木板路，晨光顺光无暴晒', query: 'Ponta da Piedade, Lagos', hl: true, leg: { mode: 'drive', min: 4, km: 2.2 } },
+        { t: '11:30', name: 'Chico Zé 现捞炭烤海鲜', note: '11:30 开门第一批入座零等位，炭烤海鲷鱼极香', query: 'Restaurante Chico Zé, Lagos', leg: { mode: 'drive', min: 5, km: 3 } },
         { t: '13:00', name: '回房独立卧室关门午睡', note: '开车 5 分钟秒回 Belmar，宝宝深睡，大人洗衣服打包', at: 'algarve', leg: { mode: 'drive', min: 5, km: 2.5 } },
         { t: '15:30', name: '拉各斯古城老街漫步', note: '手工陶瓷店 + 网红 Crema di Gelato 冰淇淋', leg: { mode: 'drive', min: 5, km: 2.5 } },
         { t: '18:00', name: '古城滨水告别晚餐', note: '传统海鲜泡饭与炸鳕鱼饼' }
@@ -157,7 +157,7 @@ window.TRIP = {
       tip: 'A2 高速一路北上直奔机场。航站楼内快速满油还车，推婴儿车享受 TAP 专属家庭快速安检通道，登机口 Gate Check。',
       stops: [
         { t: '08:30', name: '退房北上', note: 'A2 高速一路畅通回里斯本', at: 'algarve', leg: { mode: 'drive', min: 150, km: 250 } },
-        { t: '11:45', name: '机场满油还车', note: 'LIS Terminal 1 租车中心 2 分钟扫码还车', lat: 38.7742, lng: -9.1342 },
+        { t: '11:45', name: '机场满油还车', note: 'LIS Terminal 1 租车中心 2 分钟扫码还车', query: 'Aeroporto de Lisboa (LIS)' },
         { t: '12:15', name: 'TAP 值机与家庭快速安检', note: '推车走 Family Fast Track 快速通道，登机口 Gate Check' }
       ]
     }

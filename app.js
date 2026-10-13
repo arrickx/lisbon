@@ -32,7 +32,9 @@
     const m = q && q.match(/^(\d{4})-(\d{2})-(\d{2})(?:T(\d{2}):(\d{2}))?/);
     if (m) return { date: `${m[1]}-${m[2]}-${m[3]}`, min: (+m[4] || 0) * 60 + (+m[5] || 0) };
     const p = Object.fromEntries(FMT.formatToParts(new Date()).map((x) => [x.type, x.value]));
-    return { date: `${p.year}-${p.month}-${p.day}`, min: (+p.hour % 24) * 60 + +p.minute };
+    const h = (+p.hour || 0) % 24;
+    const mi = +p.minute || 0;
+    return { date: `${p.year}-${p.month}-${p.day}`, min: h * 60 + mi };
   }
 
   const utc = (d) => { const [y, m, dd] = d.split('-').map(Number); return Date.UTC(y, m - 1, dd); };
@@ -77,16 +79,24 @@
 
   const dayDrive = (day) => day.stops.reduce((a, s) => (s.leg && s.leg.mode !== 'walk' ? { min: a.min + s.leg.min, n: a.n + 1 } : a), { min: 0, n: 0 });
 
-  /** stop / stay → 可导航的目的地（没有信息则返回 null） */
+  /**
+   * stop / stay → 可搜索导航的具体地点（采用明确名称/地址，不用坐标/Pin，便于在地图与打车软件精准检索）
+   */
   const place = (o) => (o.at ? T.stays[o.at] : o);
-  const dest = (o) => (o.lat != null ? `${o.lat},${o.lng}` : o.query || null);
+  const dest = (o) => {
+    const p = place(o);
+    return p.address || p.query || null;
+  };
 
-  const navUrl = (o, mode) => `https://www.google.com/maps/dir/?api=1&destination=${enc(dest(o))}${mode === 'walk' ? '&travelmode=walking' : ''}`;
+  const navUrl = (o, mode) => {
+    const target = dest(o) || place(o).name;
+    return `https://www.google.com/maps/dir/?api=1&destination=${enc(target)}${mode === 'walk' ? '&travelmode=walking' : ''}`;
+  };
+
   const uberUrl = (o) => {
-    const target = o.lat != null
-      ? `dropoff[latitude]=${o.lat}&dropoff[longitude]=${o.lng}`
-      : `dropoff[formatted_address]=${enc(o.query)}`;
-    return `https://m.uber.com/ul/?action=setPickup&pickup=my_location&${target}&dropoff[nickname]=${enc(o.name)}`;
+    const p = place(o);
+    const target = dest(o) || p.name;
+    return `https://m.uber.com/ul/?action=setPickup&pickup=my_location&dropoff[formatted_address]=${enc(target)}&dropoff[nickname]=${enc(p.name)}`;
   };
 
   const legText = (leg, first) => {
@@ -99,7 +109,7 @@
 
   const btn = (label, href, primary, extra = '') => `<a class="btn${primary ? ' primary' : ''}" href="${href}" target="_blank" rel="noopener"${extra}>${label}</a>`;
   /** 目的地文字：点叫车时静默复制到剪贴板，方便切到别的打车 App（如 Bolt）粘贴比价 */
-  const rideText = (o) => o.address || o.query || o.name;
+  const rideText = (o) => dest(o) || place(o).name;
   const uberAttrs = (o) => ` data-also-copy="${esc(rideText(o))}"`;
   const uberBtn = (o, label = '🚕 叫车') => btn(label, uberUrl(o), true, uberAttrs(o));
   const copyBtn = (label, text) => `<button type="button" class="btn" data-copy="${esc(text)}">${label}</button>`;
