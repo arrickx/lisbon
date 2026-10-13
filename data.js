@@ -57,7 +57,7 @@ window.TRIP = {
     {
       n: 2, date: '2027-05-05', city: 'lisbon', stay: 'lisbon',
       title: '贝伦文化日',
-      tip: '宝宝 7 点起、9:00 从容出门。蛋挞老店免排长队！修道院外广场放电。13:00~16:00 回 Upon 睡足 3 小时。',
+      tip: '贝伦区沿河全平推车无障碍。上午百年老店堂食现烤热蛋挞、修道院草坪放电看大桥；下午 LX Factory 创意园露天咖啡漫生活。',
       stops: [
         { t: '09:15', name: 'Pastéis de Belém 蛋挞老店', note: '免排长队堂食，外皮酥脆、奶馅温热，有高脚椅', lat: 38.6975, lng: -9.2032, leg: { mode: 'uber', min: 15, km: 10, eur: 12 } },
         { t: '10:00', name: '热罗尼莫斯修道院外广场', note: '纯平回廊与贝伦大草坪，宝宝奔跑放电看大桥', lat: 38.6979, lng: -9.2068, leg: { mode: 'walk', min: 5 } },
@@ -71,7 +71,7 @@ window.TRIP = {
     {
       n: 3, date: '2027-05-06', city: 'lisbon', stay: 'lisbon',
       title: '老城 + 水陆两栖车',
-      tip: '早 9 点商业广场晨光极美。沿河纯平漫步看鸽子帆船。中午回 Upon 大床深睡 3 小时，傍晚两栖车状态满格！',
+      tip: '商业广场沿河纯平看海风帆船，奥古斯塔步行街慢逛。下午 HippoTrip 水陆两栖车老少皆宜冲入河中激起巨浪！',
       stops: [
         { t: '09:00', name: '商业广场 · Baixa', note: '沿河纯平地，早晨游客稀少，拍照大气看帆船', lat: 38.7075, lng: -9.1364, leg: { mode: 'uber', min: 15, km: 8, eur: 12 } },
         { t: '10:30', name: '奥古斯塔步行街漫步', note: '平坦石板路慢逛，看街头艺人表演', lat: 38.7100, lng: -9.1370, leg: { mode: 'walk', min: 5 } },
@@ -84,7 +84,7 @@ window.TRIP = {
     {
       n: 4, date: '2027-05-07', city: 'lisbon', stay: 'lisbon',
       title: '观景 · 自由大道名牌街',
-      tip: '打车直达最高峰顺坡看电车。中午回 Upon 大床深睡 3 小时。下午自由大道绝妙分流：买名牌 (LV) + 长辈林荫咖啡亭喝咖啡看街景。',
+      tip: '汽车直达最高峰圣母山顶俯瞰全城，顺坡漫步看电车。下午自由大道绝妙分流：买名牌 (LV) + 长辈林荫小亭咖啡闲坐看街景。',
       stops: [
         { t: '09:05', name: 'Senhora do Monte 观景台', note: '最高峰俯瞰红屋顶与河谷，清晨无游客争抢', lat: 38.7196, lng: -9.1328, leg: { mode: 'uber', min: 18, km: 8, eur: 12 } },
         { t: '10:00', name: '顺坡漫步看 28 路电车', note: '顺坡向下滑行，途经圣卢西亚观景台、大教堂', lat: 38.7099, lng: -9.1330, leg: { mode: 'walk', min: 25 } },
@@ -97,7 +97,7 @@ window.TRIP = {
     {
       n: 5, date: '2027-05-08', city: 'lisbon', stay: 'lisbon',
       title: '亲子日 · 水族馆',
-      tip: '世博园区全平无障碍。10:00 开馆首批入场；中午可林荫道推车睡或回 Upon；超市采购自驾物资。',
+      tip: '世博园区全平无车无障碍。上午海洋水族馆纯平缓坡看翻车鱼与海獭企鹅；下午空中缆车看大桥，采购自驾物资。',
       stops: [
         { t: '09:45', name: '里斯本海洋水族馆 Oceanário', note: '10:00 开馆首批进！全馆纯平坡道，500万升中央水缸', lat: 38.7634, lng: -9.0937, hl: true, leg: { mode: 'uber', min: 15, km: 9, eur: 12 } },
         { t: '12:00', name: '滨海轻食午餐', note: '烤三文鱼配甜薯泥，食材新鲜健康' },
@@ -110,7 +110,7 @@ window.TRIP = {
     {
       n: 6, date: '2027-05-09', city: 'algarve', stay: 'algarve',
       title: '自驾南下 · 拉各斯',
-      tip: '提自动挡 Nissan Qashqai 紧凑型 SUV，装安全座椅。高速巡航白噪音正好是宝宝午睡神器！入住 Belmar 两卧海景平层。',
+      tip: '提自动挡 Nissan Qashqai 紧凑型 SUV，A2 高速路况极佳平稳南下；入住 Belmar 两卧海景平层，步行 5 分钟漫步沙滩看落日。',
       stops: [
         { t: '08:45', name: '退房出发', note: '前台 1 分钟快速退房，UberXL 10 分钟到机场租车中心', at: 'lisbon' },
         { t: '09:15', name: '机场提紧凑型 SUV', note: '提自动挡 Nissan Qashqai，装儿童座椅，激活 Via Verde，装入4箱+推车', lat: 38.7742, lng: -9.1342, leg: { mode: 'uber', min: 10, km: 6, eur: 10 } },
@@ -123,7 +123,7 @@ window.TRIP = {
     {
       n: 7, date: '2027-05-10', city: 'algarve', stay: 'algarve',
       title: '出海 · 室内泳池日',
-      tip: '08:45 出发，乘 09:30 早班双体大帆船看野生海豚（清晨风浪最小）。开 6 分钟秒回房独立卧室关门深睡，下午泡室内温水池。',
+      tip: '上午大型双体客船平稳出海寻访野生海豚（清晨风浪最小不颠簸）；下午 Belmar 室内 30℃ 恒温水疗池舒缓戏水，古城挑彩绘陶瓷。',
       stops: [
         { t: '09:30', name: 'Lagos Marina 海豚巡航 (早班)', note: '大型双体船超平稳，清晨海豚超活跃！', query: 'Marina de Lagos, Portugal', hl: true, leg: { mode: 'drive', min: 6, km: 3.5 } },
         { t: '11:45', name: 'Marina 码头午餐', note: '清烤石斑鱼柳配水煮土豆 (Sem sal)' },
@@ -135,7 +135,7 @@ window.TRIP = {
     {
       n: 8, date: '2027-05-11', city: 'algarve', stay: 'algarve',
       title: '悬崖木栈道 · 古城慢时光',
-      tip: '08:30 出发避开暴晒！纯平木栈道婴儿车丝滑推行。11:30 抢第一批吃 Chico Zé 炭烤鱼零排队。中午关门午睡，下午漫步古城吃冰淇淋。',
+      tip: 'Ponta da Piedade 全新纯平无障碍悬崖木栈道看海；Chico Zé 现捞炭烤海鱼；下午古城慢品顶级手工 Gelato 与海边告别晚宴。',
       stops: [
         { t: '08:45', name: 'Ponta da Piedade 悬崖木栈道', note: '全平无障碍木板路，晨光顺光无暴晒', lat: 37.0833, lng: -8.6694, hl: true, leg: { mode: 'drive', min: 4, km: 2.2 } },
         { t: '11:30', name: 'Chico Zé 现捞炭烤海鲜', note: '11:30 开门第一批入座零等位，炭烤海鲷鱼极香', leg: { mode: 'drive', min: 5, km: 3 } },
@@ -147,7 +147,7 @@ window.TRIP = {
     {
       n: 9, date: '2027-05-12', city: 'algarve', stay: null,
       title: '返程 · 还车登机',
-      tip: '08:30 退房沿 A2 北上。机场满油还车，推婴儿车享受 TAP 专属家庭优先安检通道，登机口 Gate Check。',
+      tip: 'A2 高速一路北上直奔机场。航站楼内快速满油还车，推婴儿车享受 TAP 专属家庭快速安检通道，登机口 Gate Check。',
       stops: [
         { t: '08:30', name: '退房北上', note: 'A2 高速一路畅通回里斯本', at: 'algarve', leg: { mode: 'drive', min: 150, km: 250 } },
         { t: '11:45', name: '机场满油还车', note: 'LIS Terminal 1 租车中心 2 分钟扫码还车', lat: 38.7742, lng: -9.1342 },
