@@ -84,8 +84,8 @@ window.TRIP = {
         { t: '10:30', name: '奥古斯塔步行街漫步', note: '平坦石板路慢逛，看街头艺人表演', lat: 38.7100, lng: -9.1370, leg: { mode: 'walk', min: 5 } },
         { t: '11:45', name: 'Chiado 亲子午餐', note: '薄煎牛肉蛋饭 Bitoque，给宝宝补充体力' },
         { t: '13:00', name: '回 Upon 深度午休', note: '回房大床充能 3 小时，傍晚两栖车状态满格', at: 'lisbon', leg: { mode: 'uber', min: 15, km: 8, eur: 12 } },
-        { t: '16:45', name: 'HippoTrip 水陆两栖车', note: '冲入特茹河激起巨浪！正规两栖大巴有幼儿救生衣', query: 'HippoTrip Lisboa', hl: true, leg: { mode: 'uber', min: 12, km: 7, eur: 11 } },
-        { t: '18:30', name: 'Doca Peixe 码头晚餐', note: '正对 425 大桥与游艇，吃完打车回 Upon', leg: { mode: 'walk', min: 2 } }
+        { t: '16:00', name: 'HippoTrip 水陆两栖巴士', note: '16:00 黄金场！冲入特茹河激起巨浪！备背包垫高屁股看海，水上可抱坐', query: 'HippoTrip Lisboa', hl: true, leg: { mode: 'uber', min: 12, km: 7, eur: 11 } },
+        { t: '18:00', name: 'Doca Peixe 码头晚餐', note: '正对 425 大桥与游艇，吃完打车回 Upon', leg: { mode: 'walk', min: 2 } }
       ]
     },
     {
@@ -195,6 +195,16 @@ window.TRIP = {
         <li>👶 <b>幼童免票</b>：热罗尼莫斯修道院（12 岁以下）、海洋水族馆（3 岁以下）、里斯本主教堂（6 岁以下）。</li>
         <li>⏰ <b>修道院与水族馆</b>务必提前官网买分时段电子票，现场扫码走预约通道。</li>
         <li>🆓 <b>圣胡斯塔天桥</b>：从 Chiado 的 Convento do Carmo 右侧平路走过去，免费走上电梯顶部天桥，省 €6/人。</li>
+      </ul>`
+    },
+    {
+      icon: '🦛', title: 'HippoTrip 两栖大巴实战', summary: '买儿童票占座 · 背包垫高视线 · 零食打发',
+      body: `<ul>
+        <li><b>票务与检票</b>：宝宝还差 1 个月满 2 岁（23 个月），提前在官网买好 <b>Child Ticket</b>（约 €20 欧，占座）。检票口凭票直接进，外表能走能站绝不查护照。</li>
+        <li><b>视线垫高技巧</b>：大巴舷壁较高，随身带小坐垫或<b>把随身小背包垫在宝宝屁股下（垫高约 10cm）</b>，视线跃过窗框，轻松看街景海景。</li>
+        <li><b>陆地段 (前 40 分)</b>：并排坐各系腰带，大人紧搂着手，备米饼/果泥零食一路投喂，宝宝嘴巴忙着不闹人。</li>
+        <li><b>水上段 (后 30 分)</b>：轰隆冲入特茹河激起巨浪是全家最高光时刻！入水后航行极平稳，顺手抱在腿上搂着看 425 大桥，导游完全宽松不干涉。</li>
+        <li><b>洗手间提醒</b>：90 分钟全程无厕所，登车前在 Doca 码头游客中心换好尿布。</li>
       </ul>`
     },
     {

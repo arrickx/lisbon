@@ -160,11 +160,11 @@
     const driveChip = dr.n ? `🚗 车程约 ${fmtMin(dr.min)} · ${dr.n} 段` : '🚶 基本步行';
     return `
       ${ctx.banner}
-      <div class="hero">
+      <${home ? `a class="hero" href="${uberUrl(home)}" target="_blank" rel="noopener"${uberAttrs(home)}` : 'div class="hero"'}>
         <div class="hero-top"><span>Day ${day.n}/${DAYS.length} · ${dateLabel(day.date)}</span><span>${esc(T.cities[day.city].name)}</span></div>
-        <div class="hero-row"><h1 class="day-title">${esc(day.title)}</h1>${home ? `<a class="hero-btn" href="${uberUrl(home)}" target="_blank" rel="noopener"${uberAttrs(home)}>🏠 回住处</a>` : ''}</div>
+        <h1 class="day-title">${esc(day.title)}</h1>
         <div class="hero-chips"><span>${driveChip}</span><span>📍 ${day.stops.length} 站</span></div>
-      </div>
+      </${home ? 'a' : 'div'}>
       ${live ? renderLiveCards(day, st, ctx.clk) : ''}
       <div class="sec-h">${live ? '今日完整安排' : '当天安排'}</div>
       <ol class="tl">${day.stops.map((s, i) => renderStopRow(s, i, st)).join('')}</ol>
