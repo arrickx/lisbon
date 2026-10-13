@@ -14,7 +14,7 @@
   <link rel="apple-touch-icon" href="icon-180.png">
   <link rel="stylesheet" href="style.css">
 </head>
-<body data-city="lisbon" data-tab="today">
+<body data-tab="today">
 
   <header class="head" id="head">
     <div class="topbar">
@@ -36,9 +36,9 @@
   </nav>
 
   <dialog id="flash" class="flash">
-    <p class="flash-badge">请出示给服务员</p>
-    <p class="flash-pt" lang="pt">Uma sopa de legumes e uma dose de arroz branco para a criança, com pouco sal e sem piri-piri, por favor.</p>
-    <p class="flash-zh">请给小朋友来一份蔬菜浓汤和一碗白米饭，少放盐，不要任何辣酱，谢谢。</p>
+    <p class="flash-badge" id="flash-badge"></p>
+    <p class="flash-pt" id="flash-pt" lang="pt"></p>
+    <p class="flash-zh" id="flash-zh"></p>
     <button type="button" class="btn primary flash-close" data-close-flash>关闭</button>
   </dialog>
 

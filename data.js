@@ -12,33 +12,40 @@
 window.TRIP = {
   start: '2027-05-04',
   tz: 'Europe/Lisbon',
-  nights: 8,
   party: '4 大 1 小 (99% 主选) · 备选 2 大 1 小',
-  cities: { lisbon: '里斯本', algarve: '阿尔加维 · 拉各斯' },
+  // 新增城市只需在这里加一项（颜色会自动应用到整个界面），再在 days 里用它的 key
+  cities: {
+    lisbon:  { name: '里斯本',          color: '#C4532F', soft: '#FBEDE6' },
+    algarve: { name: '阿尔加维 · 拉各斯', color: '#147A8A', soft: '#E3F2F4' }
+  },
+
+  // 点餐大字卡（随身页入口 + 全屏对话框共用这一份文案）
+  flash: {
+    title: '👶 点餐大字卡',
+    hint: '蔬菜浓汤 + 白米饭，少盐不辣，直接给服务员看',
+    badge: '请出示给服务员',
+    pt: 'Uma sopa de legumes e uma dose de arroz branco para a criança, com pouco sal e sem piri-piri, por favor.',
+    zh: '请给小朋友来一份蔬菜浓汤和一碗白米饭，少放盐，不要任何辣酱，谢谢。'
+  },
 
   stays: {
     lisbon: {
       name: 'Upon Lisbon Prime Residences (里斯本服务公寓)',
-      short: '里斯本 · Upon 两卧公寓',
       query: 'Upon Lisbon Prime Residences, Lisboa, Portugal',
       address: null,
-      status: '【里斯本主选】4 大 1 小 (80㎡ / 861 sq ft 两卧两卫大公寓 · 楼顶恒温泳池) · 5 晚',
-      nights: 5
+      status: '【里斯本主选】4 大 1 小 (80㎡ / 861 sq ft 两卧两卫大公寓 · 楼顶恒温泳池) · 5 晚'
     },
     lisbonAlt: {
       name: 'Hyatt Regency Lisbon (里斯本凯悦酒店)',
-      short: '里斯本 · Hyatt Regency',
       query: 'Hyatt Regency Lisbon, Lisboa, Portugal',
       address: null,
       status: '【里斯本备选】2 大 1 小 (Cat 4 积分兑换 · 现金 €0)'
     },
     algarve: {
       name: 'Belmar Spa & Beach Resort (贝尔马水疗海滩度假村)',
-      short: '拉各斯 · Belmar 度假村',
       query: 'Belmar Spa & Beach Resort, Lagos, Portugal',
       address: null,
-      status: '【拉各斯首选】2-Bedroom Sea View (两卧海景平层套房 · 91~96㎡ · 室内温水池宝宝可用 · 自带洗衣机 · 免费车库) · 3 晚',
-      nights: 3
+      status: '【拉各斯首选】2-Bedroom Sea View (两卧海景平层套房 · 91~96㎡ · 室内温水池宝宝可用 · 自带洗衣机 · 免费车库) · 3 晚'
     }
   },
 

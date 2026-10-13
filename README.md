@@ -15,7 +15,7 @@
 
 | 文件 | 作用 |
 |---|---|
-| `data.js` | 唯一数据源（住宿、9 天行程、车程、随身卡），源自 `TRIP_PROFILE.md` |
+| `data.js` | 唯一数据源（城市配色、住宿、9 天行程、车程、随身卡），源自 `TRIP_PROFILE.md` |
 | `app.js` | 时间逻辑、渲染、导航/Uber/复制 |
 | `style.css` | 移动端样式 |
 | `index.html` | 骨架 |

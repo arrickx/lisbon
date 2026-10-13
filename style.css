@@ -11,13 +11,11 @@
   --ink-2: #5E554C;
   --ink-3: #8F857A;            /* 仅用于非关键信息 */
 
-  --lisbon: #C4532F;  --lisbon-soft: #FBEDE6;
-  --algarve: #147A8A; --algarve-soft: #E3F2F4;
   --ok: #2E7D32;
 
-  /* 当前城市语义色，由 body[data-city] 切换 */
-  --accent: var(--lisbon);
-  --accent-soft: var(--lisbon-soft);
+  /* 当前城市语义色：由 app.js 按 data.js 里的城市配色写入 body */
+  --accent: #C4532F;
+  --accent-soft: #FBEDE6;
 
   --r-card: 16px;
   --r-btn: 12px;
@@ -36,8 +34,6 @@
   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", "Hiragino Sans GB", sans-serif;
   color-scheme: light;
 }
-
-body[data-city="algarve"] { --accent: var(--algarve); --accent-soft: var(--algarve-soft); }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 
@@ -185,18 +181,14 @@ body[data-mode="after"] .clock::after { color: var(--ink-3); }
 /* ---------------- 全程 ---------------- */
 .trip-sum { font-size: var(--fs-sub); font-weight: 500; color: var(--ink-2); }
 .ratio { display: flex; gap: 3px; height: 8px; margin: var(--s-2) 0; }
-.ratio i { border-radius: 4px; }
-.ratio i.lisbon { background: var(--lisbon); }
-.ratio i.algarve { background: var(--algarve); }
+.ratio i { border-radius: 4px; background: var(--c); }
 
 .grp-h {
   position: sticky; top: calc(var(--head-h) + var(--safe-top)); z-index: 5;
   margin: var(--s-3) calc(var(--s-4) * -1) 0; padding: var(--s-2) var(--s-4);
-  background: var(--bg); font-size: var(--fs-sub); font-weight: 700; color: var(--g-c);
+  background: var(--bg); font-size: var(--fs-sub); font-weight: 700; color: var(--c);
   border-bottom: .5px solid var(--line);
 }
-.grp-h[data-city="lisbon"]  { --g-c: var(--lisbon); }
-.grp-h[data-city="algarve"] { --g-c: var(--algarve); }
 
 .row {
   width: 100%; min-height: 64px; padding: var(--s-2) var(--s-3) var(--s-2) var(--s-2);
@@ -206,18 +198,16 @@ body[data-mode="after"] .clock::after { color: var(--ink-3); }
 }
 .row .n {
   height: 44px; border-radius: 12px; display: grid; place-items: center;
-  background: var(--r-soft); color: var(--r-c); font-weight: 800; font-size: var(--fs-body); font-variant-numeric: tabular-nums;
+  background: var(--c-soft); color: var(--c); font-weight: 800; font-size: var(--fs-body); font-variant-numeric: tabular-nums;
 }
-.row[data-city="lisbon"]  { --r-c: var(--lisbon);  --r-soft: var(--lisbon-soft); }
-.row[data-city="algarve"] { --r-c: var(--algarve); --r-soft: var(--algarve-soft); }
 .row .m .d { font-size: var(--fs-sub); color: var(--ink-2); }
 .row .m .ti { font-size: var(--fs-name); font-weight: 600; line-height: 1.25; }
 .row .dr { font-size: var(--fs-sub); font-weight: 600; color: var(--ink-2); white-space: nowrap; }
 .row .chev { color: var(--ink-3); }
-.badge { display: inline-block; margin-left: 6px; padding: 1px 8px; border-radius: 999px; background: var(--r-c); color: #fff; font-size: 13px; font-weight: 700; }
+.badge { display: inline-block; margin-left: 6px; padding: 1px 8px; border-radius: 999px; background: var(--c); color: #fff; font-size: 13px; font-weight: 700; }
 
 /* ---------------- 随身 ---------------- */
-.flash-card { border-color: var(--lisbon); background: var(--lisbon-soft); }
+.flash-card { border-color: var(--accent); background: var(--accent-soft); }
 .flash-card .btn { flex: none; width: 100%; min-height: 56px; font-size: var(--fs-name); }
 
 .stay { gap: var(--s-2); }
@@ -267,10 +257,10 @@ body[data-mode="after"] .clock::after { color: var(--ink-3); }
 }
 .flash[open] { display: flex; }
 .flash::backdrop { background: rgba(20, 16, 12, .7); }
-.flash-badge { font-size: var(--fs-sub); font-weight: 700; color: var(--lisbon); }
+.flash-badge { font-size: var(--fs-sub); font-weight: 700; color: var(--accent); }
 .flash-pt { font-size: 28px; font-weight: 800; line-height: 1.3; }
 .flash-zh { font-size: var(--fs-name); color: #333; }
-.flash-close { width: 100%; min-height: 56px; flex: none; background: var(--lisbon); border-color: var(--lisbon); color: #fff; font-size: var(--fs-name); }
+.flash-close { width: 100%; min-height: 56px; flex: none; background: var(--accent); border-color: var(--accent); color: #fff; font-size: var(--fs-name); }
 
 /* ---------------- Toast ---------------- */
 .toast {

@@ -67,7 +67,13 @@
 
   const fmtMin = (m) => (m >= 60 ? `${Math.floor(m / 60)} 小时${m % 60 ? ` ${m % 60} 分` : ''}` : `${m} 分钟`);
   const slotOf = (t) => { const h = toMin(t) / 60; return h < 12 ? '上午' : h < 17 ? '下午' : h < 20 ? '傍晚' : '晚上'; };
-  const dateLabel = (d) => `${+d.slice(5, 7)}月${+d.slice(8, 10)}日 ${weekday(d)}`;
+  const md = (d) => [+d.slice(5, 7), +d.slice(8, 10)];
+  const dateLabel = (d) => { const [m, dd] = md(d); return `${m}月${dd}日 ${weekday(d)}`; };
+
+  /** 城市配色：全部来自 data.js；界面只认 --c / --c-soft 两个变量 */
+  const cityVars = (k) => `--c:${T.cities[k].color};--c-soft:${T.cities[k].soft}`;
+  const CITY_KEYS = [...new Set(DAYS.map((d) => d.city))];
+  const nightsIn = (k) => DAYS.filter((d) => d.city === k && d.stay).length;
 
   const dayDrive = (day) => day.stops.reduce((a, s) => (s.leg && s.leg.mode !== 'walk' ? { min: a.min + s.leg.min, n: a.n + 1 } : a), { min: 0, n: 0 });
 
@@ -159,7 +165,7 @@
     return `
       ${ctx.banner}
       <div class="hero">
-        <div class="hero-top"><span>${dateLabel(day.date)}</span><span>${esc(T.cities[day.city])}</span></div>
+        <div class="hero-top"><span>${dateLabel(day.date)}</span><span>${esc(T.cities[day.city].name)}</span></div>
         <h1 class="day-title">${esc(day.title)}</h1>
         <div class="hero-chips"><span>${driveChip}</span><span>📍 ${day.stops.length} 站</span></div>
       </div>
@@ -174,20 +180,20 @@
    * 4. 渲染：「全程」「随身」、顶栏
    * ------------------------------------------------------------------ */
   function renderTrip(clk) {
-    const cities = [...new Set(DAYS.map((d) => d.city))];
-    const ratio = cities.map((c) => `<i class="${c}" style="flex:${T.stays[c].nights}"></i>`).join('');
-    const groups = cities.map((c) => {
+    const ratio = CITY_KEYS.map((c) => `<i style="${cityVars(c)};flex:${nightsIn(c)}"></i>`).join('');
+    const groups = CITY_KEYS.map((c) => {
       const rows = DAYS.filter((d) => d.city === c).map((d) => {
         const dr = dayDrive(d);
         const isToday = clk.mode === 'live' && d.n === clk.todayN;
-        return `<button type="button" class="row" data-city="${c}" data-day="${d.n}">
+        const [m, dd] = md(d.date);
+        return `<button type="button" class="row" style="${cityVars(c)}" data-day="${d.n}">
           <span class="n">D${d.n}</span>
-          <span class="m"><span class="d">${+d.date.slice(5, 7)}/${+d.date.slice(8, 10)} ${weekday(d.date)}${isToday ? '<span class="badge">今天</span>' : ''}</span><span class="ti">${esc(d.title)}</span></span>
+          <span class="m"><span class="d">${m}/${dd} ${weekday(d.date)}${isToday ? '<span class="badge">今天</span>' : ''}</span><span class="ti">${esc(d.title)}</span></span>
           <span class="dr">${dr.n ? `🚗 ${fmtMin(dr.min)}` : '🚶'}</span><span class="chev">›</span></button>`;
       }).join('');
-      return `<div class="grp-h" data-city="${c}">${esc(T.cities[c])} · ${T.stays[c].nights} 晚</div>${rows}`;
+      return `<div class="grp-h" style="${cityVars(c)}">${esc(T.cities[c].name)} · ${nightsIn(c)} 晚</div>${rows}`;
     }).join('');
-    return `<div class="trip-sum">${DAYS.length} 天 ${T.nights} 晚 · ${T.party}</div><div class="ratio">${ratio}</div>${groups}`;
+    return `<div class="trip-sum">${DAYS.length} 天 ${DAYS.length - 1} 晚 · ${T.party}</div><div class="ratio">${ratio}</div>${groups}`;
   }
 
   function renderStayPocket(s) {
@@ -200,7 +206,7 @@
     const poc = T.pocket.map((p) => `<details class="poc"><summary><span class="ic">${p.icon}</span><span class="ttl"><b>${esc(p.title)}</b><i>${esc(p.summary)}</i></span></summary>
       <div class="pb">${p.body}${p.copy ? `<div class="actions">${copyBtn(`📋 ${p.copyLabel || '复制'}`, p.copy)}</div>` : ''}</div></details>`).join('');
     return `
-      <div class="card flash-card"><div class="name">👶 点餐大字卡</div><div class="note">蔬菜浓汤 + 白米饭，少盐不辣，直接给服务员看</div>
+      <div class="card flash-card"><div class="name">${esc(T.flash.title)}</div><div class="note">${esc(T.flash.hint)}</div>
         <div class="actions"><button type="button" class="btn primary" data-flash>出示给服务员</button></div></div>
       <div class="sec-h">住处</div>
       ${Object.values(T.stays).map(renderStayPocket).join('')}
@@ -221,6 +227,11 @@
   const state = { tab: 'today', viewDay: null, fromTrip: false, lastNav: 0 };
   let lastSig = '';
 
+  // 全屏点餐卡的文案来自 data.js
+  $('#flash-badge').textContent = T.flash.badge;
+  $('#flash-pt').textContent = T.flash.pt;
+  $('#flash-zh').textContent = T.flash.zh;
+
   const panels = { today: $('#p-today'), trip: $('#p-trip'), pocket: $('#p-pocket') };
 
   function render() {
@@ -230,7 +241,8 @@
 
     document.body.dataset.tab = state.tab;
     document.body.dataset.mode = clk.mode;
-    document.body.dataset.city = day.city;
+    document.body.style.setProperty('--accent', T.cities[day.city].color);
+    document.body.style.setProperty('--accent-soft', T.cities[day.city].soft);
     document.querySelectorAll('.tab').forEach((t) => {
       if (t.dataset.tab === state.tab) t.setAttribute('aria-current', 'page'); else t.removeAttribute('aria-current');
     });
