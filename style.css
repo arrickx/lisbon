@@ -96,6 +96,9 @@ body[data-mode="after"] .clock::after { color: var(--ink-3); }
 .hero-top { display: flex; justify-content: space-between; font-size: var(--fs-sub); font-weight: 600; opacity: .9; }
 .day-title { font-size: var(--fs-title); font-weight: 800; line-height: 1.2; letter-spacing: -.02em; }
 .hero-chips { display: flex; flex-wrap: wrap; gap: var(--s-2); }
+.hero-row { display: flex; align-items: center; justify-content: space-between; gap: var(--s-3); }
+.hero-btn { flex: none; min-height: 44px; padding: 0 var(--s-3); display: inline-flex; align-items: center; border-radius: 999px; background: #fff; color: var(--accent); font-size: var(--fs-body); font-weight: 700; white-space: nowrap; }
+.hero-btn:active { opacity: .7; }
 .hero-chips span { font-size: var(--fs-sub); font-weight: 600; background: rgba(255, 255, 255, .2); padding: 4px var(--s-3); border-radius: 999px; }
 
 /* ---------------- 卡片 ---------------- */
@@ -275,3 +278,5 @@ body[data-mode="after"] .clock::after { color: var(--ink-3); }
 /* 修正：全程行内日期/标题分行；三按钮不换行 */
 .row .m .d, .row .m .ti { display: block; }
 .btn { white-space: nowrap; padding: 0 var(--s-2); }
+
+.stay .addr span { color: var(--ink-3); }
