@@ -85,7 +85,7 @@ window.TRIP = {
         { t: '11:45', name: 'Chiado 亲子午餐', note: '薄煎牛肉蛋饭 Bitoque，给宝宝补充体力', query: 'Chiado, Lisboa' },
         { t: '13:00', name: '回 Upon 深度午休', note: '回房大床充能 3 小时，傍晚两栖车状态满格', at: 'lisbon', leg: { mode: 'uber', min: 15, km: 8, eur: 12 } },
         { t: '16:00', name: 'HippoTrip 水陆两栖巴士', note: '16:00 黄金场！冲入特茹河激起巨浪！备背包垫高屁股看海，水上可抱坐', query: 'HippoTrip Lisboa', hl: true, leg: { mode: 'uber', min: 12, km: 7, eur: 11 } },
-        { t: '18:00', name: 'Doca Peixe 码头晚餐', note: '正对 425 大桥与游艇，吃完打车回 Upon', query: 'Doca Peixe, Doca de Santo Amaro, Lisboa', leg: { mode: 'walk', min: 2 } }
+        { t: '18:00', name: '5 Oceanos 码头海鲜晚餐', note: '正对 425 大桥与游艇，现捞海鲜与花园露台，吃完打车回 Upon', query: '5 Oceanos, Doca de Santo Amaro, Lisboa', leg: { mode: 'walk', min: 2 } }
       ]
     },
     {
@@ -189,12 +189,13 @@ window.TRIP = {
       </ul>`
     },
     {
-      icon: '🎟', title: '门票省钱与免排队', summary: '不买 City Pass · 幼童免票 · 提前订时段',
+      icon: '🎟', title: '门票预订与官方渠道', summary: '仅 2 项需抢 · 幼童免票 · 渠道防坑',
       body: `<ul>
-        <li>❌ <b>不买 Lisboa Card</b>：2 大 1 小打 UberX 极便宜灵活，水族馆不免票、HippoTrip 不含，买卡倒亏钱。</li>
-        <li>👶 <b>幼童免票</b>：热罗尼莫斯修道院（12 岁以下）、海洋水族馆（3 岁以下）、里斯本主教堂（6 岁以下）。</li>
-        <li>⏰ <b>修道院与水族馆</b>务必提前官网买分时段电子票，现场扫码走预约通道。</li>
-        <li>🆓 <b>圣胡斯塔天桥</b>：从 Chiado 的 Convento do Carmo 右侧平路走过去，免费走上电梯顶部天桥，省 €6/人。</li>
+        <li>🔴 <b>HippoTrip 两栖大巴 (D3 16:00)</b>：<b>提前 3~4 周在官网 booking.hippotrip.com 抢票</b>！锁定 4 成人 + 1 儿童票（差1个月满2岁直接买儿童票占座），现场几乎 100% 售罄。</li>
+        <li>🔴 <b>海洋水族馆 (D5 10:00)</b>：<b>提前 3~7 天在官网 tickets.oceanario.pt 买票</b>。0~2 岁幼童<b>完全免费 (€0)</b>，但下单时<b>务必勾选 1 张 €0 Infant 票</b>生成扫码二维码，现场推车直接扫码秒进闸机免排队！</li>
+        <li>🟡 <b>拉各斯海豚巡航 (D7 09:30)</b>：提前 2~3 天在 <b>GetYourGuide</b> 预订，必须认准 <b>Catamaran (大型平稳双体船)</b>，享 24 小时天气免费退改。</li>
+        <li>🟢 <b>缆车与其他</b>：缆车站现场随到随买，蛋挞店/悬崖栈道/观景台/古城全部免门票。</li>
+        <li>❌ <b>不买 Lisboa Card</b>：4 大 1 小出行打 UberXL / Bolt XL 舒服省钱，不含两栖车，买卡倒亏钱。</li>
       </ul>`
     },
     {

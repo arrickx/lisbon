@@ -4,7 +4,8 @@
 > *(备用方案 2 大 1 小详见备用档案：[TRIP_PROFILE.md](file:///Users/R/Documents/antigravity/lisbon/TRIP_PROFILE.md))*  
 > **出行时间**：2027 年 5 月 4 日 – 2027 年 5 月 12 日（共 8 晚 9 天）  
 > **核心路线**：里斯本 Lisbon（5 晚，住 Upon Lisbon 80㎡ / 861 sq ft 两卧公寓） ➡️ 阿尔加维·拉各斯 Lagos（3 晚自驾度假，住 Belmar 海景双卧公寓） ➡️ 里斯本机场返程  
-> **季节气候**：5 月上旬黄金平季（日照充沛、气温 22~25℃，避开酷暑与暑期人潮）
+> **季节气候**：5 月上旬黄金平季（日照充沛、气温 22~25℃，避开酷暑与暑期人潮）  
+> **门票与营业核查**：详见专项手册 👉 [TICKETS_AND_HOURS.md](file:///Users/R/Documents/antigravity/lisbon/TICKETS_AND_HOURS.md)（逐日歇业排查 + 仅需提前抢的 2 项门票官网指南）
 
 ---
 
