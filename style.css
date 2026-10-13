@@ -280,3 +280,7 @@ body[data-mode="after"] .clock::after { color: var(--ink-3); }
 .btn { white-space: nowrap; padding: 0 var(--s-2); }
 
 .stay .addr span { color: var(--ink-3); }
+
+/* 旅途中不需要顶栏（Day N/9 已在标题卡里）；只在出发前 / 结束后显示 */
+body[data-mode="live"] { --head-h: 0px; padding-top: var(--safe-top); }
+body[data-mode="live"] .head { display: none; }

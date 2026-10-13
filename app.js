@@ -161,7 +161,7 @@
     return `
       ${ctx.banner}
       <div class="hero">
-        <div class="hero-top"><span>${dateLabel(day.date)}</span><span>${esc(T.cities[day.city].name)}</span></div>
+        <div class="hero-top"><span>Day ${day.n}/${DAYS.length} · ${dateLabel(day.date)}</span><span>${esc(T.cities[day.city].name)}</span></div>
         <div class="hero-row"><h1 class="day-title">${esc(day.title)}</h1>${home ? `<a class="hero-btn" href="${uberUrl(home)}" target="_blank" rel="noopener"${uberAttrs(home)}>🏠 回住处</a>` : ''}</div>
         <div class="hero-chips"><span>${driveChip}</span><span>📍 ${day.stops.length} 站</span></div>
       </div>
