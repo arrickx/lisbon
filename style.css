@@ -282,3 +282,61 @@ body[data-mode="after"] .clock::after { color: var(--ink-3); }
 /* 旅途中不需要顶栏（Day N/9 已在标题卡里）；只在出发前 / 结束后显示 */
 body[data-mode="live"] { --head-h: 0px; padding-top: var(--safe-top); }
 body[data-mode="live"] .head { display: none; }
+
+/* ---------------- 翻页手势 & 指示器 ---------------- */
+@keyframes daySlideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes daySlideDown {
+  from { opacity: 0; transform: translateY(-30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.slide-next { animation: daySlideUp .26s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.slide-prev { animation: daySlideDown .26s cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+.flip-indicator {
+  position: fixed; left: 50%; transform: translate(-50%, 0); z-index: 95;
+  background: rgba(31, 26, 22, .92); color: #fff;
+  -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px);
+  padding: 8px 18px; border-radius: 999px;
+  font-size: var(--fs-sub); font-weight: 600;
+  display: flex; align-items: center; gap: 6px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, .2);
+  pointer-events: none; transition: background .15s, transform .15s;
+  white-space: nowrap; max-width: calc(100vw - 32px);
+}
+.flip-indicator.top { top: calc(var(--safe-top) + 14px); }
+.flip-indicator.bottom { bottom: calc(var(--tab-h) + var(--safe-bottom) + 16px); }
+.flip-indicator .fi-arrow { font-size: 14px; transition: transform .2s cubic-bezier(0.16, 1, 0.3, 1); display: inline-block; }
+.flip-indicator.ready {
+  background: var(--accent);
+  transform: translate(-50%, 0) scale(1.05);
+}
+.flip-indicator.ready .fi-arrow { transform: rotate(180deg); }
+
+/* 底部下一天卡片引导 */
+.day-pager {
+  margin-top: var(--s-3); padding-top: var(--s-2);
+  display: flex; flex-direction: column; align-items: center; gap: var(--s-2);
+}
+.dp-hint {
+  font-size: var(--fs-sub); font-weight: 600; color: var(--ink-3);
+  display: flex; align-items: center; gap: 4px;
+}
+.dp-hint .dp-arrow { animation: bounceUp 1.6s ease-in-out infinite; }
+@keyframes bounceUp {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+.dp-card {
+  width: 100%; background: var(--surface); border: .5px solid var(--line);
+  border-radius: var(--r-card); padding: var(--s-3) var(--s-4);
+  cursor: pointer; text-align: left; transition: transform .1s;
+}
+.dp-card:active { transform: scale(.98); }
+.dp-sub { font-size: var(--fs-sub); font-weight: 600; color: var(--accent); }
+.dp-title { font-size: var(--fs-name); font-weight: 700; color: var(--ink); display: flex; justify-content: space-between; align-items: center; margin-top: 2px; }
+.dp-chev { color: var(--ink-3); font-size: 20px; font-weight: 400; }
+.dp-end { text-align: center; }
+.dp-end .dp-sub { color: var(--ink-2); }

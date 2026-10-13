@@ -162,6 +162,27 @@
     return html;
   }
 
+  function renderDayPager(day) {
+    if (day.n < DAYS.length) {
+      const next = DAYS[day.n];
+      return `
+        <div class="day-pager">
+          <div class="dp-hint"><span class="dp-arrow">↑</span> 继续上滑切换下一天</div>
+          <button type="button" class="dp-card" data-day="${next.n}">
+            <div class="dp-sub">下一天 · Day ${next.n}</div>
+            <div class="dp-title"><span>${esc(next.title)}</span><span class="dp-chev">›</span></div>
+          </button>
+        </div>`;
+    }
+    return `
+      <div class="day-pager">
+        <button type="button" class="dp-card dp-end" data-tab="trip">
+          <div class="dp-sub">🎉 9 天慢调行程圆满结束</div>
+          <div class="dp-title" style="justify-content:center;gap:6px"><span>查看全程总览</span><span class="dp-chev">›</span></div>
+        </button>
+      </div>`;
+  }
+
   function renderDay(day, ctx) {
     const live = ctx.live;
     const st = live ? stopState(day, ctx.clk) : null;
@@ -179,7 +200,7 @@
       <div class="sec-h">${live ? '今日完整安排' : '当天安排'}</div>
       <ol class="tl">${day.stops.map((s, i) => renderStopRow(s, i, st)).join('')}</ol>
       ${day.tip ? `<div class="tip"><span>💡</span><span>${esc(day.tip)}</span></div>` : ''}
-`;
+      ${renderDayPager(day)}`;
   }
 
   /* ------------------------------------------------------------------ *
@@ -293,7 +314,136 @@
   }
 
   /* ------------------------------------------------------------------ *
-   * 6. 事件
+   * 6. 翻页动效与手势识别（上滑翻至下一天 / 下拉翻回上一天）
+   * ------------------------------------------------------------------ */
+  const PULL_THRESHOLD = 52;
+  let touchStartY = 0;
+  let touchStartX = 0;
+  let pullDir = null;
+  let pullDist = 0;
+  let thresholdTriggered = false;
+
+  function switchDay(n, dir = 'next') {
+    if (n < 1 || n > DAYS.length) return;
+    const curN = state.viewDay ?? getClock().todayN;
+    if (n === curN && state.tab === 'today') return;
+    const panel = panels.today;
+    panel.classList.remove('slide-next', 'slide-prev');
+    void panel.offsetWidth; // 触发 reflow 重置动画
+    panel.classList.add(dir === 'next' ? 'slide-next' : 'slide-prev');
+    go({ tab: 'today', viewDay: n, fromTrip: false });
+    setTimeout(() => panel.classList.remove('slide-next', 'slide-prev'), 320);
+  }
+
+  function showFlipIndicator(targetN, dir, dist) {
+    const ind = $('#flip-indicator');
+    if (!ind || targetN < 1 || targetN > DAYS.length) return;
+    const targetDay = DAYS[targetN - 1];
+    const ready = dist >= PULL_THRESHOLD;
+    if (ready && !thresholdTriggered) {
+      thresholdTriggered = true;
+      if (navigator.vibrate) try { navigator.vibrate(10); } catch {}
+    } else if (!ready) {
+      thresholdTriggered = false;
+    }
+    ind.hidden = false;
+    ind.className = `flip-indicator ${dir === 'next' ? 'bottom' : 'top'}${ready ? ' ready' : ''}`;
+    const arrow = dir === 'next' ? '↑' : '↓';
+    const action = dir === 'next' ? '上滑查看' : '下拉返回';
+    ind.innerHTML = `<span class="fi-arrow">${arrow}</span><span>${ready ? `松手切换至 Day ${targetN} · ${esc(targetDay.title)}` : `${arrow} 继续${action} Day ${targetN} · ${esc(targetDay.title)}`}</span>`;
+  }
+
+  function hideFlipIndicator() {
+    const ind = $('#flip-indicator');
+    if (ind) { ind.hidden = true; ind.className = 'flip-indicator'; }
+    thresholdTriggered = false;
+  }
+
+  window.addEventListener('touchstart', (e) => {
+    if (state.tab !== 'today' || e.touches.length !== 1) return;
+    const t = e.touches[0];
+    touchStartY = t.clientY;
+    touchStartX = t.clientX;
+    pullDir = null;
+    pullDist = 0;
+    thresholdTriggered = false;
+  }, { passive: true });
+
+  window.addEventListener('touchmove', (e) => {
+    if (state.tab !== 'today' || e.touches.length !== 1) return;
+    const t = e.touches[0];
+    const dy = t.clientY - touchStartY;
+    const dx = t.clientX - touchStartX;
+
+    // 优先保持横向正常滚动，横向位移大时忽略
+    if (Math.abs(dx) > Math.abs(dy) * 1.2) return;
+
+    const clk = getClock();
+    const viewN = state.viewDay ?? clk.todayN;
+    const docEl = document.documentElement;
+    const scrollBottom = docEl.scrollHeight - window.innerHeight - window.scrollY;
+
+    // 1. 位于页面底部，手指继续往上拉（dy < 0）-> 切换到下一天
+    if (dy < -10 && scrollBottom <= 8 && viewN < DAYS.length) {
+      pullDir = 'next';
+      pullDist = Math.min(100, Math.max(0, -dy * 0.5));
+      showFlipIndicator(viewN + 1, 'next', pullDist);
+    }
+    // 2. 位于页面顶部，手指继续往下拉（dy > 0）-> 切换到上一天
+    else if (dy > 10 && window.scrollY <= 4 && viewN > 1) {
+      pullDir = 'prev';
+      pullDist = Math.min(100, Math.max(0, dy * 0.5));
+      showFlipIndicator(viewN - 1, 'prev', pullDist);
+    } else {
+      hideFlipIndicator();
+      pullDir = null;
+      pullDist = 0;
+    }
+  }, { passive: true });
+
+  window.addEventListener('touchend', () => {
+    if (pullDir && pullDist >= PULL_THRESHOLD) {
+      const clk = getClock();
+      const viewN = state.viewDay ?? clk.todayN;
+      const targetN = pullDir === 'next' ? viewN + 1 : viewN - 1;
+      switchDay(targetN, pullDir);
+    }
+    hideFlipIndicator();
+    pullDir = null;
+    pullDist = 0;
+  }, { passive: true });
+
+  // 桌面/Mac 触控板滚轮超限翻页
+  let wheelAccum = 0;
+  let wheelTimer = null;
+  window.addEventListener('wheel', (e) => {
+    if (state.tab !== 'today') return;
+    const clk = getClock();
+    const viewN = state.viewDay ?? clk.todayN;
+    const docEl = document.documentElement;
+    const scrollBottom = docEl.scrollHeight - window.innerHeight - window.scrollY;
+
+    if (e.deltaY > 0 && scrollBottom <= 6 && viewN < DAYS.length) {
+      wheelAccum += e.deltaY;
+      if (wheelAccum > 120) {
+        wheelAccum = 0;
+        switchDay(viewN + 1, 'next');
+      }
+    } else if (e.deltaY < 0 && window.scrollY <= 4 && viewN > 1) {
+      wheelAccum += e.deltaY;
+      if (wheelAccum < -120) {
+        wheelAccum = 0;
+        switchDay(viewN - 1, 'prev');
+      }
+    } else {
+      wheelAccum = 0;
+    }
+    clearTimeout(wheelTimer);
+    wheelTimer = setTimeout(() => { wheelAccum = 0; }, 320);
+  }, { passive: true });
+
+  /* ------------------------------------------------------------------ *
+   * 7. 全局点击与常规操作
    * ------------------------------------------------------------------ */
   function toast(msg) {
     const el = $('#toast');
@@ -319,11 +469,15 @@
     if (t.dataset.alsoCopy != null) return copyText(t.dataset.alsoCopy, null);   // 不拦截，链接照常跳转
     if (t.dataset.flash != null) return $('#flash').showModal();
     if (t.dataset.closeFlash != null) return $('#flash').close();
-    if (t.dataset.act === 'today') return go({ tab: 'today', viewDay: null, fromTrip: false });
+    if (t.dataset.act === 'today') return switchDay(getClock().todayN, 'prev');
     if (t.dataset.act === 'back-trip') return go({ tab: 'trip', viewDay: null, fromTrip: false });
     if (t.dataset.day) {
       const fromTrip = t.classList.contains('row');
-      return go({ tab: 'today', viewDay: +t.dataset.day, fromTrip });
+      const nextN = +t.dataset.day;
+      const curN = state.viewDay ?? getClock().todayN;
+      const dir = nextN >= curN ? 'next' : 'prev';
+      if (fromTrip) return go({ tab: 'today', viewDay: nextN, fromTrip: true });
+      return switchDay(nextN, dir);
     }
     if (t.dataset.tab) {
       // 点“今天”Tab = 永远回到今天
