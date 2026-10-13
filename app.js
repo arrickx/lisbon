@@ -261,8 +261,6 @@
     let action = '';
     if (state.fromTrip) action = '<button type="button" data-act="back-trip">← 返回全程</button>';
     else if (away) { text = `正在查看 Day ${viewN}`; action = '<button type="button" data-act="today">回到今天</button>'; }
-    else if (clk.mode === 'before') text = '出发前预览 · 在「全程」里选某一天';
-    else if (clk.mode === 'after') text = '旅程已结束 · 在「全程」里回看';
     if (!text && !action) return '';
     if (state.fromTrip && !text) text = `Day ${viewN}`;
     return `<div class="banner"><span>${text}</span>${action}</div>`;
