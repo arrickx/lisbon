@@ -98,6 +98,9 @@
   };
 
   const btn = (label, href, primary) => `<a class="btn${primary ? ' primary' : ''}" href="${href}" target="_blank" rel="noopener">${label}</a>`;
+  /** 叫车一组按钮：Uber（深链直达目的地）+ Bolt（无公开深链，先复制目的地再打开 App，方便比价） */
+  const boltBtn = (o) => `<button type="button" class="btn" data-bolt="${esc(o.address || o.query || o.name)}">⚡ Bolt</button>`;
+  const rideBtns = (o, label = '🚕 Uber') => btn(label, uberUrl(o), true) + boltBtn(o);
   const copyBtn = (label, text) => `<button type="button" class="btn" data-copy="${esc(text)}">${label}</button>`;
 
   /** 给一个停靠点生成【叫车 / 导航】按钮 */
@@ -106,7 +109,7 @@
     if (!dest(p)) return '';
     const mode = stop.leg && stop.leg.mode;
     const nav = (primary) => btn('🧭 导航', navUrl(p, mode), primary);
-    if (mode === 'uber') return `<div class="actions">${btn('🚕 叫 Uber', uberUrl(p), true)}${nav(false)}</div>`;
+    if (mode === 'uber') return `<div class="actions">${rideBtns(p)}${nav(false)}</div>`;
     return `<div class="actions">${nav(true)}</div>`;
   }
 
@@ -152,9 +155,9 @@
     if (!day.stay) return '';
     const s = T.stays[day.stay];
     const copy = s.address || s.name;
-    return `<div class="card stay"><div class="eyebrow">${live ? '今晚住' : '当晚住'}</div>
+    return `<div class="card stay"><div class="eyebrow">${live ? '今晚住 · 回去叫车' : '当晚住'}</div>
       <div class="name">${esc(s.name)}</div><div class="status">${esc(s.status || '')}</div>
-      <div class="actions">${btn('🚕 回住处', uberUrl(s), true)}${copyBtn('📋 复制地址', copy)}</div></div>`;
+      <div class="actions">${rideBtns(s)}${copyBtn('📋 复制地址', copy)}</div></div>`;
   }
 
   function renderDay(day, ctx) {
@@ -199,7 +202,7 @@
   function renderStayPocket(s) {
     return `<div class="card stay"><div class="name">${esc(s.name)}</div><div class="status">${esc(s.status || '')}</div>
       <div class="addr${s.address ? '' : ' pending'}">${s.address ? esc(s.address) : '地址待订单确认'}</div>
-      <div class="actions">${copyBtn('📋 复制', s.address || s.name)}${btn('🧭 导航', navUrl(s), false)}${btn('🚕 叫 Uber', uberUrl(s), true)}</div></div>`;
+      <div class="actions">${copyBtn('📋 复制', s.address || s.name)}${btn('🧭 导航', navUrl(s), false)}${rideBtns(s)}</div></div>`;
   }
 
   function renderPocket() {
@@ -297,19 +300,23 @@
     toast.t = setTimeout(() => el.classList.remove('show'), 1800);
   }
 
-  async function copyText(text) {
+  async function copyText(text, msg = '已复制') {
     try { await navigator.clipboard.writeText(text); }
     catch {
       const ta = Object.assign(document.createElement('textarea'), { value: text });
       document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove();
     }
-    toast('已复制');
+    toast(msg);
   }
 
   document.addEventListener('click', (e) => {
-    const t = e.target.closest('.tab[data-tab],[data-day],[data-act],[data-copy],[data-flash],[data-close-flash]');
+    const t = e.target.closest('.tab[data-tab],[data-day],[data-act],[data-copy],[data-bolt],[data-flash],[data-close-flash]');
     if (!t) return;
     if (t.dataset.copy != null) return copyText(t.dataset.copy);
+    if (t.dataset.bolt != null) {
+      copyText(t.dataset.bolt, '已复制目的地，请在 Bolt 里粘贴');
+      return setTimeout(() => { location.href = 'bolt://'; }, 600);
+    }
     if (t.dataset.flash != null) return $('#flash').showModal();
     if (t.dataset.closeFlash != null) return $('#flash').close();
     if (t.dataset.act === 'today') return go({ tab: 'today', viewDay: null, fromTrip: false });
