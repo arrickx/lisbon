@@ -11,11 +11,19 @@
 - **三个 Tab**：今天 · 全程 · 随身（点菜大字卡、避坑、地址一键复制）。
 - **离线可用**：PWA（`sw.js` + `manifest.webmanifest`），可添加到主屏幕。
 
-## 文件
+## 核心方案文档（三册互联）
+
+| 文档 | 作用与定位 |
+|---|---|
+| [`DAILY_ITINERARY.md`](file:///Users/R/Documents/antigravity/lisbon/DAILY_ITINERARY.md) | **每日慢游度假方案**（上午/下午双段式结构 · 景点玩法 · 美食与随身包清单） |
+| [`TRIP_PROFILE_4A1C.md`](file:///Users/R/Documents/antigravity/lisbon/TRIP_PROFILE_4A1C.md) | **4大1小总概览档案**（Upon & Belmar 两卧房型 · Uber/Bolt XL · 自驾 · TAP 乘机） |
+| [`TICKETS_AND_HOURS.md`](file:///Users/R/Documents/antigravity/lisbon/TICKETS_AND_HOURS.md) | **门票预订与营业核查手册**（逐日歇业/营业排查 · 仅2项抢票 · 官方渠道避坑） |
+
+## 手机端 PWA 代码文件
 
 | 文件 | 作用 |
 |---|---|
-| `data.js` | 唯一数据源（城市配色、住宿、9 天行程、车程、随身卡），源自 `TRIP_PROFILE.md` |
+| `data.js` | 唯一数据源（城市配色、住宿、9 天行程、车程、随身口袋卡） |
 | `app.js` | 时间逻辑、渲染、导航/Uber/复制 |
 | `style.css` | 移动端样式 |
 | `index.html` | 骨架 |

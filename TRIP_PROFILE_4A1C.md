@@ -5,7 +5,10 @@
 > **出行时间**：2027 年 5 月 4 日 – 2027 年 5 月 12 日（共 8 晚 9 天）  
 > **核心路线**：里斯本 Lisbon（5 晚，住 Upon Lisbon 80㎡ / 861 sq ft 两卧公寓） ➡️ 阿尔加维·拉各斯 Lagos（3 晚自驾度假，住 Belmar 海景双卧公寓） ➡️ 里斯本机场返程  
 > **季节气候**：5 月上旬黄金平季（日照充沛、气温 22~25℃，避开酷暑与暑期人潮）  
-> **门票与营业核查**：详见专项手册 👉 [TICKETS_AND_HOURS.md](file:///Users/R/Documents/antigravity/lisbon/TICKETS_AND_HOURS.md)（逐日歇业排查 + 仅需提前抢的 2 项门票官网指南）
+> 🧭 **三册互联快速导航**：  
+> * 📅 **逐日慢游方案** 👉 [DAILY_ITINERARY.md](file:///Users/R/Documents/antigravity/lisbon/DAILY_ITINERARY.md)（上午/下午双段式 · 美食灵感 · 随身包清单）  
+> * 📋 **4大1小总概览档案 (当前手册)** 👉 [TRIP_PROFILE_4A1C.md](file:///Users/R/Documents/antigravity/lisbon/TRIP_PROFILE_4A1C.md)（两卧套房深度评测 · 打车自驾 · 行李穿搭）  
+> * 🎫 **门票与营业核查** 👉 [TICKETS_AND_HOURS.md](file:///Users/R/Documents/antigravity/lisbon/TICKETS_AND_HOURS.md)（逐日歇业排查 · 仅2项需抢票 · 官方渠道指引）
 
 ---
 
@@ -121,3 +124,13 @@
   * **衣物**：纯棉短袖短裤 5~6 套 + 薄长袖打底/防蚊裤 2 套 + 连帽防风薄外套 1 件；
   * **戏水**：长袖防晒泳衣 1 套 + **防水戏水纸尿裤（Swim Diapers）3~4 片（温水池强制要求）**；
   * **鞋帽**：带防风绳遮阳帽 1 顶 + 防滑学步鞋 1 双 + 沙滩软底洞洞鞋 1 双。
+
+---
+
+## 🧭 全景手册快速跳转
+
+| 手册名称 | 核心内容 | 直达链接 |
+| :--- | :--- | :--- |
+| 📅 **逐日慢游方案** | 9 天上午/下午双段式松弛节奏、景点玩法、特色餐厅推荐 | 👉 [DAILY_ITINERARY.md](file:///Users/R/Documents/antigravity/lisbon/DAILY_ITINERARY.md) |
+| 📋 **4大1小全景档案 (当前手册)** | Upon & Belmar 两卧套房深度评测、Uber/Bolt XL 与自驾、TAP 乘机与行李 | 👉 [TRIP_PROFILE_4A1C.md](file:///Users/R/Documents/antigravity/lisbon/TRIP_PROFILE_4A1C.md) |
+| 🎫 **门票与营业核查** | 逐日营业状态排查、HippoTrip/水族馆官网抢票、海豚巡航退改渠道 | 👉 [TICKETS_AND_HOURS.md](file:///Users/R/Documents/antigravity/lisbon/TICKETS_AND_HOURS.md) |

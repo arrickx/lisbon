@@ -3,9 +3,10 @@
 > **适用行程**：4 位成人（含两位长辈）+ 1 位幼童（<2 岁，差 1 个月满 2 周岁）  
 > **出行日期**：5/4 (周二) ~ 5/12 (周三)（里斯本 5 晚 + 阿尔加维 3 晚）  
 > **核查原则**：针对真实出行日期（逐日核对周几营业情况、当地节假日、是否闭门、现场排队痛点、购票渠道防坑）  
-> **关联总行程手册**：  
-> * 📅 **逐日慢游方案** 👉 [DAILY_ITINERARY.md](file:///Users/R/Documents/antigravity/lisbon/DAILY_ITINERARY.md)（上午/下午双段式节奏 · 交通与美食灵感）  
-> * 📋 **4大1小总概览档案** 👉 [TRIP_PROFILE_4A1C.md](file:///Users/R/Documents/antigravity/lisbon/TRIP_PROFILE_4A1C.md)（房型配置 · 打车与自驾 · 极简打包）
+> 🧭 **三册互联快速导航**：  
+> * 📅 **逐日慢游方案** 👉 [DAILY_ITINERARY.md](file:///Users/R/Documents/antigravity/lisbon/DAILY_ITINERARY.md)（上午/下午双段式 · 美食灵感 · 随身包清单）  
+> * 📋 **4大1小总概览档案** 👉 [TRIP_PROFILE_4A1C.md](file:///Users/R/Documents/antigravity/lisbon/TRIP_PROFILE_4A1C.md)（两卧套房深度评测 · 打车自驾 · 行李穿搭）  
+> * 🎫 **门票与营业核查 (当前手册)** 👉 [TICKETS_AND_HOURS.md](file:///Users/R/Documents/antigravity/lisbon/TICKETS_AND_HOURS.md)（逐日歇业排查 · 仅2项需抢票 · 官方渠道指引）
 
 ---
 
@@ -169,7 +170,11 @@
 
 ---
 
-## 🔗 相关全景手册快捷跳转
+## 🧭 全景手册快速跳转
 
-* 📅 **每日慢调度假方案** 👉 [DAILY_ITINERARY.md](file:///Users/R/Documents/antigravity/lisbon/DAILY_ITINERARY.md)（上午/下午双段式结构 · 随身妈咪包清单 · 餐厅避坑）
-* 📋 **4大1小总概览与配置档案** 👉 [TRIP_PROFILE_4A1C.md](file:///Users/R/Documents/antigravity/lisbon/TRIP_PROFILE_4A1C.md)（两卧套房深度评测 · Uber/Bolt XL 与自驾 · 极简行李单）
+| 手册名称 | 核心内容 | 直达链接 |
+| :--- | :--- | :--- |
+| 📅 **逐日慢游方案** | 9 天上午/下午双段式松弛节奏、景点玩法、特色餐厅推荐 | 👉 [DAILY_ITINERARY.md](file:///Users/R/Documents/antigravity/lisbon/DAILY_ITINERARY.md) |
+| 📋 **4大1小全景档案** | Upon & Belmar 两卧套房深度评测、Uber/Bolt XL 与自驾、TAP 乘机与行李 | 👉 [TRIP_PROFILE_4A1C.md](file:///Users/R/Documents/antigravity/lisbon/TRIP_PROFILE_4A1C.md) |
+| 🎫 **门票与营业核查 (当前手册)** | 逐日营业状态排查、HippoTrip/水族馆官网抢票、海豚巡航退改渠道 | 👉 [TICKETS_AND_HOURS.md](file:///Users/R/Documents/antigravity/lisbon/TICKETS_AND_HOURS.md) |
+
