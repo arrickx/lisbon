@@ -183,11 +183,23 @@
       </div>`;
   }
 
+  /** 「回住处」的目的地：当晚住处；但换城市那天（还没入住新住处）旧住处已退房，不给链接 */
+  function homeFor(day, clk) {
+    if (!day.stay) return null;
+    const prev = DAYS[day.n - 2];
+    if (prev && prev.stay !== day.stay) {
+      const checkIn = day.stops.find((s) => s.at === day.stay);
+      const arrived = checkIn && clk.mode === 'live' && clk.todayN === day.n && clk.min >= toMin(checkIn.t);
+      if (!arrived) return null;
+    }
+    return T.stays[day.stay];
+  }
+
   function renderDay(day, ctx) {
     const live = ctx.live;
     const st = live ? stopState(day, ctx.clk) : null;
     const dr = dayDrive(day);
-    const home = day.stay && T.stays[day.stay];
+    const home = homeFor(day, ctx.clk);
     const driveChip = dr.n ? `🚗 车程约 ${fmtMin(dr.min)} · ${dr.n} 段` : '🚶 基本步行';
     return `
       ${ctx.banner}
