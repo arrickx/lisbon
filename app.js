@@ -133,7 +133,7 @@
     const p = place(s);
     const go = dest(p) ? `<a class="go" href="${navUrl(p, s.leg && s.leg.mode)}" target="_blank" rel="noopener" aria-label="导航到${esc(s.name)}"><span>↗</span></a>` : '<span></span>';
     const leg = s.leg ? `<li class="leg">${legText(s.leg, i === 0)}</li>` : '';
-    return `${leg}<li class="stop${s.hl ? ' hl' : ''}${past ? ' past' : ''}${cur ? ' cur' : ''}">
+    return `${leg}<li class="stop${past ? ' past' : ''}${cur ? ' cur' : ''}">
       <div class="t">${s.t}<small>${slotOf(s.t)}</small></div>
       <span class="dot"></span>
       <div class="b"><div class="name">${esc(s.name)}</div>${s.note ? `<div class="note">${esc(s.note)}</div>` : ''}</div>

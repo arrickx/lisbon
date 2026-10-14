@@ -84,7 +84,7 @@ window.TRIP = {
         { t: '10:30', name: '奥古斯塔步行街漫步', note: '平坦石板路慢逛，看街头艺人表演', query: 'Arco da Rua Augusta, Lisboa', leg: { mode: 'walk', min: 5 } },
         { t: '11:45', name: 'Chiado 亲子午餐', note: '薄煎牛肉蛋饭 Bitoque，给宝宝补充体力', query: 'Chiado, Lisboa' },
         { t: '13:00', name: '回 Upon 深度午休', note: '回房大床充能 3 小时，傍晚两栖车状态满格', at: 'lisbon', leg: { mode: 'uber', min: 15, km: 8, eur: 12 } },
-        { t: '16:00', name: 'HippoTrip 水陆两栖巴士', note: '16:00 黄金场！冲入特茹河激起巨浪！备背包垫高屁股看海，水上可抱坐', query: 'HippoTrip Lisboa', hl: true, leg: { mode: 'uber', min: 12, km: 7, eur: 11 } },
+        { t: '16:00', name: 'HippoTrip 水陆两栖巴士', note: '16:00 黄金场！冲入特茹河激起巨浪！备背包垫高屁股看海，水上可抱坐', query: 'HippoTrip Lisboa', leg: { mode: 'uber', min: 12, km: 7, eur: 11 } },
         { t: '18:00', name: '5 Oceanos 码头海鲜晚餐', note: '正对 425 大桥与游艇，现捞海鲜与花园露台，吃完打车回 Upon', query: '5 Oceanos, Doca de Santo Amaro, Lisboa', leg: { mode: 'walk', min: 2 } }
       ]
     },
@@ -97,7 +97,7 @@ window.TRIP = {
         { t: '10:00', name: '顺坡漫步看 28 路电车', note: '顺坡向下滑行，途经圣卢西亚观景台、大教堂', query: 'Miradouro de Santa Luzia, Lisboa', leg: { mode: 'walk', min: 25 } },
         { t: '11:45', name: '山脚平地午餐', note: '鮟鱇鱼海鲜泡饭 Arroz de Tamboril (无细刺)' },
         { t: '13:00', name: '回 Upon 深度午休', note: 'UberXL 秒回公寓，拉帘大床深睡 3 小时', at: 'lisbon', leg: { mode: 'uber', min: 15, km: 7, eur: 11 } },
-        { t: '16:00', name: '自由大道名牌街 (LV / 咖啡亭)', note: '买名牌组逛 LV 旗舰店(退税12~15%)；长辈推车在梧桐林荫小亭喝咖啡', query: 'Louis Vuitton Lisboa Avenida da Liberdade', hl: true, leg: { mode: 'uber', min: 10, km: 5, eur: 9 } },
+        { t: '16:00', name: '自由大道名牌街 (LV / 咖啡亭)', note: '买名牌组逛 LV 旗舰店(退税12~15%)；长辈推车在梧桐林荫小亭喝咖啡', query: 'Louis Vuitton Lisboa Avenida da Liberdade', leg: { mode: 'uber', min: 10, km: 5, eur: 9 } },
         { t: '18:30', name: '自由大道周边晚餐', note: '传统名店享用海鲜大餐，吃完打车回 Upon' }
       ]
     },
@@ -106,7 +106,7 @@ window.TRIP = {
       title: '亲子日 · 水族馆',
       tip: '世博园区全平无车无障碍。上午海洋水族馆纯平缓坡看翻车鱼与海獭企鹅；下午空中缆车看大桥，采购自驾物资。',
       stops: [
-        { t: '09:45', name: '里斯本海洋水族馆 Oceanário', note: '10:00 开馆首批进！全馆纯平坡道，500万升中央水缸', query: 'Oceanário de Lisboa', hl: true, leg: { mode: 'uber', min: 15, km: 9, eur: 12 } },
+        { t: '09:45', name: '里斯本海洋水族馆 Oceanário', note: '10:00 开馆首批进！全馆纯平坡道，500万升中央水缸', query: 'Oceanário de Lisboa', leg: { mode: 'uber', min: 15, km: 9, eur: 12 } },
         { t: '12:00', name: '滨海轻食午餐', note: '烤三文鱼配甜薯泥，食材新鲜健康' },
         { t: '13:00', name: '滨海林荫道推车午睡 / 回房', note: '3km 纯平无车林荫长廊，推车轻晃秒睡或回 Upon 大床睡' },
         { t: '15:00', name: '滨海景观缆车', note: '空中看达伽马大桥与河口', query: 'Telecabine Lisboa Parque das Nações', leg: { mode: 'walk', min: 5 } },
@@ -132,7 +132,7 @@ window.TRIP = {
       title: '出海 · 室内泳池日',
       tip: '上午大型双体客船平稳出海寻访野生海豚（清晨风浪最小不颠簸）；下午 Belmar 室内 30℃ 恒温水疗池舒缓戏水，古城挑彩绘陶瓷。',
       stops: [
-        { t: '09:30', name: 'Lagos Marina 海豚巡航 (早班)', note: '大型双体船超平稳，清晨海豚超活跃！', query: 'Marina de Lagos, Portugal', hl: true, leg: { mode: 'drive', min: 6, km: 3.5 } },
+        { t: '09:30', name: 'Lagos Marina 海豚巡航 (早班)', note: '大型双体船超平稳，清晨海豚超活跃！', query: 'Marina de Lagos, Portugal', leg: { mode: 'drive', min: 6, km: 3.5 } },
         { t: '11:45', name: 'Marina 码头午餐', note: '清烤石斑鱼柳配水煮土豆 (Sem sal)' },
         { t: '13:00', name: '回房独立卧室关门午睡', note: '开车 6 分钟秒回 Belmar，关卧室门彻底深睡 2 小时', at: 'algarve', leg: { mode: 'drive', min: 6, km: 3.5 } },
         { t: '15:30', name: 'Belmar 室内恒温泳池', note: '儿童合规可用，水温 30℃ 尽情戏水', at: 'algarve' },
@@ -144,7 +144,7 @@ window.TRIP = {
       title: '悬崖木栈道 · 古城慢时光',
       tip: 'Ponta da Piedade 全新纯平无障碍悬崖木栈道看海；Chico Zé 现捞炭烤海鱼；下午古城慢品顶级手工 Gelato 与海边告别晚宴。',
       stops: [
-        { t: '08:45', name: 'Ponta da Piedade 悬崖木栈道', note: '全平无障碍木板路，晨光顺光无暴晒', query: 'Ponta da Piedade, Lagos', hl: true, leg: { mode: 'drive', min: 4, km: 2.2 } },
+        { t: '08:45', name: 'Ponta da Piedade 悬崖木栈道', note: '全平无障碍木板路，晨光顺光无暴晒', query: 'Ponta da Piedade, Lagos', leg: { mode: 'drive', min: 4, km: 2.2 } },
         { t: '11:30', name: 'Chico Zé 现捞炭烤海鲜', note: '11:30 开门第一批入座零等位，炭烤海鲷鱼极香', query: 'Restaurante Chico Zé, Lagos', leg: { mode: 'drive', min: 5, km: 3 } },
         { t: '13:00', name: '回房独立卧室关门午睡', note: '开车 5 分钟秒回 Belmar，宝宝深睡，大人洗衣服打包', at: 'algarve', leg: { mode: 'drive', min: 5, km: 2.5 } },
         { t: '15:30', name: '拉各斯古城老街漫步', note: '手工陶瓷店 + 网红 Crema di Gelato 冰淇淋', leg: { mode: 'drive', min: 5, km: 2.5 } },
