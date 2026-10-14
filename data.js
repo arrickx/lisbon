@@ -52,13 +52,14 @@ window.TRIP = {
   days: [
     {
       n: 1, date: '2027-05-04', city: 'lisbon', stay: 'lisbon',
-      title: '抵达 · 倒时差',
-      tip: '第一天不排景点，专心倒时差。2 岁以下幼童坐 Uber / 出租车可抱坐后排（葡萄牙交规豁免），大人先系好安全带。',
+      title: '晨间抵达 · 深度补觉倒时差',
+      tip: 'TAP 直飞晨间落地。第一天坚决不排景点，专心暖胃午餐、大床补觉与楼顶温水泳池。2 岁以下幼童坐 UberXL/Bolt XL 可抱坐后排。',
       stops: [
-        { t: '14:00', name: '抵达里斯本机场 (LIS)', note: '机舱口取推车，家庭通道出关取行李，叫 UberXL 直达 Upon', query: 'Aeroporto de Lisboa (LIS)' },
-        { t: '15:15', name: '入住 Upon Lisbon 两卧公寓', note: '入住 80㎡ 两卧两卫套房，大床熟睡倒时差', at: 'lisbon', leg: { mode: 'uber', min: 12, km: 6, eur: 12 } },
-        { t: '17:30', name: '楼顶恒温泳池 / 街道慢步', note: '无边恒温池俯瞰市区晚霞，或平路漫步' },
-        { t: '18:30', name: '附近传统晚餐', note: '蔬菜浓汤拌白米饭，大人吃烤鱼与海鲜饭' }
+        { t: '10:30', name: '抵达里斯本机场 (LIS T1)', note: '机舱口取推车，Family Fast Track 快速出关取行李，UberXL 10 分钟直达 Upon', query: 'Aeroporto de Lisboa (LIS)' },
+        { t: '11:45', name: 'Upon 寄存行李 / 暖胃午餐', note: '前台寄存大箱申请优先排房，楼下享用清淡蔬菜浓汤与热食午餐驱寒', query: 'Upon Lisbon Prime Residences', leg: { mode: 'uber', min: 10, km: 6, eur: 11 } },
+        { t: '13:30', name: '入住 80㎡ 两卧套房 · 深度补觉', note: '两卧独立关门拉遮光帘大床深睡 3 小时，全家彻底摆脱时差疲惫', at: 'lisbon' },
+        { t: '17:30', name: '楼顶无边恒温泳池戏水', note: '30℃ 温水泡澡舒缓长途飞行筋骨，俯瞰市区落日晚霞，宝宝玩水开心' },
+        { t: '18:45', name: '街区慢步与清淡晚餐', note: '周边传统餐馆吃烤鱼鲜汤，小超市采买大瓶饮用水回房早睡' }
       ]
     },
     {
@@ -169,8 +170,9 @@ window.TRIP = {
    */
   pocket: [
     {
-      icon: '✈️', title: 'TAP 航司亲子乘机', summary: '行李限重 · 婴儿妈咪包 · 推车 Gate Check · 快速通道',
+      icon: '✈️', title: 'TAP 航司亲子乘机', summary: '纽约直飞时刻 · 行李限重 · 婴儿妈咪包 · 快速通道',
       body: `<ul>
+        <li>✈️ <b>NYC 直飞里斯本时刻</b>：去程选红眼直飞（JFK TP210 晚 22:05 发/次日 10:15 到；或 EWR TP204 晚 23:00 发/次日 11:00 到），宝宝通宵深睡，早晨落地；回程 LIS 傍晚发（TP209 17:00 或 TP203 17:45），自驾返程零赶场。</li>
         <li><b>成人随身额度</b>：每人 1 个 20 寸登机箱（限重高达 <b>10 kg / 22 lbs</b>，55×40×25 cm）+ 1 个随身小包（40×30×15 cm，2 kg）。</li>
         <li>👶 <b>Baby on lap（不占座婴儿）</b>：同行成人<b>免费额外携带 1 个装满奶粉/尿布/辅食的随身婴儿包（Diaper Bag）</b>登机，不占用成人自身额度！</li>
         <li>🛒 <b>推车 Gate Check</b>：1 辆完全折叠推车<b>免费托运</b>。值机时挂 <i>"Delivery at Aircraft"</i> 标签，推至登机口交运，下机在机舱门口直接取回。</li>
