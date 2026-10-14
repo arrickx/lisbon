@@ -317,8 +317,9 @@
    * 6. 翻页动效与手势识别（上滑翻至下一天 / 下拉翻回上一天）
    * ------------------------------------------------------------------ */
   const PULL_THRESHOLD = 52;
-  let touchStartY = 0;
   let touchStartX = 0;
+  let touchStartY = 0;
+  let pullY0 = null;          // 「到达页面底部」那一刻手指的位置：只计算此后的额外上拉距离
   let pullDir = null;
   let pullDist = 0;
   let thresholdTriggered = false;
@@ -362,6 +363,7 @@
     const t = e.touches[0];
     touchStartY = t.clientY;
     touchStartX = t.clientX;
+    pullY0 = null;
     pullDir = null;
     pullDist = 0;
     thresholdTriggered = false;
@@ -370,19 +372,21 @@
   window.addEventListener('touchmove', (e) => {
     if (state.tab !== 'today' || e.touches.length !== 1) return;
     const t = e.touches[0];
-    const dy = t.clientY - touchStartY;
     const dx = t.clientX - touchStartX;
-
-    // 优先保持横向正常滚动，横向位移大时忽略
-    if (Math.abs(dx) > Math.abs(dy) * 1.2) return;
+    if (Math.abs(dx) > Math.abs(t.clientY - touchStartY) * 1.2) return;   // 横向优先，不抢手势
 
     const clk = getClock();
     const viewN = state.viewDay ?? clk.todayN;
     const docEl = document.documentElement;
     const scrollBottom = docEl.scrollHeight - window.innerHeight - window.scrollY;
 
+    // 手指从页面中部一路滑到底时不算翻页：以「到底那一刻」为起点，再额外上拉才触发
+    if (scrollBottom > 8) pullY0 = null;
+    else if (pullY0 === null) pullY0 = t.clientY;
+    const dy = pullY0 === null ? 0 : t.clientY - pullY0;
+
     // 仅在页面底部继续往上拉时触发下一天翻页（顶部下拉保留给浏览器原生刷新/回弹）
-    if (dy < -10 && scrollBottom <= 8 && viewN < DAYS.length) {
+    if (dy < -10 && viewN < DAYS.length) {
       pullDir = 'next';
       pullDist = Math.min(100, Math.max(0, -dy * 0.5));
       showFlipIndicator(viewN + 1, pullDist);
@@ -408,14 +412,19 @@
   // 桌面/Mac 触控板滚轮超限翻页
   let wheelAccum = 0;
   let wheelTimer = null;
+  let wheelLast = 0;
+  let wheelFromBottom = false;   // 这一轮滚动是不是「本来就停在底部」开始的（排除惯性滑到底）
   window.addEventListener('wheel', (e) => {
     if (state.tab !== 'today') return;
     const clk = getClock();
     const viewN = state.viewDay ?? clk.todayN;
     const docEl = document.documentElement;
     const scrollBottom = docEl.scrollHeight - window.innerHeight - window.scrollY;
+    const now = Date.now();
+    if (now - wheelLast > 250) wheelFromBottom = scrollBottom <= 6;   // 新一轮滚动
+    wheelLast = now;
 
-    if (e.deltaY > 0 && scrollBottom <= 6 && viewN < DAYS.length) {
+    if (wheelFromBottom && e.deltaY > 0 && scrollBottom <= 6 && viewN < DAYS.length) {
       wheelAccum += e.deltaY;
       if (wheelAccum > 120) {
         wheelAccum = 0;
