@@ -217,7 +217,7 @@
       ${live ? renderLiveCards(day, st, ctx.clk) : ''}
       <div class="sec-h">${live ? '今日完整安排' : '当天安排'}</div>
       <ol class="tl">${day.stops.map((s, i) => renderStopRow(s, i, st)).join('')}</ol>
-      ${day.tips ? `<div class="tip"><div class="tip-h">📌 当日必看提醒 · 订位与避坑</div><ul>${day.tips.map((t) => `<li>${t}</li>`).join('')}</ul></div>` : ''}
+      ${day.tips ? `<div class="sec-h">当日必看提醒</div><ul class="tips">${day.tips.map((t) => `<li class="tip"><span class="tip-ic">${t.i}</span><div class="tip-tx"><div class="tip-t">${t.t}</div><div class="tip-b">${t.b}</div></div></li>`).join('')}</ul>` : ''}
       ${renderDayPager(day)}`;
   }
 

@@ -171,16 +171,19 @@ body[data-mode="live"] .head { display: none; }
   min-height: 28px; display: flex; align-items: center;
 }
 
-.tip {
-  display: flex; flex-direction: column; gap: var(--s-2);
-  background: var(--surface); border: .5px solid var(--line); border-left: 3.5px solid var(--accent);
-  border-radius: var(--r-btn); padding: var(--s-3) var(--s-4);
-  font-size: var(--fs-sub); color: var(--ink-2); line-height: 1.5;
+/* 当日提醒：每条一行（图标 / 标题 / 说明），整体一张白卡，条目间细分隔线 */
+.tips {
+  list-style: none; display: flex; flex-direction: column;
+  background: var(--surface); border: .5px solid var(--line); border-radius: var(--r-card);
 }
-.tip-h { font-size: var(--fs-sub); font-weight: 700; color: var(--accent); }
-.tip ul { padding-left: 1.15em; display: flex; flex-direction: column; gap: var(--s-2); }
-.tip b, .pb b { color: var(--ink); }
+.tip { display: grid; grid-template-columns: 32px 1fr; column-gap: var(--s-3); padding: var(--s-3) var(--s-4); }
+.tip + .tip { border-top: .5px solid var(--line); }
+.tip-ic { font-size: 22px; line-height: 1.2; }
+.tip-t { font-size: var(--fs-body); font-weight: 700; color: var(--ink); line-height: 1.35; }
+.tip-b { margin-top: var(--s-1); font-size: var(--fs-sub); color: var(--ink-2); line-height: 1.6; }
+.tip-t b, .tip-b b { color: var(--ink); }
 .tip a, .pb a { color: var(--accent); font-weight: 600; text-decoration: underline; text-underline-offset: 2px; }
+.pb b { color: var(--ink); }
 
 /* ---------------- 全程 ---------------- */
 .trip-sum { font-size: var(--fs-sub); font-weight: 500; color: var(--ink-2); }

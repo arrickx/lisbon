@@ -1,7 +1,7 @@
 /* 离线缓存：旅途中信号差也能打开。
  * 策略：网络优先，3 秒超时或离线时回落缓存。
  * 改了任何静态文件后，把 VERSION 加 1，旧缓存会在 activate 时清掉。 */
-const VERSION = 'lisbon-v2-5';
+const VERSION = 'lisbon-v2-6';
 const FILES = [
   './', 'index.html', 'style.css', 'data.js', 'app.js',
   'manifest.webmanifest', 'icon.svg', 'icon-180.png', 'icon-192.png', 'icon-512.png'

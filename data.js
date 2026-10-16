@@ -55,11 +55,11 @@ window.TRIP = {
       city: 'lisbon', stay: 'lisbon',
       title: '晨间抵达 · 深度补觉倒时差',
       tips: [
-        '✈️ <b>通关与打车</b>：机舱口取回 Gate Check 推车，走 <b>Family Fast Track</b> 家庭快速通道出关；叫 UberXL / Bolt XL（双 App 比价约 €10-14，2岁内幼童合法抱坐后排）10 分钟直达 Upon。',
-        '🏨 <b>寄存与洗衣贴士</b>：11:45 到店免费寄存 4 个大箱，说明带老人幼童申请优先打扫排房；顺便向前台借折叠晾衣架（<i>Drying rack</i>），后续烘干衣物也可去 <b>-1 楼自助洗衣房</b>用商用烘干机。',
-        '🍲 <b>暖胃午餐与补觉</b>：先在公寓楼下 <b>Dona Joaquina</b> 点宝宝蔬菜浓汤（<i>Sopa de legumes</i>）拌白米饭驱寒；13:30 拿房拉遮光帘<b>全家深睡 3 小时</b>击碎 5 小时时差，第一天坚决不排景点！',
-        '🏊 <b>傍晚戏水与采购</b>：17:30 带宝宝换防水纸尿裤（<i>Swim Diapers</i>）上楼顶 30℃ 无边恒温池（09:00-20:00 凭房卡进）看日落；下楼超市买 1.5L 大水与 <b>Mimosa 200ml 吸管全脂奶</b>放冰箱。',
-        '📅 <b>当晚顺手办</b>：打开 Google Maps / TheFork 订好明天 D2 晚 18:00 <b>5 Oceanos</b> 河景露台位；看一眼周五天气订 D4 佩纳宫公园票。'
+        { i: '✈️', t: '通关与打车', b: '机舱口取回 Gate Check 推车，走 <b>Family Fast Track</b> 家庭快速通道出关；叫 UberXL / Bolt XL（双 App 比价约 €10-14，2岁内幼童合法抱坐后排）10 分钟直达 Upon。' },
+        { i: '🏨', t: '寄存与洗衣贴士', b: '11:45 到店免费寄存 4 个大箱，说明带老人幼童申请优先打扫排房；顺便向前台借折叠晾衣架（<i>Drying rack</i>），后续烘干衣物也可去 <b>-1 楼自助洗衣房</b>用商用烘干机。' },
+        { i: '🍲', t: '暖胃午餐与补觉', b: '先在公寓楼下 <b>Dona Joaquina</b> 点宝宝蔬菜浓汤（<i>Sopa de legumes</i>）拌白米饭驱寒；13:30 拿房拉遮光帘<b>全家深睡 3 小时</b>击碎 5 小时时差，第一天坚决不排景点！' },
+        { i: '🏊', t: '傍晚戏水与采购', b: '17:30 带宝宝换防水纸尿裤（<i>Swim Diapers</i>）上楼顶 30℃ 无边恒温池（09:00-20:00 凭房卡进）看日落；下楼超市买 1.5L 大水与 <b>Mimosa 200ml 吸管全脂奶</b>放冰箱。' },
+        { i: '📅', t: '当晚顺手办', b: '打开 Google Maps / TheFork 订好明天 D2 晚 18:00 <b>5 Oceanos</b> 河景露台位；看一眼周五天气订 D4 佩纳宫公园票。' }
       ],
       stops: [
         { t: '10:30', name: '抵达里斯本机场 (LIS T1)', note: '机舱口取推车，Family Fast Track 快速出关取行李，UberXL 10 分钟直达 Upon', query: 'Aeroporto de Lisboa (LIS)' },
@@ -73,10 +73,10 @@ window.TRIP = {
       city: 'lisbon', stay: 'lisbon',
       title: '贝伦文化 · 水陆两栖车',
       tips: [
-        '🥧 <b>蛋挞老店免排队秘诀</b>：<b>千万别排店门外长队</b>（那是外带队）！推车直接穿过拱门进里面 <b>400 座堂食大厅</b>找座，有宝宝高脚椅，免预约随到随坐。',
-        '🐟 <b>贝伦午餐（免订位）</b>：12:00 错峰直进平民海鲜馆 <b>O Recanto</b> 或 <b>Taberna dos Ferreiros</b>，点清蒸海鱼配土豆泥（交代 <i>Sem sal</i> 不放盐）。',
-        '🦛 <b>HippoTrip 两栖车 4 大实战铁律</b>：① 必须提前官网买好 16:00 场（含 €20 儿童占座票，不查护照）；② <b>全程 90 分钟无厕所，登车前务必在 Doca 码头游客中心换好尿布</b>；③ 用<b>随身小背包垫在宝宝屁股下（垫高 10cm）</b>越过窗框看海；④ 陆地段系安全带投喂米饼果泥，下水后平稳可抱腿上看巨浪。',
-        '🍽️ <b>码头海鲜晚餐</b>：下船走 2 分钟即达 <b>5 Oceanos</b>（电话 <a href="tel:+351213978395">+351 213 978 395</a>）或 <b>Doca de Santo</b>；想坐第一排临水露台建议提前 1-2 天在 Google Maps / TheFork 订 18:00 位（备注 <code>Cadeira de bebé</code>），普通座 18:00 直进。'
+        { i: '🥧', t: '蛋挞老店免排队秘诀', b: '<b>千万别排店门外长队</b>（那是外带队）！推车直接穿过拱门进里面 <b>400 座堂食大厅</b>找座，有宝宝高脚椅，免预约随到随坐。' },
+        { i: '🐟', t: '贝伦午餐（免订位）', b: '12:00 错峰直进平民海鲜馆 <b>O Recanto</b> 或 <b>Taberna dos Ferreiros</b>，点清蒸海鱼配土豆泥（交代 <i>Sem sal</i> 不放盐）。' },
+        { i: '🦛', t: 'HippoTrip 两栖车 4 大实战铁律', b: '① 必须提前官网买好 16:00 场（含 €20 儿童占座票，不查护照）；② <b>全程 90 分钟无厕所，登车前务必在 Doca 码头游客中心换好尿布</b>；③ 用<b>随身小背包垫在宝宝屁股下（垫高 10cm）</b>越过窗框看海；④ 陆地段系安全带投喂米饼果泥，下水后平稳可抱腿上看巨浪。' },
+        { i: '🍽️', t: '码头海鲜晚餐', b: '下船走 2 分钟即达 <b>5 Oceanos</b>（电话 <a href="tel:+351213978395">+351 213 978 395</a>）或 <b>Doca de Santo</b>；想坐第一排临水露台建议提前 1-2 天在 Google Maps / TheFork 订 18:00 位（备注 <code>Cadeira de bebé</code>），普通座 18:00 直进。' }
       ],
       stops: [
         { t: '09:15', name: 'Pastéis de Belém 蛋挞老店', note: '免排外带长队直接穿拱门进 400 座堂食大厅，外皮酥脆奶馅温热，有高脚椅', query: 'Pastéis de Belém, Lisboa', leg: { mode: 'uber', min: 15, km: 10, eur: 12 } },
@@ -92,10 +92,10 @@ window.TRIP = {
       city: 'lisbon', stay: 'lisbon',
       title: '山顶俯瞰 · 商业广场 · 自由大道 LV',
       tips: [
-        '👟 <b>顺坡零费力路线 + 防滑提醒</b>：UberXL 直接开上最高峰圣母山顶，往下经圣卢西亚观景台、大教堂到商业广场<b>全段顺坡下滑</b>；老城碎石坡路滑，长辈务必穿<b>防滑健步鞋</b>。',
-        '🆓 <b>圣胡斯塔电梯白嫖视角</b>：若顺路经过 Chiado，别花 €6 排 1 小时长队坐铁笼电梯，从卡尔莫修道院（<i>Convento do Carmo</i>）右侧平路可直接免费走上顶层观景天桥。',
-        '🛍️ <b>自由大道绝妙分流</b>：买名牌组进 <b>LV 旗舰店</b> / Gucci / Loewe（带护照办退税高达 12%-15%）；长辈推车在法国梧桐树荫下的露天咖啡亭（<i>Quiosque</i>）喝意式浓缩吃冰淇淋，若遇天热也可打车 7 分钟去全空调 <b>英国宫百货 (El Corte Inglés)</b>。',
-        '🦞 <b>晚餐订位策略</b>：若选顶级海鲜名店 <b>Solar dos Presuntos</b> 需提前 1-2 周官网订位；若选隔壁老牌海鲜 <b>Pinóquio</b> 或烤鸡名店 <b>Bonjardim</b>，<b>18:00 错峰直接进店免排队</b>（或请 Upon 前台头天电话留座）。'
+        { i: '👟', t: '顺坡零费力路线 + 防滑提醒', b: 'UberXL 直接开上最高峰圣母山顶，往下经圣卢西亚观景台、大教堂到商业广场<b>全段顺坡下滑</b>；老城碎石坡路滑，长辈务必穿<b>防滑健步鞋</b>。' },
+        { i: '🆓', t: '圣胡斯塔电梯白嫖视角', b: '若顺路经过 Chiado，别花 €6 排 1 小时长队坐铁笼电梯，从卡尔莫修道院（<i>Convento do Carmo</i>）右侧平路可直接免费走上顶层观景天桥。' },
+        { i: '🛍️', t: '自由大道绝妙分流', b: '买名牌组进 <b>LV 旗舰店</b> / Gucci / Loewe（带护照办退税高达 12%-15%）；长辈推车在法国梧桐树荫下的露天咖啡亭（<i>Quiosque</i>）喝意式浓缩吃冰淇淋，若遇天热也可打车 7 分钟去全空调 <b>英国宫百货 (El Corte Inglés)</b>。' },
+        { i: '🦞', t: '晚餐订位策略', b: '若选顶级海鲜名店 <b>Solar dos Presuntos</b> 需提前 1-2 周官网订位；若选隔壁老牌海鲜 <b>Pinóquio</b> 或烤鸡名店 <b>Bonjardim</b>，<b>18:00 错峰直接进店免排队</b>（或请 Upon 前台头天电话留座）。' }
       ],
       stops: [
         { t: '09:15', name: 'Senhora do Monte 圣母山观景台', note: 'UberXL 直达山顶平地，百年松树遮阳下零爬坡俯瞰红屋顶与河谷', query: 'Miradouro da Senhora do Monte, Lisboa', leg: { mode: 'uber', min: 18, km: 8, eur: 12 } },
@@ -110,10 +110,10 @@ window.TRIP = {
       city: 'lisbon', stay: 'lisbon',
       title: '辛特拉童话皇宫 · 罗卡角 · 卡斯凯什',
       tips: [
-        '🏰 <b>佩纳宫无痛避坑（核心！）</b>：在官网 <a href="https://www.parquesdesintra.pt" target="_blank" rel="noopener">parquesdesintra.pt</a> <b>只买纯公园票 (Park Ticket €10) + 园内接驳小巴 (Park Transfer €3.5)</b>，<b>坚决不买宫殿室内票</b>（室内全窄螺旋梯且排 1.5h）！进门坐小巴 3 分钟直达山顶，走纯平<b>王后露台 (Queen\'s Terrace)</b> 拍红黄城堡大片（建议带腰凳/轻便折叠推车）。',
-        '🥐 <b>小镇枕头酥与午餐</b>：<b>Casa Piriquita</b> 周五正常营业（周三休），免预约吃温热杏仁蛋黄枕头酥（<i>Travesseiros</i>）；午餐去网红葡式小馆 <b>Tascantiga</b> 12:00 直进，或正餐 <b>Tulhas</b> 请前台头天订位。',
-        '🌊 <b>罗卡角防风提醒</b>：停车场距十字碑仅 <b>50 米纯平地面</b>，但百米悬崖大西洋海风强劲，下车拍照务必给长辈和宝宝<b>套上防风外套/盖好防风毯</b>。',
-        '☔ <b>【雨天/大雾 Plan B 备选】</b>：若当天山上大雾或降雨，直接改去室内纯平无障碍的 <b>里斯本海洋水族馆 (Oceanário) + 滨海缆车 + Vasco da Gama 商场</b>（官网 <a href="https://tickets.oceanario.pt" target="_blank" rel="noopener">tickets.oceanario.pt</a> 买票务必勾选 1 张 <b>€0 Infant 票</b>生成入场条形码，顺路在 Continente 超市买明天自驾零食）。'
+        { i: '🏰', t: '佩纳宫无痛避坑（核心！）', b: '在官网 <a href="https://www.parquesdesintra.pt" target="_blank" rel="noopener">parquesdesintra.pt</a> <b>只买纯公园票 (Park Ticket €10) + 园内接驳小巴 (Park Transfer €3.5)</b>，<b>坚决不买宫殿室内票</b>（室内全窄螺旋梯且排 1.5h）！进门坐小巴 3 分钟直达山顶，走纯平<b>王后露台 (Queen\'s Terrace)</b> 拍红黄城堡大片（建议带腰凳/轻便折叠推车）。' },
+        { i: '🥐', t: '小镇枕头酥与午餐', b: '<b>Casa Piriquita</b> 周五正常营业（周三休），免预约吃温热杏仁蛋黄枕头酥（<i>Travesseiros</i>）；午餐去网红葡式小馆 <b>Tascantiga</b> 12:00 直进，或正餐 <b>Tulhas</b> 请前台头天订位。' },
+        { i: '🌊', t: '罗卡角防风提醒', b: '停车场距十字碑仅 <b>50 米纯平地面</b>，但百米悬崖大西洋海风强劲，下车拍照务必给长辈和宝宝<b>套上防风外套/盖好防风毯</b>。' },
+        { i: '☔', t: '【雨天/大雾 Plan B 备选】', b: '若当天山上大雾或降雨，直接改去室内纯平无障碍的 <b>里斯本海洋水族馆 (Oceanário) + 滨海缆车 + Vasco da Gama 商场</b>（官网 <a href="https://tickets.oceanario.pt" target="_blank" rel="noopener">tickets.oceanario.pt</a> 买票务必勾选 1 张 <b>€0 Infant 票</b>生成入场条形码，顺路在 Continente 超市买明天自驾零食）。' }
       ],
       stops: [
         { t: '09:15', name: '辛特拉佩纳宫 (纯公园票 + 接驳小巴)', note: 'UberXL 25分钟直达山上入口。坐接驳小巴上山，走纯平王后露台拍红黄童话城堡全貌', query: 'Palácio Nacional da Pena, Sintra', leg: { mode: 'uber', min: 25, km: 24, eur: 26 } },
@@ -127,9 +127,9 @@ window.TRIP = {
       city: 'algarve', stay: 'algarve',
       title: '自驾南下 · 拉各斯海滩落日',
       tips: [
-        '🚗 <b>机场 T1 提车 4 步核对</b>：① 认准航站楼内柜台提自动挡汽油 SUV（<b>Gasolina 95</b>，504L 放 4 个 20 寸箱 + 推车）；② 加租后排 ISOFIX 幼儿安全座椅；③ 激活 <b>Via Verde</b> 高速盒子（过收费站走绿色 V 通道不减速）；④ 全额刷 <b>Chase CSP/CSR</b> 拒绝柜台 CDW 白嫖 Primary 全险。',
-        '📞 <b>【14:00 办 Belmar 入住必办】请前台连打 3 个电话锁死餐厅</b>（均备注 <code>4 Adults + 1 Baby High Chair / Cadeira de bebé</code>）：<br>① 今晚 18:00 <b>Campimar 沙滩餐厅</b>：<a href="tel:+351282762024">+351 282 762 024</a>（或官网 <a href="https://campimar.pt" target="_blank" rel="noopener">campimar.pt</a>）<br>② 明晚周日 18:00 <b>Don Sebastião 古城海鲜</b>：<a href="tel:+351282780480">+351 282 780 480</a><br>③ 后天周一 17:30 <b>Casinha do Petisco 铜锅猪肉蛤蜊</b>：<a href="tel:+351282767163">+351 282 767 163</a>',
-        '🌤️ <b>看海况锁明天海豚船</b>：查明天周日上午风浪预报，在 <b>GetYourGuide</b> 订明早 09:30 <b>Catamaran 大型双体船</b>（若明早浪大可改订 D7 或 D8 上午，连住 4 晚有 3 个上午窗口！）。'
+        { i: '🚗', t: '机场 T1 提车 4 步核对', b: '① 认准航站楼内柜台提自动挡汽油 SUV（<b>Gasolina 95</b>，504L 放 4 个 20 寸箱 + 推车）；② 加租后排 ISOFIX 幼儿安全座椅；③ 激活 <b>Via Verde</b> 高速盒子（过收费站走绿色 V 通道不减速）；④ 全额刷 <b>Chase CSP/CSR</b> 拒绝柜台 CDW 白嫖 Primary 全险。' },
+        { i: '📞', t: '【14:00 办 Belmar 入住必办】请前台连打 3 个电话锁死餐厅', b: '（均备注 <code>4 Adults + 1 Baby High Chair / Cadeira de bebé</code>）：<br>① 今晚 18:00 <b>Campimar 沙滩餐厅</b>：<a href="tel:+351282762024">+351 282 762 024</a>（或官网 <a href="https://campimar.pt" target="_blank" rel="noopener">campimar.pt</a>）<br>② 明晚周日 18:00 <b>Don Sebastião 古城海鲜</b>：<a href="tel:+351282780480">+351 282 780 480</a><br>③ 后天周一 17:30 <b>Casinha do Petisco 铜锅猪肉蛤蜊</b>：<a href="tel:+351282767163">+351 282 767 163</a>' },
+        { i: '🌤️', t: '看海况锁明天海豚船', b: '查明天周日上午风浪预报，在 <b>GetYourGuide</b> 订明早 09:30 <b>Catamaran 大型双体船</b>（若明早浪大可改订 D7 或 D8 上午，连住 4 晚有 3 个上午窗口！）。' }
       ],
       stops: [
         { t: '09:15', name: '退房出发去机场租车中心', note: '前台 1 分钟快速退房，UberXL 10 分钟到 LIS T1 航站楼内租车柜台', at: 'lisbon' },
@@ -144,10 +144,10 @@ window.TRIP = {
       city: 'algarve', stay: 'algarve',
       title: '双体大船看海豚 · 室内温水池',
       tips: [
-        '🐬 <b>海豚巡航选船铁律</b>：必须认准 <b>Catamaran（大型双体客船，带遮阳舱与洗手间）</b>，<b>严禁选 RIB 充气快艇</b>！清晨 09:30 海面风浪最小，海豚跃水率 95%+，记得穿防风外套。',
-        '🍽️ <b>码头午餐（免订位）</b>：11:45 下船直接走去码头木栈道餐馆 <b>Adega da Marina</b> 或 <b>Quay Lagos</b>，错峰直进吃清烤鱼柳配水煮土豆（<i>Sem sal</i>）。',
-        '🏊 <b>室内恒温池戏水</b>：Belmar 室内水疗池（09:00-18:00）水温恒定 30℃，合规允许儿童入水，记得给宝宝换上<b>防水纸尿裤 (Swim Diapers)</b>。',
-        '🍷 <b>周日晚餐防空跑</b>：拉各斯许多小馆（如 Chico Zé、Casinha）周日公休！晚餐直接去昨天请前台订好的老城经典名店 <b>Don Sebastião</b>（电话 <a href="tel:+351282780480">+351 282 780 480</a>）。'
+        { i: '🐬', t: '海豚巡航选船铁律', b: '必须认准 <b>Catamaran（大型双体客船，带遮阳舱与洗手间）</b>，<b>严禁选 RIB 充气快艇</b>！清晨 09:30 海面风浪最小，海豚跃水率 95%+，记得穿防风外套。' },
+        { i: '🍽️', t: '码头午餐（免订位）', b: '11:45 下船直接走去码头木栈道餐馆 <b>Adega da Marina</b> 或 <b>Quay Lagos</b>，错峰直进吃清烤鱼柳配水煮土豆（<i>Sem sal</i>）。' },
+        { i: '🏊', t: '室内恒温池戏水', b: 'Belmar 室内水疗池（09:00-18:00）水温恒定 30℃，合规允许儿童入水，记得给宝宝换上<b>防水纸尿裤 (Swim Diapers)</b>。' },
+        { i: '🍷', t: '周日晚餐防空跑', b: '拉各斯许多小馆（如 Chico Zé、Casinha）周日公休！晚餐直接去昨天请前台订好的老城经典名店 <b>Don Sebastião</b>（电话 <a href="tel:+351282780480">+351 282 780 480</a>）。' }
       ],
       stops: [
         { t: '09:30', name: 'Lagos Marina 海豚巡航 (早班)', note: '大型双体船 (Catamaran) 超平稳，清晨海豚超活跃！', query: 'Marina de Lagos, Portugal', leg: { mode: 'drive', min: 6, km: 3.5 } },
@@ -161,9 +161,9 @@ window.TRIP = {
       city: 'algarve', stay: 'algarve',
       title: '悬崖木栈道 · 炭烤海鱼 · 古城慢时光',
       tips: [
-        '🌊 <b>悬崖纯平木栈道</b>：车停 Ponta da Piedade 灯塔免费停车场，全新木栈道（<i>Passadiços</i>）全程零台阶无障碍，晨光顺光拍金色海蚀拱门与翡翠海水最出片。',
-        '🐟 <b>午市 Chico Zé 免排队秘诀</b>：周一正常营业但<b>仅做午市 (12:00-16:00)</b>，无网上订位；<b>11:45 准时到场直接坐第一波零等位</b>（或请前台打 <a href="tel:+351282764595">+351 282 764 595</a> 留 5 人桌），必点现捞炭烤海鲷鱼与沙丁鱼。',
-        '🍲 <b>晚市 Casinha do Petisco 抢位铁律</b>：拉各斯口碑王，<b>全店仅 7-8 张桌且不接网订</b>！确认 Belmar 前台已帮打 <a href="tel:+351282767163">+351 282 767 163</a> 锁好 17:30 首轮座位；若未订上，务必在 <b>17:20 开门前到门口排第一名</b>，必点铜锅慢炖猪肉蛤蜊（<i>Carne de Porco à Alentejana</i>）。'
+        { i: '🌊', t: '悬崖纯平木栈道', b: '车停 Ponta da Piedade 灯塔免费停车场，全新木栈道（<i>Passadiços</i>）全程零台阶无障碍，晨光顺光拍金色海蚀拱门与翡翠海水最出片。' },
+        { i: '🐟', t: '午市 Chico Zé 免排队秘诀', b: '周一正常营业但<b>仅做午市 (12:00-16:00)</b>，无网上订位；<b>11:45 准时到场直接坐第一波零等位</b>（或请前台打 <a href="tel:+351282764595">+351 282 764 595</a> 留 5 人桌），必点现捞炭烤海鲷鱼与沙丁鱼。' },
+        { i: '🍲', t: '晚市 Casinha do Petisco 抢位铁律', b: '拉各斯口碑王，<b>全店仅 7-8 张桌且不接网订</b>！确认 Belmar 前台已帮打 <a href="tel:+351282767163">+351 282 767 163</a> 锁好 17:30 首轮座位；若未订上，务必在 <b>17:20 开门前到门口排第一名</b>，必点铜锅慢炖猪肉蛤蜊（<i>Carne de Porco à Alentejana</i>）。' }
       ],
       stops: [
         { t: '09:15', name: 'Ponta da Piedade 悬崖木栈道', note: '全平无障碍木板路，晨光顺光看金色海蚀拱与玻璃海', query: 'Ponta da Piedade, Lagos', leg: { mode: 'drive', min: 4, km: 2.2 } },
@@ -177,9 +177,9 @@ window.TRIP = {
       city: 'algarve', stay: 'algarve',
       title: '卢斯海滩 / 动物园喂萌宠 · 度假村躺平',
       tips: [
-        '🌴 <b>上午二选一 A（长辈最爱·棕榈海湾）</b>：自驾 8 分钟去 <b>Praia da Luz</b>，全阿尔加维最平坦的棕榈海滨石板长廊，在古堡海景餐厅 <b>Fortaleza da Luz</b> 露台喝早咖啡晒太阳（免订位）。',
-        '🦩 <b>上午二选一 B（幼童最爱·喂小矮羊）</b>：自驾 12 分钟去 <b>Zoo de Lagos</b>（10:00 开园，<b>现场买票零排队，未满 3 岁免费</b>），全程树荫平路看企鹅隧道与火烈鸟，门口买 <b>€1 饲料包</b>在萌宠农场（<i>Quinta Pedagógica</i>）亲手喂小矮羊与小兔；午餐可去园口葡国田园餐厅 <b>Restaurante O Cangalho</b>（12:00 随到随坐）。',
-        '🌅 <b>告别晚餐与打包</b>：告别晚宴若选悬崖海景名店 <b>O Camilo</b>（电话 <a href="tel:+351282763845">+351 282 763 845</a>）或 Belmar 自营海景餐厅 <b>Levante</b>，提前 1 天请前台代订 18:00 桌位；晚上用套房洗衣机洗净全家衣物打包。'
+        { i: '🌴', t: '上午二选一 A（长辈最爱·棕榈海湾）', b: '自驾 8 分钟去 <b>Praia da Luz</b>，全阿尔加维最平坦的棕榈海滨石板长廊，在古堡海景餐厅 <b>Fortaleza da Luz</b> 露台喝早咖啡晒太阳（免订位）。' },
+        { i: '🦩', t: '上午二选一 B（幼童最爱·喂小矮羊）', b: '自驾 12 分钟去 <b>Zoo de Lagos</b>（10:00 开园，<b>现场买票零排队，未满 3 岁免费</b>），全程树荫平路看企鹅隧道与火烈鸟，门口买 <b>€1 饲料包</b>在萌宠农场（<i>Quinta Pedagógica</i>）亲手喂小矮羊与小兔；午餐可去园口葡国田园餐厅 <b>Restaurante O Cangalho</b>（12:00 随到随坐）。' },
+        { i: '🌅', t: '告别晚餐与打包', b: '告别晚宴若选悬崖海景名店 <b>O Camilo</b>（电话 <a href="tel:+351282763845">+351 282 763 845</a>）或 Belmar 自营海景餐厅 <b>Levante</b>，提前 1 天请前台代订 18:00 桌位；晚上用套房洗衣机洗净全家衣物打包。' }
       ],
       stops: [
         { t: '09:30', name: '【二选一 A】Praia da Luz 卢斯海滩步道', note: '自驾 8 分钟，纯平棕榈海滨石板路推车看海，古堡花园餐厅喝早咖啡', query: 'Praia da Luz, Lagos', leg: { mode: 'drive', min: 8, km: 6 } },
@@ -193,9 +193,9 @@ window.TRIP = {
       city: 'algarve', stay: null,
       title: '返程 · 还车登机',
       tips: [
-        '⛽ <b>满油还车防扣费</b>：进里斯本机场外环路前加满 <b>95 号汽油 (Gasolina 95)</b>，保留加油小票；直达 <b>LIS Terminal 1 租车归还区（Car Rental Return）</b>，满 96 小时租期，工作人员 2 分钟扫码收车。',
-        '🛗 <b>无缝进航站楼 & 快速安检</b>：还车点就在 T1 航站楼内，无需坐接驳车，直接推婴儿车乘电梯即达出发大厅；值机时给推车挂 <i>Delivery at Aircraft</i> 标签，走 <b>Family Fast Track</b> 家庭专属免费快速安检通道。',
-        '✈️ <b>直飞返美时刻</b>：登机口办推车 Gate Check 优先登机，搭乘傍晚直飞航班（<b>TP209 17:00 飞 JFK</b> 或 <b>TP203 17:45 飞 EWR</b>）轻松返程。'
+        { i: '⛽', t: '满油还车防扣费', b: '进里斯本机场外环路前加满 <b>95 号汽油 (Gasolina 95)</b>，保留加油小票；直达 <b>LIS Terminal 1 租车归还区（Car Rental Return）</b>，满 96 小时租期，工作人员 2 分钟扫码收车。' },
+        { i: '🛗', t: '无缝进航站楼 & 快速安检', b: '还车点就在 T1 航站楼内，无需坐接驳车，直接推婴儿车乘电梯即达出发大厅；值机时给推车挂 <i>Delivery at Aircraft</i> 标签，走 <b>Family Fast Track</b> 家庭专属免费快速安检通道。' },
+        { i: '✈️', t: '直飞返美时刻', b: '登机口办推车 Gate Check 优先登机，搭乘傍晚直飞航班（<b>TP209 17:00 飞 JFK</b> 或 <b>TP203 17:45 飞 EWR</b>）轻松返程。' }
       ],
       stops: [
         { t: '09:00', name: '退房北上', note: '海景早餐后退房，A2 高速一路畅通回里斯本机场', at: 'algarve', leg: { mode: 'drive', min: 150, km: 250 } },
@@ -311,22 +311,10 @@ window.TRIP = {
         <p>葡萄牙<b>没有强制小费</b>：菜单价已含税与服务，刷卡按原价；服务特别好留 €2~5 零钱就很大方。</p>`
     },
     {
-      icon: '🚼', title: 'Uber / Bolt 打车与抱娃', summary: '双 App 比价 · 选 XL · 后排抱娃合法',
-      body: `<p><b>双 App 比价</b>：里斯本本地 <b>Bolt</b> 普及率极高，价格通常比 Uber 便宜 15%~25%，且接单极快；点本 App 任何叫车/导航按钮都会<b>自动复制地点名</b>，切到 Bolt 直接粘贴即可比价。</p>
-        <p><b>车型选 XL</b>：4 大 1 小出行选 <b>UberXL</b> 或 <b>Bolt XL</b>（6~7 座商务大车），市内单程约 €8~€14，去辛特拉佩纳宫约 €25~€35，后备箱放折叠推车轻轻松松。</p>
-        <p><b>抱娃合法免座椅</b>：葡萄牙《道路交通法》第 55 条第 5 款：出租车与网约车 (Uber/Bolt) 豁免儿童座椅，<b>2 岁以下幼童坐后排、大人抱着</b>合法（严禁坐副驾）。大人先系好自身安全带，再抱宝宝或放进背带。<b>自驾租车不豁免</b>。</p>`
-    },
-    {
       icon: '🍼', title: '超市买奶', summary: 'Mimosa 200ml 带吸管全脂奶',
       body: `<p>✅ 认准 <b>Mimosa Leite UHT Gordo 200ml</b>（全脂常温奶，自带弯头吸管）或 <b>Mimosa Crescer</b>（幼儿成长款），6 盒约 €1.5。</p>
         <p>✅ 认准 <i>Leite Branco / Gordo</i>。</p>
         <p>❌ 避开 <b>com Chocolate</b>（巧克力）、<b>com Morango / Banana</b>（调味奶）。</p>`
-    },
-    {
-      icon: '💶', title: '刷卡与 ATM', summary: '几乎都能刷卡 · 别用 Euronet',
-      body: `<p>99% 场景支持 Apple Pay / 免境外手续费的信用卡，随身现金备 €100~150 零钱就够。</p>
-        <p>⚠️ 街头黄蓝色 <b>Euronet</b> ATM 汇率极差，<b>不要插卡</b>。认准银行门口 <b>Multibanco (MB)</b>。</p>
-        <p>弹出汇率转换提示时，一律选 <b>Continue in EUR（不转换）</b>，省 8%~10%。</p>`
     }
   ]
 };
