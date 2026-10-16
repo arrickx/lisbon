@@ -49,9 +49,10 @@ window.TRIP = {
     }
   },
 
+  // 第几天的序号 (n) 与日期 (date) 由 app.js 根据 start 自动推算，增删或调换天数无需手动改序号和日期
   days: [
     {
-      n: 1, date: '2027-05-04', city: 'lisbon', stay: 'lisbon',
+      city: 'lisbon', stay: 'lisbon',
       title: '晨间抵达 · 深度补觉倒时差',
       tip: 'TAP 直飞晨间落地。第一天坚决不排景点，专心暖胃午餐、大床补觉与楼顶温水泳池。2 岁以下幼童坐 UberXL/Bolt XL 可抱坐后排。',
       stops: [
@@ -63,7 +64,7 @@ window.TRIP = {
       ]
     },
     {
-      n: 2, date: '2027-05-05', city: 'lisbon', stay: 'lisbon',
+      city: 'lisbon', stay: 'lisbon',
       title: '贝伦文化日',
       tip: '贝伦区沿河全平推车无障碍。上午百年老店堂食现烤热蛋挞、修道院草坪放电看大桥；下午 LX Factory 创意园露天咖啡漫生活。',
       stops: [
@@ -77,7 +78,7 @@ window.TRIP = {
       ]
     },
     {
-      n: 3, date: '2027-05-06', city: 'lisbon', stay: 'lisbon',
+      city: 'lisbon', stay: 'lisbon',
       title: '老城 + 水陆两栖车',
       tip: '商业广场沿河纯平看海风帆船，奥古斯塔步行街慢逛。下午 HippoTrip 水陆两栖车老少皆宜冲入河中激起巨浪！',
       stops: [
@@ -90,7 +91,7 @@ window.TRIP = {
       ]
     },
     {
-      n: 4, date: '2027-05-07', city: 'lisbon', stay: 'lisbon',
+      city: 'lisbon', stay: 'lisbon',
       title: '观景 · 自由大道名牌街',
       tip: '汽车直达最高峰圣母山顶俯瞰全城，顺坡漫步看电车。下午自由大道绝妙分流：买名牌 (LV) + 长辈林荫小亭咖啡闲坐看街景。',
       stops: [
@@ -103,7 +104,7 @@ window.TRIP = {
       ]
     },
     {
-      n: 5, date: '2027-05-08', city: 'lisbon', stay: 'lisbon',
+      city: 'lisbon', stay: 'lisbon',
       title: '亲子日 · 水族馆',
       tip: '世博园区全平无车无障碍。上午海洋水族馆纯平缓坡看翻车鱼与海獭企鹅；下午空中缆车看大桥，采购自驾物资。',
       stops: [
@@ -116,7 +117,7 @@ window.TRIP = {
       ]
     },
     {
-      n: 6, date: '2027-05-09', city: 'algarve', stay: 'algarve',
+      city: 'algarve', stay: 'algarve',
       title: '自驾南下 · 拉各斯',
       tip: '提自动挡 Nissan Qashqai 紧凑型 SUV，A2 高速路况极佳平稳南下；入住 Belmar 两卧海景平层，步行 5 分钟漫步沙滩看落日。',
       stops: [
@@ -129,7 +130,7 @@ window.TRIP = {
       ]
     },
     {
-      n: 7, date: '2027-05-10', city: 'algarve', stay: 'algarve',
+      city: 'algarve', stay: 'algarve',
       title: '出海 · 室内泳池日',
       tip: '上午大型双体客船平稳出海寻访野生海豚（清晨风浪最小不颠簸）；下午 Belmar 室内 30℃ 恒温水疗池舒缓戏水，古城挑彩绘陶瓷。',
       stops: [
@@ -141,7 +142,7 @@ window.TRIP = {
       ]
     },
     {
-      n: 8, date: '2027-05-11', city: 'algarve', stay: 'algarve',
+      city: 'algarve', stay: 'algarve',
       title: '悬崖木栈道 · 古城慢时光',
       tip: 'Ponta da Piedade 全新纯平无障碍悬崖木栈道看海；Chico Zé 现捞炭烤海鱼；下午古城慢品顶级手工 Gelato 与海边告别晚宴。',
       stops: [
@@ -153,7 +154,7 @@ window.TRIP = {
       ]
     },
     {
-      n: 9, date: '2027-05-12', city: 'algarve', stay: null,
+      city: 'algarve', stay: null,
       title: '返程 · 还车登机',
       tip: 'A2 高速一路北上直奔机场。航站楼内快速满油还车，推婴儿车享受 TAP 专属家庭快速安检通道，登机口 Gate Check。',
       stops: [

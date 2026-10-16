@@ -38,9 +38,17 @@
   }
 
   const utc = (d) => { const [y, m, dd] = d.split('-').map(Number); return Date.UTC(y, m - 1, dd); };
+  const addDays = (d, n) => new Date(utc(d) + n * 864e5).toISOString().slice(0, 10);
   const dayDiff = (a, b) => Math.round((utc(b) - utc(a)) / 864e5);
   const toMin = (t) => { const [h, m] = t.split(':').map(Number); return h * 60 + m; };
   const weekday = (d) => WEEK[new Date(utc(d)).getUTCDay()];
+
+  // 启动时根据 T.start 自动推算每日序号、日期与各站点分钟数（单一数据源，data.js 无需手写序号与日期）
+  DAYS.forEach((d, i) => {
+    d.n = i + 1;
+    if (!d.date) d.date = addDays(T.start, i);
+    d.stops.forEach((s) => { s.min = toMin(s.t); });
+  });
 
   /** 当前处于哪种模式，以及“今天”是第几天 */
   function getClock() {
@@ -53,11 +61,11 @@
 
   /** 当日停靠点状态：cur = 现在，next = 下一站，done = 当天已结束 */
   function stopState(day, clk) {
-    const ts = day.stops.map((s) => toMin(s.t));
+    const stops = day.stops;
     let cur = -1;
-    ts.forEach((t, i) => { if (t <= clk.min) cur = i; });
-    const done = clk.min >= ts[ts.length - 1] + DONE_AFTER;
-    const next = done ? -1 : cur + 1 < ts.length ? cur + 1 : -1;
+    stops.forEach((s, i) => { if (s.min <= clk.min) cur = i; });
+    const done = clk.min >= stops[stops.length - 1].min + DONE_AFTER;
+    const next = done || cur + 1 >= stops.length ? -1 : cur + 1;
     return { cur, next, done };
   }
 
@@ -76,6 +84,7 @@
   const cityVars = (k) => `--c:${T.cities[k].color};--c-soft:${T.cities[k].soft}`;
   const CITY_KEYS = [...new Set(DAYS.map((d) => d.city))];
   const nightsIn = (k) => DAYS.filter((d) => d.city === k && d.stay).length;
+  const TOTAL_NIGHTS = DAYS.filter((d) => d.stay).length;
 
   const dayDrive = (day) => day.stops.reduce((a, s) => (s.leg && s.leg.mode !== 'walk' ? { min: a.min + s.leg.min, n: a.n + 1 } : a), { min: 0, n: 0 });
 
@@ -87,16 +96,14 @@
     const p = place(o);
     return p.address || p.query || null;
   };
+  const rideText = (o) => dest(o) || place(o).name;
 
-  const navUrl = (o, mode) => {
-    const target = dest(o) || place(o).name;
-    return `https://www.google.com/maps/dir/?api=1&destination=${enc(target)}${mode === 'walk' ? '&travelmode=walking' : ''}`;
-  };
+  const navUrl = (o, mode) =>
+    `https://www.google.com/maps/dir/?api=1&destination=${enc(rideText(o))}${mode === 'walk' ? '&travelmode=walking' : ''}`;
 
   const uberUrl = (o) => {
     const p = place(o);
-    const target = dest(o) || p.name;
-    return `https://m.uber.com/ul/?action=setPickup&pickup=my_location&dropoff[formatted_address]=${enc(target)}&dropoff[nickname]=${enc(p.name)}`;
+    return `https://m.uber.com/ul/?action=setPickup&pickup=my_location&dropoff[formatted_address]=${enc(rideText(p))}&dropoff[nickname]=${enc(p.name)}`;
   };
 
   const legText = (leg, first) => {
@@ -108,8 +115,7 @@
   };
 
   const btn = (label, href, primary, extra = '') => `<a class="btn${primary ? ' primary' : ''}" href="${href}" target="_blank" rel="noopener"${extra}>${label}</a>`;
-  /** 目的地文字：点叫车时静默复制到剪贴板，方便切到别的打车 App（如 Bolt）粘贴比价 */
-  const rideText = (o) => dest(o) || place(o).name;
+  /** 点叫车时静默复制目的地到剪贴板，方便切到别的打车 App（如 Bolt）粘贴比价 */
   const uberAttrs = (o) => ` data-also-copy="${esc(rideText(o))}"`;
   const uberBtn = (o, label = '🚕 叫车') => btn(label, uberUrl(o), true, uberAttrs(o));
   const copyBtn = (label, text) => `<button type="button" class="btn" data-copy="${esc(text)}">${label}</button>`;
@@ -177,8 +183,8 @@
     return `
       <div class="day-pager">
         <button type="button" class="dp-card dp-end" data-tab="trip">
-          <div class="dp-sub">🎉 9 天慢调行程圆满结束</div>
-          <div class="dp-title" style="justify-content:center;gap:6px"><span>查看全程总览</span><span class="dp-chev">›</span></div>
+          <div class="dp-sub">🎉 ${DAYS.length} 天慢调行程圆满结束</div>
+          <div class="dp-title"><span>查看全程总览</span><span class="dp-chev">›</span></div>
         </button>
       </div>`;
   }
@@ -189,7 +195,7 @@
     const prev = DAYS[day.n - 2];
     if (prev && prev.stay !== day.stay) {
       const checkIn = day.stops.find((s) => s.at === day.stay);
-      const arrived = checkIn && clk.mode === 'live' && clk.todayN === day.n && clk.min >= toMin(checkIn.t);
+      const arrived = checkIn && clk.mode === 'live' && clk.todayN === day.n && clk.min >= checkIn.min;
       if (!arrived) return null;
     }
     return T.stays[day.stay];
@@ -232,7 +238,7 @@
       }).join('');
       return `<div class="grp-h" style="${cityVars(c)}">${esc(T.cities[c].name)} · ${nightsIn(c)} 晚</div>${rows}`;
     }).join('');
-    return `<div class="trip-sum">${DAYS.length} 天 ${DAYS.length - 1} 晚 · ${T.party}</div><div class="ratio">${ratio}</div>${groups}`;
+    return `<div class="trip-sum">${DAYS.length} 天 ${TOTAL_NIGHTS} 晚 · ${T.party}</div><div class="ratio">${ratio}</div>${groups}`;
   }
 
   function renderStayPocket(s) {
@@ -264,7 +270,9 @@
    * 5. 状态与总渲染
    * ------------------------------------------------------------------ */
   const state = { tab: 'today', viewDay: null, fromTrip: false, lastNav: 0 };
+  let curClk = getClock();
   let lastSig = '';
+  const activeDayN = () => state.viewDay ?? curClk.todayN;
 
   // 全屏点餐卡的文案来自 data.js
   $('#flash-badge').textContent = T.flash.badge;
@@ -274,8 +282,8 @@
   const panels = { today: $('#p-today'), trip: $('#p-trip'), pocket: $('#p-pocket') };
 
   function render() {
-    const clk = getClock();
-    const viewN = state.viewDay ?? clk.todayN;
+    const clk = (curClk = getClock());
+    const viewN = activeDayN();
     const day = DAYS[viewN - 1];
 
     document.body.dataset.tab = state.tab;
@@ -326,20 +334,18 @@
   }
 
   /* ------------------------------------------------------------------ *
-   * 6. 翻页动效与手势识别（上滑翻至下一天 / 下拉翻回上一天）
+   * 6. 翻页动效与手势识别（底部继续上滑切换至下一天）
    * ------------------------------------------------------------------ */
   const PULL_THRESHOLD = 52;
   let touchStartX = 0;
   let touchStartY = 0;
   let pullY0 = null;          // 「到达页面底部」那一刻手指的位置：只计算此后的额外上拉距离
-  let pullDir = null;
   let pullDist = 0;
   let thresholdTriggered = false;
 
   function switchDay(n, dir = 'next') {
     if (n < 1 || n > DAYS.length) return;
-    const curN = state.viewDay ?? getClock().todayN;
-    if (n === curN && state.tab === 'today') return;
+    if (n === activeDayN() && state.tab === 'today') return;
     const panel = panels.today;
     panel.classList.remove('slide-next', 'slide-prev');
     void panel.offsetWidth; // 触发 reflow 重置动画
@@ -370,15 +376,18 @@
     thresholdTriggered = false;
   }
 
+  function resetPull() {
+    hideFlipIndicator();
+    pullY0 = null;
+    pullDist = 0;
+  }
+
   window.addEventListener('touchstart', (e) => {
     if (state.tab !== 'today' || e.touches.length !== 1) return;
     const t = e.touches[0];
     touchStartY = t.clientY;
     touchStartX = t.clientX;
-    pullY0 = null;
-    pullDir = null;
-    pullDist = 0;
-    thresholdTriggered = false;
+    resetPull();
   }, { passive: true });
 
   window.addEventListener('touchmove', (e) => {
@@ -387,8 +396,7 @@
     const dx = t.clientX - touchStartX;
     if (Math.abs(dx) > Math.abs(t.clientY - touchStartY) * 1.2) return;   // 横向优先，不抢手势
 
-    const clk = getClock();
-    const viewN = state.viewDay ?? clk.todayN;
+    const viewN = activeDayN();
     const docEl = document.documentElement;
     const scrollBottom = docEl.scrollHeight - window.innerHeight - window.scrollY;
 
@@ -399,27 +407,23 @@
 
     // 仅在页面底部继续往上拉时触发下一天翻页（顶部下拉保留给浏览器原生刷新/回弹）
     if (dy < -10 && viewN < DAYS.length) {
-      pullDir = 'next';
       pullDist = Math.min(100, Math.max(0, -dy * 0.5));
       showFlipIndicator(viewN + 1, pullDist);
     } else {
       hideFlipIndicator();
-      pullDir = null;
       pullDist = 0;
     }
   }, { passive: true });
 
   window.addEventListener('touchend', () => {
-    if (pullDir && pullDist >= PULL_THRESHOLD) {
-      const clk = getClock();
-      const viewN = state.viewDay ?? clk.todayN;
-      const targetN = pullDir === 'next' ? viewN + 1 : viewN - 1;
-      switchDay(targetN, pullDir);
+    const viewN = activeDayN();
+    if (pullDist >= PULL_THRESHOLD && viewN < DAYS.length) {
+      switchDay(viewN + 1, 'next');
     }
-    hideFlipIndicator();
-    pullDir = null;
-    pullDist = 0;
+    resetPull();
   }, { passive: true });
+
+  window.addEventListener('touchcancel', resetPull, { passive: true });
 
   // 桌面/Mac 触控板滚轮超限翻页
   let wheelAccum = 0;
@@ -428,8 +432,7 @@
   let wheelFromBottom = false;   // 这一轮滚动是不是「本来就停在底部」开始的（排除惯性滑到底）
   window.addEventListener('wheel', (e) => {
     if (state.tab !== 'today') return;
-    const clk = getClock();
-    const viewN = state.viewDay ?? clk.todayN;
+    const viewN = activeDayN();
     const docEl = document.documentElement;
     const scrollBottom = docEl.scrollHeight - window.innerHeight - window.scrollY;
     const now = Date.now();
@@ -476,13 +479,12 @@
     if (t.dataset.alsoCopy != null) return copyText(t.dataset.alsoCopy, null);   // 不拦截，链接照常跳转
     if (t.dataset.flash != null) return $('#flash').showModal();
     if (t.dataset.closeFlash != null) return $('#flash').close();
-    if (t.dataset.act === 'today') return switchDay(getClock().todayN, 'prev');
+    if (t.dataset.act === 'today') return switchDay(curClk.todayN, 'prev');
     if (t.dataset.act === 'back-trip') return go({ tab: 'trip', viewDay: null, fromTrip: false });
     if (t.dataset.day) {
       const fromTrip = t.classList.contains('row');
       const nextN = +t.dataset.day;
-      const curN = state.viewDay ?? getClock().todayN;
-      const dir = nextN >= curN ? 'next' : 'prev';
+      const dir = nextN >= activeDayN() ? 'next' : 'prev';
       if (fromTrip) return go({ tab: 'today', viewDay: nextN, fromTrip: true });
       return switchDay(nextN, dir);
     }
