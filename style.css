@@ -172,16 +172,18 @@ body[data-mode="live"] .head { display: none; }
 }
 
 .tip {
-  display: flex; gap: var(--s-2); align-items: flex-start;
-  background: var(--surface); border: .5px solid var(--line); border-left: 3px solid var(--accent);
+  display: flex; flex-direction: column; gap: var(--s-2);
+  background: var(--surface); border: .5px solid var(--line); border-left: 3.5px solid var(--accent);
   border-radius: var(--r-btn); padding: var(--s-3) var(--s-4);
-  font-size: var(--fs-body); color: var(--ink-2);
+  font-size: var(--fs-sub); color: var(--ink-2); line-height: 1.5;
 }
+.tip-h { font-size: var(--fs-sub); font-weight: 700; color: var(--accent); }
+.tip ul { padding-left: 1.15em; display: flex; flex-direction: column; gap: var(--s-2); }
+.tip b, .pb b { color: var(--ink); }
+.tip a, .pb a { color: var(--accent); font-weight: 600; text-decoration: underline; text-underline-offset: 2px; }
 
 /* ---------------- 全程 ---------------- */
 .trip-sum { font-size: var(--fs-sub); font-weight: 500; color: var(--ink-2); }
-.ratio { display: flex; gap: 3px; height: 8px; margin: var(--s-2) 0; }
-.ratio i { border-radius: 4px; background: var(--c); }
 
 .grp-h {
   position: sticky; top: calc(var(--head-h) + var(--safe-top)); z-index: 5;
@@ -228,7 +230,6 @@ body[data-mode="live"] .head { display: none; }
 .poc .ttl b { font-size: var(--fs-name); font-weight: 600; }
 .poc .ttl i { font-style: normal; font-size: var(--fs-sub); color: var(--ink-2); }
 .pb { padding: 0 var(--s-4) var(--s-4); display: flex; flex-direction: column; gap: var(--s-2); color: var(--ink-2); }
-.pb b { color: var(--ink); }
 .pb ul { padding-left: 1.1em; display: flex; flex-direction: column; gap: var(--s-2); }
 
 /* ---------------- 底栏 ---------------- */

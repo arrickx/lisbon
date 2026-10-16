@@ -217,7 +217,7 @@
       ${live ? renderLiveCards(day, st, ctx.clk) : ''}
       <div class="sec-h">${live ? '今日完整安排' : '当天安排'}</div>
       <ol class="tl">${day.stops.map((s, i) => renderStopRow(s, i, st)).join('')}</ol>
-      ${day.tip ? `<div class="tip"><span>💡</span><span>${esc(day.tip)}</span></div>` : ''}
+      ${day.tips ? `<div class="tip"><div class="tip-h">📌 当日必看提醒 · 订位与避坑</div><ul>${day.tips.map((t) => `<li>${t}</li>`).join('')}</ul></div>` : ''}
       ${renderDayPager(day)}`;
   }
 
@@ -225,7 +225,6 @@
    * 4. 渲染：「全程」「随身」、顶栏
    * ------------------------------------------------------------------ */
   function renderTrip(clk) {
-    const ratio = CITY_KEYS.map((c) => `<i style="${cityVars(c)};flex:${nightsIn(c)}"></i>`).join('');
     const groups = CITY_KEYS.map((c) => {
       const rows = DAYS.filter((d) => d.city === c).map((d) => {
         const dr = dayDrive(d);
@@ -238,7 +237,7 @@
       }).join('');
       return `<div class="grp-h" style="${cityVars(c)}">${esc(T.cities[c].name)} · ${nightsIn(c)} 晚</div>${rows}`;
     }).join('');
-    return `<div class="trip-sum">${DAYS.length} 天 ${TOTAL_NIGHTS} 晚 · ${T.party}</div><div class="ratio">${ratio}</div>${groups}`;
+    return `<div class="trip-sum">${DAYS.length} 天 ${TOTAL_NIGHTS} 晚 · ${T.party}</div>${groups}`;
   }
 
   function renderStayPocket(s) {
