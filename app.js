@@ -168,6 +168,47 @@
     return html;
   }
 
+  function formatTipTitle(t) {
+    const m = t.match(/^【(.*?)】(.*)$/);
+    if (m) {
+      return `<span class="dt-tag">${esc(m[1])}</span><span class="dt-t-txt">${esc(m[2])}</span>`;
+    }
+    return `<span class="dt-t-txt">${esc(t)}</span>`;
+  }
+
+  function formatTipBody(b) {
+    if (!b) return '';
+    let html = b;
+    if (!html.includes('<br>')) {
+      html = html.replace(/；([②③④⑤])/g, '<br>$1');
+    }
+    return html;
+  }
+
+  function renderDayTips(day) {
+    if (!day.tips || !day.tips.length) return '';
+    const items = day.tips.map((t) => `
+      <li class="dt-item">
+        <div class="dt-icon" aria-hidden="true">${t.i}</div>
+        <div class="dt-content">
+          <div class="dt-title">${formatTipTitle(t.t)}</div>
+          <div class="dt-body">${formatTipBody(t.b)}</div>
+        </div>
+      </li>`).join('');
+
+    return `
+      <section class="day-tips" aria-label="当日必看锦囊">
+        <div class="dt-head">
+          <div class="dt-head-left">
+            <span class="dt-badge">📌 当日必看锦囊</span>
+            <span class="dt-sub">避坑 · 订位 · 亲子要点</span>
+          </div>
+          <span class="dt-count">${day.tips.length} 条</span>
+        </div>
+        <ul class="dt-list">${items}</ul>
+      </section>`;
+  }
+
   function renderDayPager(day) {
     if (day.n < DAYS.length) {
       const next = DAYS[day.n];
@@ -175,16 +216,22 @@
         <div class="day-pager">
           <div class="dp-hint"><span class="dp-arrow">↑</span> 继续上滑切换下一天</div>
           <button type="button" class="dp-card" data-day="${next.n}">
-            <div class="dp-sub">下一天 · Day ${next.n}</div>
-            <div class="dp-title"><span>${esc(next.title)}</span><span class="dp-chev">›</span></div>
+            <div class="dp-top">
+              <span class="dp-sub">下一天 · Day ${next.n}</span>
+              <span class="dp-action-pill">轻触切换 ›</span>
+            </div>
+            <div class="dp-title"><span>${esc(next.title)}</span><span class="dp-chev" aria-hidden="true">→</span></div>
           </button>
         </div>`;
     }
     return `
       <div class="day-pager">
         <button type="button" class="dp-card dp-end" data-tab="trip">
-          <div class="dp-sub">🎉 ${DAYS.length} 天慢调行程圆满结束</div>
-          <div class="dp-title"><span>查看全程总览</span><span class="dp-chev">›</span></div>
+          <div class="dp-top">
+            <span class="dp-sub">🎉 全程圆满</span>
+            <span class="dp-action-pill">查看总览 ›</span>
+          </div>
+          <div class="dp-title"><span>${DAYS.length} 天慢调行程圆满结束</span><span class="dp-chev" aria-hidden="true">→</span></div>
         </button>
       </div>`;
   }
@@ -217,7 +264,7 @@
       ${live ? renderLiveCards(day, st, ctx.clk) : ''}
       <div class="sec-h">${live ? '今日完整安排' : '当天安排'}</div>
       <ol class="tl">${day.stops.map((s, i) => renderStopRow(s, i, st)).join('')}</ol>
-      ${day.tips ? `<div class="sec-h">当日必看提醒</div><ul class="tips">${day.tips.map((t) => `<li class="tip"><span class="tip-ic">${t.i}</span><div class="tip-tx"><div class="tip-t">${t.t}</div><div class="tip-b">${t.b}</div></div></li>`).join('')}</ul>` : ''}
+      ${renderDayTips(day)}
       ${renderDayPager(day)}`;
   }
 
@@ -528,6 +575,11 @@
   const qTab = params.get('tab');
   if (['today', 'trip', 'pocket'].includes(qTab)) state.tab = qTab;
   render();
+
+  const qScroll = params.get('scroll');
+  if (qScroll) {
+    setTimeout(() => window.scrollTo(0, +qScroll), 100);
+  }
 
   if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
     navigator.serviceWorker.register('sw.js').catch(() => {});
