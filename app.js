@@ -59,14 +59,13 @@
     return { ...now, mode: 'after', todayN: DAYS.length };
   }
 
-  /** 当日停靠点状态：cur = 现在，next = 下一站，done = 当天已结束 */
+  /** 当日停靠点状态：cur = 当前进行站，done = 当天已结束 */
   function stopState(day, clk) {
     const stops = day.stops;
     let cur = -1;
     stops.forEach((s, i) => { if (s.min <= clk.min) cur = i; });
     const done = clk.min >= stops[stops.length - 1].min + DONE_AFTER;
-    const next = done || cur + 1 >= stops.length ? -1 : cur + 1;
-    return { cur, next, done };
+    return { cur, done };
   }
 
   /* ------------------------------------------------------------------ *
@@ -114,21 +113,9 @@
     return `🚕 ${from}约 ${fmtMin(leg.min)}${leg.eur ? ` · ~€${leg.eur}` : ''}`;
   };
 
-  const btn = (label, href, primary, extra = '') => `<a class="btn${primary ? ' primary' : ''}" href="${href}" target="_blank" rel="noopener"${extra}>${label}</a>`;
   /** 所有叫车/导航入口均顺手把地点名写入剪贴板，方便切到 Bolt 直接粘贴比价 */
   const copyAttr = (o) => ` data-copy="${esc(rideText(o))}"`;
-  const uberBtn = (o, label = '🚕 叫车') => btn(label, uberUrl(o), true, copyAttr(o));
-  const navBtn = (o, mode, primary = false) => btn('🧭 导航', navUrl(o, mode), primary, copyAttr(o));
   const copyBtn = (label, text) => `<button type="button" class="btn" data-copy="${esc(text)}">${label}</button>`;
-
-  /** 给一个停靠点生成【叫车 / 导航】按钮 */
-  function stopActions(stop) {
-    const p = place(stop);
-    if (!dest(p)) return '';
-    const mode = stop.leg && stop.leg.mode;
-    if (mode === 'uber') return `<div class="actions">${uberBtn(p)}${navBtn(p, mode, false)}</div>`;
-    return `<div class="actions">${navBtn(p, mode, true)}</div>`;
-  }
 
   /* ------------------------------------------------------------------ *
    * 3. 渲染：「今天」/ 某一天详情（同一个组件）
@@ -145,27 +132,6 @@
       <div class="b"><div class="name">${esc(s.name)}</div>${s.note ? `<div class="note">${esc(s.note)}</div>` : ''}</div>
       ${go}
     </li>`;
-  }
-
-  const etaText = (t, nowMin) => {
-    const d = toMin(t) - nowMin;
-    return d <= 0 ? '现在出发' : d < 60 ? `${d} 分钟后` : `${fmtMin(d)}后`;
-  };
-
-  function renderLiveCards(day, st, clk) {
-    if (st.done) return '<div class="nowbar"><span>🌙</span><b>今天的行程结束了，好好休息</b></div>';
-    let html = '';
-    if (st.cur >= 0) html += `<div class="nowbar"><i class="pulse"></i><span>现在</span><b>${esc(day.stops[st.cur].name)}</b></div>`;
-    else html += '<div class="nowbar"><span>今天还没开始</span></div>';
-    if (st.next >= 0) {
-      const s = day.stops[st.next];
-      html += `<div class="card next"><div class="next-h"><span class="eyebrow">下一站 · <b class="big">${s.t}</b></span><span class="eta" data-eta="${s.t}">${etaText(s.t, clk.min)}</span></div>
-        <div class="name">${esc(s.name)}</div>
-        ${s.note ? `<div class="note">${esc(s.note)}</div>` : ''}
-        ${s.leg ? `<div class="legline">${legText(s.leg, false)}</div>` : ''}
-        ${stopActions(s)}</div>`;
-    }
-    return html;
   }
 
   function formatTipTitle(t) {
@@ -261,8 +227,7 @@
         <h1 class="day-title">${esc(day.title)}</h1>
         <div class="hero-chips"><span>${driveChip}</span><span>📍 ${day.stops.length} 站</span></div>
       </${home ? 'a' : 'div'}>
-      ${live ? renderLiveCards(day, st, ctx.clk) : ''}
-      <div class="sec-h">${live ? '今日完整安排' : '当天安排'}</div>
+      <div class="sec-h">当天安排</div>
       <ol class="tl">${day.stops.map((s, i) => renderStopRow(s, i, st)).join('')}</ol>
       ${renderDayTips(day)}
       ${renderDayPager(day)}`;
@@ -334,7 +299,6 @@
     Object.entries(panels).forEach(([k, el]) => { el.hidden = k !== state.tab; });
 
     renderHead(clk);
-    document.querySelectorAll('[data-eta]').forEach((el) => { el.textContent = etaText(el.dataset.eta, clk.min); });
 
     // 面板内容只在“关键状态变了”时才重绘，避免每分钟刷新导致页面跳动
     const live = clk.mode === 'live' && viewN === clk.todayN;
