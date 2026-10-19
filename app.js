@@ -287,20 +287,12 @@
     return `<div class="trip-sum">${DAYS.length} 天 ${TOTAL_NIGHTS} 晚 · ${T.party}</div>${groups}`;
   }
 
-  function renderStayPocket(s) {
-    return `<div class="card stay"><div class="name">${esc(s.name)}</div><div class="status">${esc(s.status || '')}</div>
-      <div class="addr${s.address ? '' : ' pending'}" data-copy="${esc(rideText(s))}">${s.address ? esc(s.address) : '地址待订单确认'} <span>📋</span></div>
-      <div class="actions">${navBtn(s)}${uberBtn(s)}</div></div>`;
-  }
-
   function renderPocket() {
     const poc = T.pocket.map((p) => `<details class="poc"><summary><span class="ic">${p.icon}</span><span class="ttl"><b>${esc(p.title)}</b><i>${esc(p.summary)}</i></span></summary>
       <div class="pb">${p.body}${p.copy ? `<div class="actions">${copyBtn(`📋 ${p.copyLabel || '复制'}`, p.copy)}</div>` : ''}</div></details>`).join('');
     return `
       <div class="card flash-card"><div class="name">${esc(T.flash.title)}</div><div class="note">${esc(T.flash.hint)}</div>
         <div class="actions"><button type="button" class="btn primary" data-flash>出示给服务员</button></div></div>
-      <div class="sec-h">住处</div>
-      ${Object.values(T.stays).map(renderStayPocket).join('')}
       <div class="sec-h">小抄</div>
       ${poc}`;
   }
@@ -371,16 +363,8 @@
     return `<div class="banner"><span>${text}</span>${action}</div>`;
   }
 
-  function go(patch) {
-    Object.assign(state, patch);
-    state.lastNav = Date.now();
-    lastSig = '';
-    render();
-    window.scrollTo(0, 0);
-  }
-
   /* ------------------------------------------------------------------ *
-   * 6. 翻页动效与手势识别（底部继续上滑切换至下一天）
+   * 6. 翻页动效与手势识别（底部继续上滑切换至下一天 + 稳态置顶）
    * ------------------------------------------------------------------ */
   const PULL_THRESHOLD = 52;
   let touchStartX = 0;
@@ -388,16 +372,71 @@
   let pullY0 = null;          // 「到达页面底部」那一刻手指的位置：只计算此后的额外上拉距离
   let pullDist = 0;
   let thresholdTriggered = false;
+  let flipGuardUntil = 0;     // 翻页动画期间锁死顶部，防止 iOS 橡皮筋回弹或触控板惯性把新页面拉回底部
+  let flipOutTimer = null;
+  let flipInTimer = null;
+
+  function clearFlipClasses(panel) {
+    panel.classList.remove('slide-out-next', 'slide-out-prev', 'slide-in-next', 'slide-in-prev');
+  }
+
+  function scrollToTop(guardMs = 320) {
+    const docEl = document.documentElement;
+    flipGuardUntil = Date.now() + guardMs;
+    docEl.style.overflow = 'hidden';
+    document.body.style.overflow = 'hidden';
+    window.scrollTo(0, 0);
+    docEl.scrollTop = 0;
+    document.body.scrollTop = 0;
+    requestAnimationFrame(() => {
+      docEl.style.overflow = '';
+      document.body.style.overflow = '';
+      window.scrollTo(0, 0);
+      requestAnimationFrame(() => window.scrollTo(0, 0));
+    });
+  }
+
+  window.addEventListener('scroll', () => {
+    if (Date.now() < flipGuardUntil && window.scrollY > 0) {
+      window.scrollTo(0, 0);
+    }
+  }, { passive: true });
+
+  function go(patch) {
+    clearTimeout(flipOutTimer);
+    clearTimeout(flipInTimer);
+    clearFlipClasses(panels.today);
+    Object.assign(state, patch);
+    state.lastNav = Date.now();
+    lastSig = '';
+    render();
+    scrollToTop(260);
+  }
 
   function switchDay(n, dir = 'next') {
     if (n < 1 || n > DAYS.length) return;
     if (n === activeDayN() && state.tab === 'today') return;
+    clearTimeout(flipOutTimer);
+    clearTimeout(flipInTimer);
     const panel = panels.today;
-    panel.classList.remove('slide-next', 'slide-prev');
-    void panel.offsetWidth; // 触发 reflow 重置动画
-    panel.classList.add(dir === 'next' ? 'slide-next' : 'slide-prev');
-    go({ tab: 'today', viewDay: n, fromTrip: false });
-    setTimeout(() => panel.classList.remove('slide-next', 'slide-prev'), 320);
+    clearFlipClasses(panel);
+
+    // 第一阶段：旧页面先轻盈滑出淡隐（120ms），同时避开 touchend 瞬间浏览器的底部回弹计算
+    panel.classList.add(dir === 'next' ? 'slide-out-next' : 'slide-out-prev');
+    flipGuardUntil = Date.now() + 460;
+
+    flipOutTimer = setTimeout(() => {
+      clearFlipClasses(panel);
+      Object.assign(state, { tab: 'today', viewDay: n, fromTrip: false, lastNav: Date.now() });
+      lastSig = '';
+      render();
+      scrollToTop(340);
+
+      // 第二阶段：在页面顶部平滑滑入新的一天（300ms）
+      void panel.offsetWidth;
+      panel.classList.add(dir === 'next' ? 'slide-in-next' : 'slide-in-prev');
+      flipInTimer = setTimeout(() => clearFlipClasses(panel), 320);
+    }, 120);
   }
 
   function showFlipIndicator(targetN, dist) {
@@ -429,7 +468,7 @@
   }
 
   window.addEventListener('touchstart', (e) => {
-    if (state.tab !== 'today' || e.touches.length !== 1) return;
+    if (state.tab !== 'today' || e.touches.length !== 1 || Date.now() < flipGuardUntil) return;
     const t = e.touches[0];
     touchStartY = t.clientY;
     touchStartX = t.clientX;
@@ -437,7 +476,7 @@
   }, { passive: true });
 
   window.addEventListener('touchmove', (e) => {
-    if (state.tab !== 'today' || e.touches.length !== 1) return;
+    if (state.tab !== 'today' || e.touches.length !== 1 || Date.now() < flipGuardUntil) return;
     const t = e.touches[0];
     const dx = t.clientX - touchStartX;
     if (Math.abs(dx) > Math.abs(t.clientY - touchStartY) * 1.2) return;   // 横向优先，不抢手势
@@ -477,7 +516,10 @@
   let wheelLast = 0;
   let wheelFromBottom = false;   // 这一轮滚动是不是「本来就停在底部」开始的（排除惯性滑到底）
   window.addEventListener('wheel', (e) => {
-    if (state.tab !== 'today') return;
+    if (state.tab !== 'today' || Date.now() < flipGuardUntil) {
+      wheelAccum = 0;
+      return;
+    }
     const viewN = activeDayN();
     const docEl = document.documentElement;
     const scrollBottom = docEl.scrollHeight - window.innerHeight - window.scrollY;

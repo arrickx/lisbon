@@ -53,7 +53,7 @@ window.TRIP = {
   days: [
     {
       city: 'lisbon', stay: 'lisbon',
-      title: '晨间抵达 · 慢午餐与小憩 ➡️ 15:00 入住大补觉',
+      title: '晨间抵达 · 慢午餐 · 15:00 入住补觉',
       tips: [
         { i: '✈️', t: '通关与打车', b: '机舱口取回 Gate Check 推车，走 <b>Family Fast Track</b> 家庭快速通道出关；叫 UberXL / Bolt XL（双 App 比价约 €10-14，2岁内幼童合法抱坐后排）10 分钟直达 Upon。' },
         { i: '🏨', t: '寄存与优先排房', b: '11:45 到店免费寄存 4 个大箱办理预登记，说明带老人幼童申请“优先打扫（Priority Cleaning）”；顺便向前台借折叠晾衣架（<i>Drying rack</i>）。' },
