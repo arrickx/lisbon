@@ -340,27 +340,17 @@ body[data-mode="live"] .head { display: none; }
 }
 .toast.show { opacity: 1; transform: translate(-50%, 0); }
 
-/* ---------------- 翻页手势 & 二段式过渡动效 ---------------- */
-@keyframes dayOutNext {
-  from { opacity: 1; transform: translateY(0); }
-  to   { opacity: 0; transform: translateY(-24px); }
-}
+/* ---------------- 翻页手势 & 过渡动效 ---------------- */
 @keyframes dayInNext {
-  from { opacity: 0; transform: translateY(32px); }
+  from { opacity: 0; transform: translateY(28px); }
   to   { opacity: 1; transform: translateY(0); }
-}
-@keyframes dayOutPrev {
-  from { opacity: 1; transform: translateY(0); }
-  to   { opacity: 0; transform: translateY(24px); }
 }
 @keyframes dayInPrev {
-  from { opacity: 0; transform: translateY(-32px); }
+  from { opacity: 0; transform: translateY(-28px); }
   to   { opacity: 1; transform: translateY(0); }
 }
-.slide-out-next { animation: dayOutNext .12s ease-in both; pointer-events: none; }
-.slide-in-next  { animation: dayInNext  .3s cubic-bezier(0.22, 1, 0.36, 1) both; }
-.slide-out-prev { animation: dayOutPrev .12s ease-in both; pointer-events: none; }
-.slide-in-prev  { animation: dayInPrev  .3s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.slide-in-next { animation: dayInNext .28s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.slide-in-prev { animation: dayInPrev .28s cubic-bezier(0.22, 1, 0.36, 1) both; }
 
 .flip-indicator {
   position: fixed; left: 50%; bottom: calc(var(--tab-h) + var(--safe-bottom) + 16px);
@@ -431,5 +421,5 @@ body[data-mode="live"] .head { display: none; }
 .dp-end .dp-title { justify-content: center; gap: 8px; }
 
 @media (prefers-reduced-motion: reduce) {
-  .pulse, .slide-out-next, .slide-in-next, .slide-out-prev, .slide-in-prev, .dp-hint .dp-arrow { animation: none; }
+  .pulse, .slide-in-next, .slide-in-prev, .dp-hint .dp-arrow { animation: none; }
 }

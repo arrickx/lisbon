@@ -364,7 +364,7 @@
   }
 
   /* ------------------------------------------------------------------ *
-   * 6. 翻页动效与手势识别（底部继续上滑切换至下一天 + 稳态置顶）
+   * 6. 翻页动效与手势识别（底部继续上滑切换至下一天 + 原生稳态置顶）
    * ------------------------------------------------------------------ */
   const PULL_THRESHOLD = 52;
   let touchStartX = 0;
@@ -372,71 +372,44 @@
   let pullY0 = null;          // 「到达页面底部」那一刻手指的位置：只计算此后的额外上拉距离
   let pullDist = 0;
   let thresholdTriggered = false;
-  let flipGuardUntil = 0;     // 翻页动画期间锁死顶部，防止 iOS 橡皮筋回弹或触控板惯性把新页面拉回底部
-  let flipOutTimer = null;
+  let flipLockUntil = 0;
   let flipInTimer = null;
 
   function clearFlipClasses(panel) {
-    panel.classList.remove('slide-out-next', 'slide-out-prev', 'slide-in-next', 'slide-in-prev');
+    panel.classList.remove('slide-in-next', 'slide-in-prev');
   }
-
-  function scrollToTop(guardMs = 320) {
-    const docEl = document.documentElement;
-    flipGuardUntil = Date.now() + guardMs;
-    docEl.style.overflow = 'hidden';
-    document.body.style.overflow = 'hidden';
-    window.scrollTo(0, 0);
-    docEl.scrollTop = 0;
-    document.body.scrollTop = 0;
-    requestAnimationFrame(() => {
-      docEl.style.overflow = '';
-      document.body.style.overflow = '';
-      window.scrollTo(0, 0);
-      requestAnimationFrame(() => window.scrollTo(0, 0));
-    });
-  }
-
-  window.addEventListener('scroll', () => {
-    if (Date.now() < flipGuardUntil && window.scrollY > 0) {
-      window.scrollTo(0, 0);
-    }
-  }, { passive: true });
 
   function go(patch) {
-    clearTimeout(flipOutTimer);
     clearTimeout(flipInTimer);
     clearFlipClasses(panels.today);
     Object.assign(state, patch);
     state.lastNav = Date.now();
     lastSig = '';
     render();
-    scrollToTop(260);
+    window.scrollTo(0, 0);
   }
 
   function switchDay(n, dir = 'next') {
     if (n < 1 || n > DAYS.length) return;
     if (n === activeDayN() && state.tab === 'today') return;
-    clearTimeout(flipOutTimer);
     clearTimeout(flipInTimer);
+    flipLockUntil = Date.now() + 360;
+
     const panel = panels.today;
     clearFlipClasses(panel);
 
-    // 第一阶段：旧页面先轻盈滑出淡隐（120ms），同时避开 touchend 瞬间浏览器的底部回弹计算
-    panel.classList.add(dir === 'next' ? 'slide-out-next' : 'slide-out-prev');
-    flipGuardUntil = Date.now() + 460;
+    // 先清空面板 1 帧使文档高度归零（maxScroll = 0），让 iOS UIScrollView 原生终止惯性并归零坐标，绝不引发滚动拉扯震动
+    panel.innerHTML = '';
+    window.scrollTo(0, 0);
 
-    flipOutTimer = setTimeout(() => {
-      clearFlipClasses(panel);
+    requestAnimationFrame(() => {
       Object.assign(state, { tab: 'today', viewDay: n, fromTrip: false, lastNav: Date.now() });
       lastSig = '';
       render();
-      scrollToTop(340);
-
-      // 第二阶段：在页面顶部平滑滑入新的一天（300ms）
-      void panel.offsetWidth;
+      window.scrollTo(0, 0);
       panel.classList.add(dir === 'next' ? 'slide-in-next' : 'slide-in-prev');
       flipInTimer = setTimeout(() => clearFlipClasses(panel), 320);
-    }, 120);
+    });
   }
 
   function showFlipIndicator(targetN, dist) {
@@ -468,7 +441,7 @@
   }
 
   window.addEventListener('touchstart', (e) => {
-    if (state.tab !== 'today' || e.touches.length !== 1 || Date.now() < flipGuardUntil) return;
+    if (state.tab !== 'today' || e.touches.length !== 1 || Date.now() < flipLockUntil) return;
     const t = e.touches[0];
     touchStartY = t.clientY;
     touchStartX = t.clientX;
@@ -476,7 +449,7 @@
   }, { passive: true });
 
   window.addEventListener('touchmove', (e) => {
-    if (state.tab !== 'today' || e.touches.length !== 1 || Date.now() < flipGuardUntil) return;
+    if (state.tab !== 'today' || e.touches.length !== 1 || Date.now() < flipLockUntil) return;
     const t = e.touches[0];
     const dx = t.clientX - touchStartX;
     if (Math.abs(dx) > Math.abs(t.clientY - touchStartY) * 1.2) return;   // 横向优先，不抢手势
@@ -486,11 +459,15 @@
     const scrollBottom = docEl.scrollHeight - window.innerHeight - window.scrollY;
 
     // 手指从页面中部一路滑到底时不算翻页：以「到底那一刻」为起点，再额外上拉才触发
-    if (scrollBottom > 8) pullY0 = null;
+    if (scrollBottom > 6) pullY0 = null;
     else if (pullY0 === null) pullY0 = t.clientY;
     const dy = pullY0 === null ? 0 : t.clientY - pullY0;
 
-    // 仅在页面底部继续往上拉时触发下一天翻页（顶部下拉保留给浏览器原生刷新/回弹）
+    // 在页面底部继续往上拉时，阻止 iOS 原生底部橡皮筋回弹（避免松手后 UIScrollView 回弹造成页面震动）
+    if (dy < 0 && scrollBottom <= 2 && viewN < DAYS.length && e.cancelable) {
+      e.preventDefault();
+    }
+
     if (dy < -10 && viewN < DAYS.length) {
       pullDist = Math.min(100, Math.max(0, -dy * 0.5));
       showFlipIndicator(viewN + 1, pullDist);
@@ -498,7 +475,7 @@
       hideFlipIndicator();
       pullDist = 0;
     }
-  }, { passive: true });
+  }, { passive: false });
 
   window.addEventListener('touchend', () => {
     const viewN = activeDayN();
@@ -516,7 +493,7 @@
   let wheelLast = 0;
   let wheelFromBottom = false;   // 这一轮滚动是不是「本来就停在底部」开始的（排除惯性滑到底）
   window.addEventListener('wheel', (e) => {
-    if (state.tab !== 'today' || Date.now() < flipGuardUntil) {
+    if (state.tab !== 'today' || Date.now() < flipLockUntil) {
       wheelAccum = 0;
       return;
     }

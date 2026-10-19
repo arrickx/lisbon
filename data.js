@@ -53,7 +53,7 @@ window.TRIP = {
   days: [
     {
       city: 'lisbon', stay: 'lisbon',
-      title: '晨间抵达 · 慢午餐 · 15:00 入住补觉',
+      title: '抵达里斯本 · 入住休整',
       tips: [
         { i: '✈️', t: '通关与打车', b: '机舱口取回 Gate Check 推车，走 <b>Family Fast Track</b> 家庭快速通道出关；叫 UberXL / Bolt XL（双 App 比价约 €10-14，2岁内幼童合法抱坐后排）10 分钟直达 Upon。' },
         { i: '🏨', t: '寄存与优先排房', b: '11:45 到店免费寄存 4 个大箱办理预登记，说明带老人幼童申请“优先打扫（Priority Cleaning）”；顺便向前台借折叠晾衣架（<i>Drying rack</i>）。' },
@@ -72,7 +72,7 @@ window.TRIP = {
     },
     {
       city: 'lisbon', stay: 'lisbon',
-      title: '贝伦文化 · 水陆两栖车',
+      title: '贝伦古迹 · 水陆两栖车',
       tips: [
         { i: '🥧', t: '蛋挞老店免排队秘诀', b: '<b>千万别排店门外长队</b>（那是外带队）！推车直接穿过拱门进里面 <b>400 座堂食大厅</b>找座，有宝宝高脚椅，免预约随到随坐。' },
         { i: '🐟', t: '贝伦午餐（免订位）', b: '12:00 错峰直进平民海鲜馆 <b>O Recanto</b> 或 <b>Taberna dos Ferreiros</b>，点清蒸海鱼配土豆泥（交代 <i>Sem sal</i> 不放盐）。' },
@@ -91,7 +91,7 @@ window.TRIP = {
     },
     {
       city: 'lisbon', stay: 'lisbon',
-      title: '山顶俯瞰 · 商业广场 · 自由大道 LV',
+      title: '老城观景 · 自由大道',
       tips: [
         { i: '👟', t: '顺坡零费力路线 + 防滑提醒', b: 'UberXL 直接开上最高峰圣母山顶，往下经圣卢西亚观景台、大教堂到商业广场<b>全段顺坡下滑</b>；老城碎石坡路滑，长辈务必穿<b>防滑健步鞋</b>。' },
         { i: '🆓', t: '圣胡斯塔电梯白嫖视角', b: '若顺路经过 Chiado，别花 €6 排 1 小时长队坐铁笼电梯，从卡尔莫修道院（<i>Convento do Carmo</i>）右侧平路可直接免费走上顶层观景天桥。' },
@@ -109,7 +109,7 @@ window.TRIP = {
     },
     {
       city: 'lisbon', stay: 'lisbon',
-      title: '辛特拉童话皇宫 · 罗卡角 · 卡斯凯什',
+      title: '辛特拉 · 罗卡角 · 卡斯凯什',
       tips: [
         { i: '🏰', t: '佩纳宫无痛避坑（核心！）', b: '在官网 <a href="https://www.parquesdesintra.pt" target="_blank" rel="noopener">parquesdesintra.pt</a> <b>只买纯公园票 (Park Ticket €10) + 园内接驳小巴 (Park Transfer €3.5)</b>，<b>坚决不买宫殿室内票</b>（室内全窄螺旋梯且排 1.5h）！进门坐小巴 3 分钟直达山顶，走纯平<b>王后露台 (Queen\'s Terrace)</b> 拍红黄城堡大片（建议带腰凳/轻便折叠推车）。' },
         { i: '🥐', t: '小镇枕头酥与午餐', b: '<b>Casa Piriquita</b> 周五正常营业（周三休），免预约吃温热杏仁蛋黄枕头酥（<i>Travesseiros</i>）；午餐去网红葡式小馆 <b>Tascantiga</b> 12:00 直进，或正餐 <b>Tulhas</b> 请前台头天订位。' },
@@ -126,7 +126,7 @@ window.TRIP = {
     },
     {
       city: 'algarve', stay: 'algarve',
-      title: '自驾南下 · 拉各斯海滩落日',
+      title: '自驾南下 · 拉各斯海滩',
       tips: [
         { i: '🚗', t: '机场 T1 提车 4 步核对', b: '① 认准航站楼内柜台提自动挡汽油 SUV（<b>Gasolina 95</b>，504L 放 4 个 20 寸箱 + 推车）；② 加租后排 ISOFIX 幼儿安全座椅；③ 激活 <b>Via Verde</b> 高速盒子（过收费站走绿色 V 通道不减速）；④ 全额刷 <b>Chase CSP/CSR</b> 拒绝柜台 CDW 白嫖 Primary 全险。' },
         { i: '📞', t: '【14:00 办 Belmar 入住必办】请前台连打 3 个电话锁死餐厅', b: '（均备注 <code>4 Adults + 1 Baby High Chair / Cadeira de bebé</code>）：<br>① 今晚 18:00 <b>Campimar 沙滩餐厅</b>：<a href="tel:+351282762024">+351 282 762 024</a>（或官网 <a href="https://campimar.pt" target="_blank" rel="noopener">campimar.pt</a>）<br>② 明晚周日 18:00 <b>Don Sebastião 古城海鲜</b>：<a href="tel:+351282780480">+351 282 780 480</a><br>③ 后天周一 17:30 <b>Casinha do Petisco 铜锅猪肉蛤蜊</b>：<a href="tel:+351282767163">+351 282 767 163</a>' },
@@ -143,7 +143,7 @@ window.TRIP = {
     },
     {
       city: 'algarve', stay: 'algarve',
-      title: '双体大船看海豚 · 室内温水池',
+      title: '出海看海豚 · 恒温泳池',
       tips: [
         { i: '🐬', t: '海豚巡航选船铁律', b: '必须认准 <b>Catamaran（大型双体客船，带遮阳舱与洗手间）</b>，<b>严禁选 RIB 充气快艇</b>！清晨 09:30 海面风浪最小，海豚跃水率 95%+，记得穿防风外套。' },
         { i: '🍽️', t: '码头午餐（免订位）', b: '11:45 下船直接走去码头木栈道餐馆 <b>Adega da Marina</b> 或 <b>Quay Lagos</b>，错峰直进吃清烤鱼柳配水煮土豆（<i>Sem sal</i>）。' },
@@ -160,7 +160,7 @@ window.TRIP = {
     },
     {
       city: 'algarve', stay: 'algarve',
-      title: '悬崖木栈道 · 炭烤海鱼 · 古城慢时光',
+      title: '悬崖栈道 · 拉各斯古城',
       tips: [
         { i: '🌊', t: '悬崖纯平木栈道', b: '车停 Ponta da Piedade 灯塔免费停车场，全新木栈道（<i>Passadiços</i>）全程零台阶无障碍，晨光顺光拍金色海蚀拱门与翡翠海水最出片。' },
         { i: '🐟', t: '午市 Chico Zé 免排队秘诀', b: '周一正常营业但<b>仅做午市 (12:00-16:00)</b>，无网上订位；<b>11:45 准时到场直接坐第一波零等位</b>（或请前台打 <a href="tel:+351282764595">+351 282 764 595</a> 留 5 人桌），必点现捞炭烤海鲷鱼与沙丁鱼。' },
@@ -176,7 +176,7 @@ window.TRIP = {
     },
     {
       city: 'algarve', stay: 'algarve',
-      title: '卢斯海滩 / 动物园喂萌宠 · 度假村躺平',
+      title: '卢斯海滩 · 动物园萌宠',
       tips: [
         { i: '🌴', t: '上午二选一 A（长辈最爱·棕榈海湾）', b: '自驾 8 分钟去 <b>Praia da Luz</b>，全阿尔加维最平坦的棕榈海滨石板长廊，在古堡海景餐厅 <b>Fortaleza da Luz</b> 露台喝早咖啡晒太阳（免订位）。' },
         { i: '🦩', t: '上午二选一 B（幼童最爱·喂小矮羊）', b: '自驾 12 分钟去 <b>Zoo de Lagos</b>（10:00 开园，<b>现场买票零排队，未满 3 岁免费</b>），全程树荫平路看企鹅隧道与火烈鸟，门口买 <b>€1 饲料包</b>在萌宠农场（<i>Quinta Pedagógica</i>）亲手喂小矮羊与小兔；午餐可去园口葡国田园餐厅 <b>Restaurante O Cangalho</b>（12:00 随到随坐）。' },
