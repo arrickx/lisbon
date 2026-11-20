@@ -10,7 +10,7 @@
  *  - 没有 query 或 at 的 stop 不显示导航按钮
  */
 window.TRIP = {
-  start: '2027-05-04',
+  start: '2027-05-06',
   tz: 'Europe/Lisbon',
   party: '4 大 1 小 (99% 主选) · 备选 2 大 1 小',
   // 新增城市只需在这里加一项（颜色会自动应用到整个界面），再在 days 里用它的 key
@@ -33,7 +33,7 @@ window.TRIP = {
       name: 'Upon Lisbon Prime Residences (里斯本服务公寓)',
       query: 'Upon Lisbon Prime Residences, Lisboa, Portugal',
       address: null,
-      status: '【里斯本主选】4 大 1 小 (80㎡ / 861 sq ft 两卧两卫大公寓 · 楼顶恒温泳池) · 4 晚'
+      status: '【里斯本主选】4 大 1 小 (80㎡ / 861 sq ft 两卧两卫大公寓 · 楼顶恒温泳池) · 4 晚 (5/6 - 5/10)'
     },
     lisbonAlt: {
       name: 'Hyatt Regency Lisbon (里斯本凯悦酒店)',
@@ -45,7 +45,7 @@ window.TRIP = {
       name: 'Belmar Spa & Beach Resort (贝尔马水疗海滩度假村)',
       query: 'Belmar Spa & Beach Resort, Lagos, Portugal',
       address: null,
-      status: '【拉各斯首选】2-Bedroom Sea View (两卧海景平层套房 · 91~96㎡ · 室内温水池宝宝可用 · 自带洗衣机 · 免费车库) · 4 晚'
+      status: '【拉各斯首选】2-Bedroom Sea View (两卧海景平层套房 · 91~96㎡ · 室内温水池宝宝可用 · 自带洗衣机 · 免费车库) · 4 晚 (5/10 - 5/14)'
     }
   },
 
@@ -112,7 +112,7 @@ window.TRIP = {
       title: '辛特拉 · 罗卡角 · 卡斯凯什',
       tips: [
         { i: '🏰', t: '佩纳宫无痛避坑（核心！）', b: '在官网 <a href="https://www.parquesdesintra.pt" target="_blank" rel="noopener">parquesdesintra.pt</a> <b>只买纯公园票 (Park Ticket €10) + 园内接驳小巴 (Park Transfer €3.5)</b>，<b>坚决不买宫殿室内票</b>（室内全窄螺旋梯且排 1.5h）！进门坐小巴 3 分钟直达山顶，走纯平<b>王后露台 (Queen\'s Terrace)</b> 拍红黄城堡大片（建议带腰凳/轻便折叠推车）。' },
-        { i: '🥐', t: '小镇枕头酥与午餐', b: '<b>Casa Piriquita</b> 周五正常营业（周三休），免预约吃温热杏仁蛋黄枕头酥（<i>Travesseiros</i>）；午餐去网红葡式小馆 <b>Tascantiga</b> 12:00 直进，或正餐 <b>Tulhas</b> 请前台头天订位。' },
+        { i: '🥐', t: '小镇枕头酥与午餐', b: '<b>Casa Piriquita</b> 周日正常营业（周三休），免预约吃温热杏仁蛋黄枕头酥（<i>Travesseiros</i>）；午餐去网红葡式小馆 <b>Tascantiga</b> 12:00 直进，或正餐 <b>Tulhas</b> 请前台头天订位。' },
         { i: '🌊', t: '罗卡角防风提醒', b: '停车场距十字碑仅 <b>50 米纯平地面</b>，但百米悬崖大西洋海风强劲，下车拍照务必给长辈和宝宝<b>套上防风外套/盖好防风毯</b>。' },
         { i: '☔', t: '【雨天/大雾 Plan B 备选】', b: '若当天山上大雾或降雨，直接改去室内纯平无障碍的 <b>里斯本海洋水族馆 (Oceanário) + 滨海缆车 + Vasco da Gama 商场</b>（官网 <a href="https://tickets.oceanario.pt" target="_blank" rel="noopener">tickets.oceanario.pt</a> 买票务必勾选 1 张 <b>€0 Infant 票</b>生成入场条形码，顺路在 Continente 超市买明天自驾零食）。' }
       ],
@@ -129,14 +129,14 @@ window.TRIP = {
       title: '自驾南下 · 拉各斯海滩',
       tips: [
         { i: '🚗', t: '机场 T1 提车 4 步核对', b: '① 认准航站楼内柜台提自动挡汽油 SUV（<b>Gasolina 95</b>，504L 放 4 个 20 寸箱 + 推车）；② 加租后排 ISOFIX 幼儿安全座椅；③ 激活 <b>Via Verde</b> 高速盒子（过收费站走绿色 V 通道不减速）；④ 全额刷 <b>Chase CSP/CSR</b> 拒绝柜台 CDW 白嫖 Primary 全险。' },
-        { i: '📞', t: '【14:00 办 Belmar 入住必办】请前台连打 3 个电话锁死餐厅', b: '（均备注 <code>4 Adults + 1 Baby High Chair / Cadeira de bebé</code>）：<br>① 今晚 18:00 <b>Campimar 沙滩餐厅</b>：<a href="tel:+351282762024">+351 282 762 024</a>（或官网 <a href="https://campimar.pt" target="_blank" rel="noopener">campimar.pt</a>）<br>② 明晚周日 18:00 <b>Don Sebastião 古城海鲜</b>：<a href="tel:+351282780480">+351 282 780 480</a><br>③ 后天周一 17:30 <b>Casinha do Petisco 铜锅猪肉蛤蜊</b>：<a href="tel:+351282767163">+351 282 767 163</a>' },
-        { i: '🌤️', t: '看海况锁明天海豚船', b: '查明天周日上午风浪预报，在 <b>GetYourGuide</b> 订明早 09:30 <b>Catamaran 大型双体船</b>（若明早浪大可改订 D7 或 D8 上午，连住 4 晚有 3 个上午窗口！）。' }
+        { i: '📞', t: '【14:00 办 Belmar 入住必办】请前台连打 4 个电话锁死餐厅', b: '（均备注 <code>4 Adults + 1 Baby High Chair / Cadeira de bebé</code>）：<br>① 今晚周一 18:00 <b>Campimar 沙滩餐厅</b>：<a href="tel:+351282762024">+351 282 762 024</a><br>② 明晚周二 17:30 <b>Casinha do Petisco 铜锅猪肉蛤蜊</b>：<a href="tel:+351282767163">+351 282 767 163</a><br>③ 后天周三 18:00 <b>Don Sebastião 古城海鲜</b>：<a href="tel:+351282780480">+351 282 780 480</a><br>④ 大后天周四 18:00 <b>O Camilo 悬崖日落晚宴</b>：<a href="tel:+351282763845">+351 282 763 845</a>' },
+        { i: '🌤️', t: '看海况锁明天海豚船', b: '查明天周二上午风浪预报，在 <b>GetYourGuide</b> 订明早 09:30 <b>Catamaran 大型双体船</b>（若明早浪大可改订 D7 或 D8 上午，连住 4 晚有 3 个上午窗口！）。' }
       ],
       stops: [
         { t: '09:15', name: '退房出发去机场租车中心', note: '前台 1 分钟快速退房，UberXL 10 分钟到 LIS T1 航站楼内租车柜台', at: 'lisbon' },
         { t: '09:45', name: 'LIS T1 提紧凑型 SUV', note: '提自动挡 Nissan Qashqai，装儿童座椅，激活 Via Verde，刷 CSP/CSR，装 4 箱+推车', query: 'Aeroporto de Lisboa (LIS)', leg: { mode: 'uber', min: 10, km: 6, eur: 10 } },
         { t: '10:30', name: 'A2 高速自驾南下', note: '中途服务区喝咖啡换尿布，高速巡航宝宝安稳午睡', leg: { mode: 'drive', min: 150, km: 250 } },
-        { t: '14:00', name: '入住 Belmar 度假村 (连住 4 晚)', note: '地库电梯直通两卧海景平层，办入住时顺便请前台代订拉各斯 3 顿晚餐！', at: 'algarve' },
+        { t: '14:00', name: '入住 Belmar 度假村 (连住 4 晚)', note: '地库电梯直通两卧海景平层，办入住时顺便请前台代订拉各斯 4 顿晚餐！', at: 'algarve' },
         { t: '16:30', name: 'Porto de Mós 细沙海滩', note: '步行 5 分钟，平缓细沙踩水看金色悬崖', query: 'Praia de Porto de Mós, Lagos', leg: { mode: 'walk', min: 5 } },
         { t: '18:00', name: '沙滩 Campimar 晚餐', note: '【强烈建议订位：官网campimar.pt或请Belmar前台电话代订】现捞烤大明虾配海景日落', query: 'Campimar Beach Restaurant, Lagos', leg: { mode: 'walk', min: 3 } }
       ]
@@ -146,45 +146,47 @@ window.TRIP = {
       title: '出海看海豚 · 恒温泳池',
       tips: [
         { i: '🐬', t: '海豚巡航选船铁律', b: '必须认准 <b>Catamaran（大型双体客船，带遮阳舱与洗手间）</b>，<b>严禁选 RIB 充气快艇</b>！清晨 09:30 海面风浪最小，海豚跃水率 95%+，记得穿防风外套。' },
-        { i: '🍽️', t: '码头午餐（免订位）', b: '11:45 下船直接走去码头木栈道餐馆 <b>Adega da Marina</b> 或 <b>Quay Lagos</b>，错峰直进吃清烤鱼柳配水煮土豆（<i>Sem sal</i>）。' },
+        { i: '🐟', t: '午市 Chico Zé 免排队秘诀', b: '周二正常营业（仅做 12:00-16:00 午市，<b>避开周日店休！</b>），无网上订位；<b>11:45 准时到场直接坐第一波零等位</b>（或请前台打 <a href="tel:+351282764595">+351 282 764 595</a> 留 5 人桌），必点现捞炭烤海鲷鱼与沙丁鱼。' },
         { i: '🏊', t: '室内恒温池戏水', b: 'Belmar 室内水疗池（09:00-18:00）水温恒定 30℃，合规允许儿童入水，记得给宝宝换上<b>防水纸尿裤 (Swim Diapers)</b>。' },
-        { i: '🍷', t: '周日晚餐防空跑', b: '拉各斯许多小馆（如 Chico Zé、Casinha）周日公休！晚餐直接去昨天请前台订好的老城经典名店 <b>Don Sebastião</b>（电话 <a href="tel:+351282780480">+351 282 780 480</a>）。' }
+        { i: '🍲', t: '晚市 Casinha do Petisco 抢位铁律', b: '拉各斯口碑王，<b>全店仅 7-8 张桌且不接网订（周二营业，避开周日店休！）</b>！确认 Belmar 前台已帮打 <a href="tel:+351282767163">+351 282 767 163</a> 锁好 17:30 首轮座位；若未订上，务必在 <b>17:20 开门前到门口排第一名</b>，必点铜锅慢炖猪肉蛤蜊（<i>Carne de Porco à Alentejana</i>）。' }
       ],
       stops: [
         { t: '09:30', name: 'Lagos Marina 海豚巡航 (早班)', note: '大型双体船 (Catamaran) 超平稳，清晨海豚超活跃！', query: 'Marina de Lagos, Portugal', leg: { mode: 'drive', min: 6, km: 3.5 } },
-        { t: '11:45', name: 'Marina 码头游艇景观午餐', note: '【11:45下船直进免订位】清烤石斑鱼柳配水煮土豆 (Sem sal)' },
+        { t: '11:45', name: 'Chico Zé 现捞炭烤海鲜 (周二营业)', note: '【避开周日店休！11:45开门前到场第一波免等位，或请前台电话留座】炭烤海鲷鱼绝香', query: 'Restaurante Chico Zé, Lagos', leg: { mode: 'drive', min: 5, km: 3 } },
         { t: '13:00', name: '回房独立卧室关门午睡', note: '开车 6 分钟秒回 Belmar，关卧室门彻底深睡 2.5 小时', at: 'algarve', leg: { mode: 'drive', min: 6, km: 3.5 } },
         { t: '15:45', name: 'Belmar 室内恒温泳池', note: '儿童合规可用（穿防水纸尿裤），水温 30℃ 尽情戏水', at: 'algarve' },
-        { t: '18:00', name: '拉各斯老城 Don Sebastião 晚餐', note: '【强烈建议订位：周日小馆多店休，提前1-2天请Belmar前台电话代订18:00位】', query: 'Restaurante Don Sebastião, Lagos', leg: { mode: 'drive', min: 5, km: 2.5 } }
+        { t: '17:00', name: '拉各斯古城老街 & Crema di Gelato', note: '手工彩绘陶瓷店 + 网红开心果手工冰淇淋', query: 'Crema di Gelato, Lagos', leg: { mode: 'drive', min: 5, km: 2.5 } },
+        { t: '17:30', name: 'Casinha do Petisco 晚餐 (周二营业)', note: '【避开周日店休！仅7-8张桌，请前台代订17:30首轮位】必点铜锅猪肉蛤蜊', query: 'Casinha do Petisco, Lagos', leg: { mode: 'walk', min: 4 } }
       ]
     },
     {
       city: 'algarve', stay: 'algarve',
-      title: '悬崖栈道 · 拉各斯古城',
+      title: '悬崖栈道 · 卢斯海滩',
       tips: [
         { i: '🌊', t: '悬崖纯平木栈道', b: '车停 Ponta da Piedade 灯塔免费停车场，全新木栈道（<i>Passadiços</i>）全程零台阶无障碍，晨光顺光拍金色海蚀拱门与翡翠海水最出片。' },
-        { i: '🐟', t: '午市 Chico Zé 免排队秘诀', b: '周一正常营业但<b>仅做午市 (12:00-16:00)</b>，无网上订位；<b>11:45 准时到场直接坐第一波零等位</b>（或请前台打 <a href="tel:+351282764595">+351 282 764 595</a> 留 5 人桌），必点现捞炭烤海鲷鱼与沙丁鱼。' },
-        { i: '🍲', t: '晚市 Casinha do Petisco 抢位铁律', b: '拉各斯口碑王，<b>全店仅 7-8 张桌且不接网订</b>！确认 Belmar 前台已帮打 <a href="tel:+351282767163">+351 282 767 163</a> 锁好 17:30 首轮座位；若未订上，务必在 <b>17:20 开门前到门口排第一名</b>，必点铜锅慢炖猪肉蛤蜊（<i>Carne de Porco à Alentejana</i>）。' }
+        { i: '🐟', t: '码头游艇午餐', b: '11:45 码头木栈道餐馆 <b>Adega da Marina</b> 或 <b>Quay Lagos</b> 错峰直进，吃清烤石斑鱼柳配水煮土豆（<i>Sem sal</i>）。' },
+        { i: '🌴', t: 'Praia da Luz 卢斯海滩漫步', b: '自驾 8 分钟去 <b>Praia da Luz</b>，全阿尔加维最平坦的棕榈海滨石板长廊，在古堡海景餐厅 <b>Fortaleza da Luz</b> 露台喝咖啡看海浪（免订位）。' },
+        { i: '🍷', t: '老城经典 Don Sebastião 晚餐', b: '拉各斯老城经典老牌名店 <b>Don Sebastião</b>（周三正常营业），提前 1-2 天请 Belmar 前台打 <a href="tel:+351282780480">+351 282 780 480</a> 订好 18:00 桌位。' }
       ],
       stops: [
         { t: '09:15', name: 'Ponta da Piedade 悬崖木栈道', note: '全平无障碍木板路，晨光顺光看金色海蚀拱与玻璃海', query: 'Ponta da Piedade, Lagos', leg: { mode: 'drive', min: 4, km: 2.2 } },
-        { t: '11:45', name: 'Chico Zé 现捞炭烤海鲜 (周一营业)', note: '【无网订：11:45开门前到场第一波免等位，或请前台电话留座】炭烤海鲷鱼绝香', query: 'Restaurante Chico Zé, Lagos', leg: { mode: 'drive', min: 5, km: 3 } },
+        { t: '11:45', name: 'Marina 码头游艇景观午餐', note: '【11:45错峰直进免订位】清烤石斑鱼柳配水煮土豆 (Sem sal)', query: 'Adega da Marina, Lagos', leg: { mode: 'drive', min: 5, km: 3 } },
         { t: '13:15', name: '回房独立卧室关门午睡', note: '开车 5 分钟秒回 Belmar，宝宝深睡充能', at: 'algarve', leg: { mode: 'drive', min: 5, km: 2.5 } },
-        { t: '15:45', name: '拉各斯古城老街 & Crema di Gelato', note: '手工彩绘陶瓷店 + 网红开心果手工冰淇淋', query: 'Crema di Gelato, Lagos', leg: { mode: 'drive', min: 5, km: 2.5 } },
-        { t: '17:30', name: 'Casinha do Petisco 晚餐 (周一营业)', note: '【仅7-8张桌！请Belmar前台提前电话代订17:30首轮位，或17:20门口排第一波】必点铜锅猪肉蛤蜊', query: 'Casinha do Petisco, Lagos', leg: { mode: 'walk', min: 4 } }
+        { t: '15:45', name: 'Praia da Luz 卢斯海滩步道 & Fortaleza da Luz 喝茶', note: '纯平棕榈步道，古堡海景露台喝早茶/下午茶看海浪', query: 'Praia da Luz, Lagos', leg: { mode: 'drive', min: 8, km: 6 } },
+        { t: '18:00', name: '拉各斯老城 Don Sebastião 晚餐', note: '【提前1-2天请Belmar前台电话代订18:00位】老城经典海鲜与酒窖', query: 'Restaurante Don Sebastião, Lagos', leg: { mode: 'drive', min: 6, km: 5 } }
       ]
     },
     {
       city: 'algarve', stay: 'algarve',
-      title: '卢斯海滩 · 动物园萌宠',
+      title: '动物园萌宠 · 度假村慢享',
       tips: [
-        { i: '🌴', t: '上午二选一 A（长辈最爱·棕榈海湾）', b: '自驾 8 分钟去 <b>Praia da Luz</b>，全阿尔加维最平坦的棕榈海滨石板长廊，在古堡海景餐厅 <b>Fortaleza da Luz</b> 露台喝早咖啡晒太阳（免订位）。' },
-        { i: '🦩', t: '上午二选一 B（幼童最爱·喂小矮羊）', b: '自驾 12 分钟去 <b>Zoo de Lagos</b>（10:00 开园，<b>现场买票零排队，未满 3 岁免费</b>），全程树荫平路看企鹅隧道与火烈鸟，门口买 <b>€1 饲料包</b>在萌宠农场（<i>Quinta Pedagógica</i>）亲手喂小矮羊与小兔；午餐可去园口葡国田园餐厅 <b>Restaurante O Cangalho</b>（12:00 随到随坐）。' },
+        { i: '🦩', t: '上午二选一 A（幼童最爱·喂小矮羊）', b: '自驾 12 分钟去 <b>Zoo de Lagos</b>（10:00 开园，<b>现场买票零排队，未满 3 岁免费</b>），全程树荫平路看企鹅隧道与火烈鸟，门口买 <b>€1 饲料包</b>在萌宠农场（<i>Quinta Pedagógica</i>）亲手喂小矮羊与小兔；午餐可去园口葡国田园餐厅 <b>Restaurante O Cangalho</b>（12:00 随到随坐）。' },
+        { i: '🏰', t: '上午二选一 B（天涯海角·萨格里什）', b: '自驾 25 分钟前往欧洲西南角的 <b>萨格里什要塞 (Fortaleza de Sagres)</b> 与圣文森特角，巨大悬崖延伸入大西洋，平坦宽阔壮美（风大记得套防风外套）。' },
         { i: '🌅', t: '告别晚餐与打包', b: '告别晚宴若选悬崖海景名店 <b>O Camilo</b>（电话 <a href="tel:+351282763845">+351 282 763 845</a>）或 Belmar 自营海景餐厅 <b>Levante</b>，提前 1 天请前台代订 18:00 桌位；晚上用套房洗衣机洗净全家衣物打包。' }
       ],
       stops: [
-        { t: '09:30', name: '【二选一 A】Praia da Luz 卢斯海滩步道', note: '自驾 8 分钟，纯平棕榈海滨石板路推车看海，古堡花园餐厅喝早咖啡', query: 'Praia da Luz, Lagos', leg: { mode: 'drive', min: 8, km: 6 } },
-        { t: '09:30', name: '【二选一 B】拉各斯动物园 Zoo de Lagos', note: '自驾 12 分钟，纯平林荫道，未满3岁免费，萌宠农场 €1 饲料亲手喂矮脚羊与小兔', query: 'Zoo de Lagos, Portugal', leg: { mode: 'drive', min: 12, km: 10 } },
+        { t: '09:30', name: '【二选一 A】拉各斯动物园 Zoo de Lagos', note: '自驾 12 分钟，纯平林荫道，未满3岁免费，萌宠农场 €1 饲料亲手喂矮脚羊与小兔', query: 'Zoo de Lagos, Portugal', leg: { mode: 'drive', min: 12, km: 10 } },
+        { t: '09:30', name: '【二选一 B】萨格里什要塞 Fortaleza de Sagres', note: '自驾 25 分钟，天涯海角平坦悬崖要塞看大西洋巨浪', query: 'Fortaleza de Sagres, Portugal', leg: { mode: 'drive', min: 25, km: 30 } },
         { t: '12:00', name: '海滨或田园葡式午餐', note: '【12:00错峰直进免订位】慢享大西洋阳光午餐' },
         { t: '13:30', name: '回 Belmar 午睡 & 度假村躺平', note: '午睡醒来后在度假村草坪、泳池露台或沙滩慢享最后一个海滨下午', at: 'algarve', leg: { mode: 'drive', min: 10, km: 7 } },
         { t: '18:00', name: '海景告别晚餐 & 洗衣打包', note: '【若选悬崖O Camilo或度假村Levante建议提前1天前台代订】洗烘衣物打包行李' }
@@ -214,13 +216,13 @@ window.TRIP = {
     {
       icon: '📋', title: '行前与当地预订时间表', summary: '出发前锁哪几项 · 到店当天找前台订哪几家',
       body: `<ul>
-        <li><b>出发前 1-2 个月</b>：在 Expedia 锁定 <b>5/8 10:00 – 5/12 12:00（96h/4天）</b> 里斯本机场 T1 柜台自动挡 SUV（Nissan Qashqai + 幼儿安全座椅），刷 Chase CSP/CSR 拒绝第三方与柜台车险。</li>
-        <li><b>出发前 3-4 周</b>：登录 <a href="https://booking.hippotrip.com" target="_blank" rel="noopener">booking.hippotrip.com</a> 抢 <b>D2 (5/5 周三) 16:00 场 HippoTrip</b>（4 成人 + 1 儿童占座票）。</li>
-        <li><b>D1 (5/4) 入住 Upon 当天</b>：① 在 Google Maps / TheFork 订明晚 D2 18:00 <b>5 Oceanos</b> 河景露台位；② 查周五天气：晴天在 <a href="https://www.parquesdesintra.pt" target="_blank" rel="noopener">parquesdesintra.pt</a> 买 D4 <b>佩纳宫纯公园票 (€10) + 接驳小巴 (€3.5)</b>；雨天在 <a href="https://tickets.oceanario.pt" target="_blank" rel="noopener">tickets.oceanario.pt</a> 买海洋水族馆（勾 1 张 €0 Infant 票）。</li>
-        <li><b>D4 (5/7) 出发去拉各斯前</b>：看阿尔加维风浪预报，在 <b>GetYourGuide</b> 订 D6 (5/9 周日) 09:30 <b>Catamaran 双体船看海豚</b>（享 24h 免费退改）。</li>
-        <li><b>D5 (5/8) 14:00 入住 Belmar 当天</b>：在接待处请前台帮忙连打 3 个电话锁死拉各斯热门晚餐（点击下方按钮可复制话术直接递给前台看）。</li>
+        <li><b>出发前 1-2 个月</b>：在 Expedia 锁定 <b>5/10 10:00 – 5/14 12:00（96h/4天）</b> 里斯本机场 T1 柜台自动挡 SUV（Nissan Qashqai + 幼儿安全座椅），刷 Chase CSP/CSR 拒绝第三方与柜台车险。</li>
+        <li><b>出发前 3-4 周</b>：登录 <a href="https://booking.hippotrip.com" target="_blank" rel="noopener">booking.hippotrip.com</a> 抢 <b>D2 (5/7 周五) 16:00 场 HippoTrip</b>（4 成人 + 1 儿童占座票）。</li>
+        <li><b>D1 (5/6) 入住 Upon 当天</b>：① 在 Google Maps / TheFork 订明晚 D2 18:00 <b>5 Oceanos</b> 河景露台位；② 查周日天气：晴天在 <a href="https://www.parquesdesintra.pt" target="_blank" rel="noopener">parquesdesintra.pt</a> 买 D4 <b>佩纳宫纯公园票 (€10) + 接驳小巴 (€3.5)</b>；雨天在 <a href="https://tickets.oceanario.pt" target="_blank" rel="noopener">tickets.oceanario.pt</a> 买海洋水族馆（勾 1 张 €0 Infant 票）。</li>
+        <li><b>D4 (5/9) 出发去拉各斯前</b>：看阿尔加维风浪预报，在 <b>GetYourGuide</b> 订 D6 (5/11 周二) 09:30 <b>Catamaran 双体船看海豚</b>（享 24h 免费退改）。</li>
+        <li><b>D5 (5/10) 14:00 入住 Belmar 当天</b>：在接待处请前台帮忙连打 4 个电话锁死拉各斯热门晚餐（点击下方按钮可复制话术直接递给前台看）。</li>
       </ul>`,
-      copy: 'Hello! Could you please help us call to book a table for 4 adults + 1 baby high chair (Cadeira de bebé)? 1) Tonight Sat 18:00 at Campimar (+351 282 762 024); 2) Tomorrow Sun 18:00 at Don Sebastião (+351 282 780 480); 3) Monday 17:30 at Casinha do Petisco (+351 282 767 163). Thank you!',
+      copy: 'Hello! Could you please help us call to book a table for 4 adults + 1 baby high chair (Cadeira de bebé)? 1) Tonight Mon 18:00 at Campimar (+351 282 762 024); 2) Tomorrow Tue 17:30 at Casinha do Petisco (+351 282 767 163); 3) Wednesday 18:00 at Don Sebastião (+351 282 780 480); 4) Thursday 18:00 at O Camilo (+351 282 763 845). Thank you!',
       copyLabel: '复制给 Belmar 前台代订餐厅话术'
     },
     {
@@ -229,12 +231,13 @@ window.TRIP = {
       <ul>
         <li>🟢 <b>D2 早茶 Pastéis de Belém</b>：免订位！别排门外外卖队，直接进 400 座堂食大厅。</li>
         <li>🟡 <b>D2 晚餐 5 Oceanos / Doca de Santo</b>：河景露台提前 1-2 天 Google Maps / TheFork 订 18:00（电话 <a href="tel:+351213978395">+351 213 978 395</a>）。</li>
-        <li>🔴 <b>D3 晚餐 自由大道周边</b>：名店 <b>Solar dos Presuntos</b> 需提前 1-2 周官网订；隔壁海鲜老店 <b>Pinóquio</b> 或烤鸡 <b>Bonjardim</b> 18:00 直进免排队。</li>
-        <li>🔴 <b>D5 (周六晚) Campimar 沙滩餐厅</b>：日落位抢手！官网 <a href="https://campimar.pt" target="_blank" rel="noopener">campimar.pt</a> 或请 Belmar 前台打 <a href="tel:+351282762024">+351 282 762 024</a> 订 18:00。</li>
-        <li>🔴 <b>D6 (周日晚) Don Sebastião</b>：周日小馆多店休！周六入住时请前台打 <a href="tel:+351282780480">+351 282 780 480</a> 订周日 18:00。</li>
-        <li>🟡 <b>D7 (周一午) Chico Zé 炭烤鱼</b>：仅做 12:00-16:00 午市，无网订，<b>11:45 到场直接坐第一波免排队</b>（电话 <a href="tel:+351282764595">+351 282 764 595</a>）。</li>
-        <li>🔴 <b>D7 (周一晚) Casinha do Petisco</b>：全店仅 7-8 张桌！请前台打 <a href="tel:+351282767163">+351 282 767 163</a> 代订周一 17:30 首轮（或 17:20 到门口排第一波）。</li>
-        <li>🟡 <b>D8 (周二晚) O Camilo / Levante</b>：悬崖餐厅 O Camilo（<a href="tel:+351282763845">+351 282 763 845</a>）或度假村 Levante 提前 1 天请前台代订。</li>
+        <li>🔴 <b>D3 晚餐 自由大道周边</b>：名店 <b>Solar dos Presuntos</b> 需提前 1-2 周官网订（周六营业至 23:30，周日公休）；隔壁海鲜老店 <b>Pinóquio</b> 或烤鸡 <b>Bonjardim</b> 18:00 直进免排队。</li>
+        <li>🟢 <b>D4 午茶 Casa Piriquita</b>：辛特拉枕头酥周日正常营业（周三公休），免订位。</li>
+        <li>🟡 <b>D5 (周一晚) Campimar 沙滩餐厅</b>：周一 14:00 入住时请 Belmar 前台打 <a href="tel:+351282762024">+351 282 762 024</a> 订 18:00。</li>
+        <li>🟡 <b>D6 (周二午) Chico Zé 炭烤鱼</b>：仅做 12:00-16:00 午市（避开周日店休！），无网订，<b>11:45 到场直接坐第一波免排队</b>（电话 <a href="tel:+351282764595">+351 282 764 595</a>）。</li>
+        <li>🔴 <b>D6 (周二晚) Casinha do Petisco</b>：全店仅 7-8 张桌（避开周日店休！）！请前台打 <a href="tel:+351282767163">+351 282 767 163</a> 代订周二 17:30 首轮（或 17:20 到门口排第一波）。</li>
+        <li>🟡 <b>D7 (周三晚) Don Sebastião</b>：老城经典名店，周三营业！提前 1-2 天请前台打 <a href="tel:+351282780480">+351 282 780 480</a> 订 18:00。</li>
+        <li>🟡 <b>D8 (周四晚) O Camilo / Levante</b>：悬崖餐厅 O Camilo（<a href="tel:+351282763845">+351 282 763 845</a>）或度假村 Levante 提前 1 天请前台代订。</li>
       </ul>`
     },
     {
@@ -287,7 +290,7 @@ window.TRIP = {
     {
       icon: '🚗', title: '自驾要点', summary: '紧凑型 SUV · 96h (4天) · 座椅 · Via Verde · 保险',
       body: `<ul>
-        <li><b>取还</b>：5/8 (周六) 上午 10:00 提车 → 5/12 (周三) 中午 12:00 还车，里斯本机场 T1 航站楼内柜台，整 96 小时（4 天）。</li>
+        <li><b>取还</b>：5/10 (周一) 上午 10:00 提车 → 5/14 (周五) 中午 12:00 还车，里斯本机场 T1 航站楼内柜台，整 96 小时（4 天）。</li>
         <li><b>车型锁定</b>：<b>4 大 1 小选紧凑型自动挡 SUV</b>（如 Nissan Qashqai，504L 后备箱放 4 个 20 寸登机箱 + 折叠推车，Expedia 比价预订比官网更省）。坚决选油车（汽油 <b>Gasolina 95</b>）。</li>
         <li><b>座椅</b>：自驾<b>不享受</b>交规豁免，柜台加租幼儿座椅（约 €8~10/天），固定在后排 ISOFIX。</li>
         <li><b>保险</b>：提车全额刷 Chase 蓝宝石卡 (CSP/CSR) 并拒绝柜台 CDW，白嫖 Primary $0 自付车损险。</li>
