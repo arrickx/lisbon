@@ -545,7 +545,7 @@
       subPage.href = u.pathname.split('/').pop() + u.search + u.hash;
       return;
     }
-    const t = e.target.closest('[data-tab],[data-day],[data-act],[data-copy],[data-flash],[data-close-flash]');
+    const t = e.target.closest('button[data-tab],[data-day],[data-act],[data-copy],[data-flash],[data-close-flash]');
     if (!t) return;
     if (t.dataset.copy != null) return copyText(t.dataset.copy);   // 不调用 preventDefault，<a> 外链照常跳转
     if (t.dataset.flash != null) return $('#flash').showModal();
