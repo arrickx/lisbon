@@ -15,8 +15,8 @@ window.TRIP = {
   party: '4 大 1 小家庭行',
   // 新增城市只需在这里加一项（颜色会自动应用到整个界面），再在 days 里用它的 key
   cities: {
-    lisbon:  { name: '里斯本',          color: '#C4532F', soft: '#FBEDE6' },
-    algarve: { name: '阿尔加维 · 拉各斯', color: '#147A8A', soft: '#E3F2F4' }
+    lisbon:  { name: '里斯本',          color: '#B84723', soft: '#FBEDE6' },
+    algarve: { name: '阿尔加维 · 拉各斯', color: '#117180', soft: '#E3F2F4' }
   },
 
   // 点餐大字卡（随身页入口 + 全屏对话框共用这一份文案）
@@ -32,7 +32,9 @@ window.TRIP = {
     lisbon: {
       name: 'Upon Lisbon Prime Residences (里斯本服务公寓)',
       query: 'Upon Lisbon Prime Residences, Lisboa, Portugal',
-      address: 'Rua Luciana Stegagno Picchio, 12, Lisbon, PT · ☎ +351 211 549 640 · ✉ reservas@uponlisbon.com',
+      address: 'Rua Luciana Stegagno Picchio, 12, 1549-023 Lisboa, Portugal',
+      phone: '+351 211 549 640',
+      email: 'reservas@uponlisbon.com',
       status: '【✅ 已确认】Deluxe Apartment, 2 Double, 2 Bedroom (5/6预留夜➡️5/7 11:30直接进房 – 5/10 12:00 退房)'
     },
     algarve: {
@@ -207,7 +209,7 @@ window.TRIP = {
       icon: '🎟', title: '门票防坑与 4 大不买清单', summary: '哪项必抢 · 哪 4 项是智商税坚决不买',
       body: `<ul>
         <li>🔴 <b>必抢：HippoTrip 两栖车 (D2 16:00)</b>：提前 3-4 周在官网 <a href="https://booking.hippotrip.com" target="_blank" rel="noopener">booking.hippotrip.com</a> 买票（4成人+1儿童票占座）。</li>
-        <li>🟡 <b>按天气买：佩纳宫纯公园票 (D4) & 海豚双体船 (D6)</b>：佩纳宫提前 1-2 天买 <b>Park Ticket (€10) + Transfer 小巴 (€3.5)</b>；海豚船提前 2-3 天在 GetYourGuide 选 <b>Catamaran</b>。</li>
+        <li>🟡 <b>按天气买：佩纳宫纯公园票 (D3) & 海豚双体船 (D5)</b>：佩纳宫提前 1-2 天买 <b>Park Ticket (€10) + Transfer 小巴 (€3.5)</b>；海豚船提前 2-3 天在 GetYourGuide 选 <b>Catamaran</b>。</li>
         <li>❌ <b>不买 1：Lisboa Card (城市卡)</b>：4 大 1 小打 UberXL / Bolt XL 便宜舒服，且卡不含两栖车，买卡必亏。</li>
         <li>❌ <b>不买 2：佩纳宫“宫殿室内 (Palace Interior)”票</b>：室内狭窄螺旋梯禁推车且排长队，买 €10 纯公园票上纯平王后露台拍城堡才最爽。</li>
         <li>❌ <b>不买 3：圣胡斯塔电梯票 (€6/人)</b>：底下排 1 小时队；从 Chiado 卡尔莫修道院右侧平路可直接免费走上顶层观景天桥。</li>

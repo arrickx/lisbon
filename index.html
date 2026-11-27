@@ -35,11 +35,11 @@
     <button type="button" class="tab" data-tab="pocket"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="7.5" width="17" height="12" rx="3"/><path d="M9 7.5V6a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v1.5M3.5 13h17"/></svg>随身</button>
   </nav>
 
-  <dialog id="flash" class="flash">
+  <dialog id="flash" class="flash" closedby="any" aria-labelledby="flash-badge">
     <p class="flash-badge" id="flash-badge"></p>
     <p class="flash-pt" id="flash-pt" lang="pt"></p>
     <p class="flash-zh" id="flash-zh"></p>
-    <button type="button" class="btn primary flash-close" data-close-flash>关闭</button>
+    <button type="button" class="btn primary flash-close" data-close-flash autofocus>关闭</button>
   </dialog>
 
   <div class="flip-indicator" id="flip-indicator" hidden></div>

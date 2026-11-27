@@ -5,166 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#FAF7F2">
   <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="葡萄牙">
   <title>预订与待办清单 · 葡萄牙家庭行</title>
+  <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" type="image/svg+xml" href="icon.svg">
   <link rel="apple-touch-icon" href="icon-180.png">
-  <style>
-    :root {
-      --bg: #FAF7F2;
-      --surface: #FFFFFF;
-      --line: #E7DED2;
-      --ink: #1F1A16;
-      --ink-2: #5E554C;
-      --ink-3: #8F857A;
-      --accent: #C4532F;
-      --accent-soft: #FBEDE6;
-      --sea: #147A8A;
-      --sea-soft: #E3F2F4;
-      --ok: #2E7D32;
-      --ok-soft: #E9F4EA;
-      --warn: #B26A00;
-      --warn-soft: #FFF4E0;
-      --r: 16px;
-      --safe-top: env(safe-area-inset-top, 0px);
-      --safe-bottom: env(safe-area-inset-bottom, 0px);
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", "Hiragino Sans GB", sans-serif;
-    }
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-    body {
-      background: var(--bg);
-      color: var(--ink);
-      font-size: 15px;
-      line-height: 1.5;
-      -webkit-font-smoothing: antialiased;
-      padding-bottom: calc(32px + var(--safe-bottom));
-    }
-    a { color: inherit; text-decoration: none; }
-    button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
-    [hidden] { display: none !important; }
-
-    .head {
-      position: sticky; top: 0; z-index: 40;
-      padding-top: var(--safe-top);
-      background: rgba(250, 247, 242, .92);
-      -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px);
-      border-bottom: .5px solid var(--line);
-    }
-    .topbar {
-      max-width: 720px; margin: 0 auto;
-      height: 48px; padding: 0 16px;
-      display: flex; align-items: center; justify-content: space-between; gap: 12px;
-    }
-    .back {
-      display: inline-flex; align-items: center; gap: 4px;
-      min-height: 44px; padding: 0 4px;
-      font-size: 15px; font-weight: 600; color: var(--accent);
-    }
-    .top-title { font-size: 16px; font-weight: 700; }
-    .top-sub { font-size: 12.5px; font-weight: 600; color: var(--ink-3); }
-
-    .wrap {
-      max-width: 720px; margin: 0 auto;
-      padding: 16px;
-      display: flex; flex-direction: column; gap: 14px;
-    }
-    .sec-group { display: flex; flex-direction: column; gap: 12px; }
-
-    .sec-h {
-      font-size: 13px; font-weight: 700; color: var(--ink-2);
-      letter-spacing: .02em; margin-top: 4px;
-    }
-
-    .fold {
-      background: var(--surface); border: .5px solid var(--line);
-      border-radius: var(--r); overflow: hidden;
-    }
-    .fold summary {
-      list-style: none; min-height: 48px; padding: 12px 16px;
-      display: flex; align-items: center; justify-content: space-between; gap: 8px;
-      font-size: 14px; font-weight: 600; color: var(--ink-2); cursor: pointer;
-    }
-    .fold.ok summary { color: var(--ok); }
-    .fold summary::-webkit-details-marker { display: none; }
-    .fold summary::after { content: "›"; font-size: 20px; color: var(--ink-3); transition: transform .15s; }
-    .fold[open] summary::after { transform: rotate(90deg); }
-    .locked-list {
-      padding: 0 16px 14px; display: flex; flex-direction: column; gap: 8px;
-      font-size: 13.5px; color: var(--ink-2);
-    }
-    .locked-list li { list-style: none; }
-
-    .past-list {
-      padding: 0 12px 12px; display: flex; flex-direction: column; gap: 10px;
-    }
-    .past-list .item { opacity: .68; background: var(--bg); }
-
-    .item {
-      background: var(--surface); border: .5px solid var(--line);
-      border-radius: var(--r); padding: 14px 16px;
-      display: flex; flex-direction: column; gap: 10px;
-    }
-    .badges { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
-    .when {
-      font-size: 12px; font-weight: 700;
-      padding: 2px 8px; border-radius: 999px;
-      background: var(--accent-soft); color: var(--accent);
-    }
-    .when.sea { background: var(--sea-soft); color: var(--sea); }
-    .tag {
-      font-size: 12px; font-weight: 600;
-      padding: 2px 8px; border-radius: 999px;
-      background: var(--warn-soft); color: var(--warn);
-    }
-    .tag.must { background: #FDE8E8; color: #B42318; }
-
-    .item-title { font-size: 16px; font-weight: 700; color: var(--ink); }
-    .item-sub { font-size: 13.5px; color: var(--ink-2); }
-
-    .acts { display: flex; flex-wrap: wrap; gap: 8px; }
-    .btn {
-      display: inline-flex; align-items: center; gap: 5px;
-      min-height: 40px; padding: 0 12px; border-radius: 10px;
-      font-size: 13.5px; font-weight: 600;
-      background: var(--bg); border: .5px solid var(--line); color: var(--ink);
-    }
-    .btn:active { opacity: .75; }
-    .btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
-    .btn.sea { background: var(--sea); border-color: var(--sea); color: #fff; }
-
-    .free-card {
-      background: var(--surface); border: .5px solid var(--line);
-      border-radius: var(--r); padding: 14px 16px;
-      font-size: 13.5px; color: var(--ink-2);
-      display: flex; flex-direction: column; gap: 6px;
-    }
-    .free-card b { color: var(--ink); }
-
-    .show-fold {
-      background: #FFFFFF; border: 1.5px solid var(--sea);
-      border-radius: var(--r); overflow: hidden;
-    }
-    .show-fold summary {
-      list-style: none; min-height: 50px; padding: 12px 16px;
-      display: flex; align-items: center; justify-content: space-between; gap: 8px;
-      font-size: 14.5px; font-weight: 700; color: var(--sea);
-      background: var(--sea-soft); cursor: pointer;
-    }
-    .show-fold summary::-webkit-details-marker { display: none; }
-    .show-fold summary::after { content: "›"; font-size: 20px; color: var(--sea); transition: transform .15s; }
-    .show-fold[open] summary::after { transform: rotate(90deg); }
-    .show-body { padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; }
-    .show-en { font-size: 15.5px; font-weight: 600; color: var(--ink); line-height: 1.55; }
-    .show-list { padding-left: 1.2em; display: flex; flex-direction: column; gap: 6px; font-size: 15px; color: var(--ink); }
-    .show-list li b { color: var(--sea); }
-    .show-note { font-size: 12.5px; color: var(--ink-3); }
-  </style>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="subpage.css">
 </head>
 <body>
   <header class="head">
     <div class="topbar">
       <a class="back" href="index.html?tab=pocket">‹ 返回随身</a>
-      <div class="top-title">预订与待办清单</div>
-      <div class="top-sub">4 大 1 小</div>
+      <h1 class="top-title">预订与待办清单</h1>
+      <a class="top-switch" href="restaurants.html">餐厅表 ›</a>
     </div>
   </header>
 
@@ -178,73 +34,60 @@
       </ul>
     </details>
 
-    <section class="sec-group" id="sec-pre">
-      <div class="sec-h">⏰ 出发前要约（2027 年 4 月）</div>
+    <section class="sec-group" id="sec-pre" aria-labelledby="h-pre">
+      <h2 class="sec-h" id="h-pre">⏰ 出发前要约（2027 年 4 月）</h2>
 
-      <article class="item" data-after="2027-05-07">
+      <article class="item" data-after="2027-05-08">
         <div class="badges">
-          <span class="when">2027/4/5 ～ 4/15</span>
+          <span class="when">2027/4/15 ～ 4/20</span>
           <span class="tag must">🔴 唯一必抢</span>
         </div>
-        <div class="item-title">HippoTrip 水陆两栖车 · D2 (5/7 周五) 16:00 场</div>
-        <div class="item-sub">出发前 3–4 周抢票，每车仅 40 座。买 <b>4 成人 + 1 儿童占座票</b>。</div>
+        <h3 class="item-title">HippoTrip 水陆两栖车 · D2 (5/8 周六) 16:00 场</h3>
+        <p class="item-sub">出发前 3–4 周抢票，每车仅 40 座。买 <b>4 成人 + 1 儿童占座票</b>。</p>
         <div class="acts">
           <a class="btn primary" href="https://booking.hippotrip.com" target="_blank" rel="noopener">↗ 官网订票</a>
         </div>
       </article>
 
-      <article class="item" data-after="2027-05-08">
+      <article class="item" data-after="2027-05-07">
         <div class="badges">
-          <span class="when">2027/4/20 ～ 4/28</span>
+          <span class="when">2027/4/23 ～ 4/30</span>
           <span class="tag">🟡 可选</span>
         </div>
-        <div class="item-title">Solar dos Presuntos 晚餐 · D3 (5/8 周六) 18:00</div>
-        <div class="item-sub">仅当决定吃这家海鲜名店时需提前 1–2 周订位；改吃 Pinóquio 或 Bonjardim 烤鸡则不用约，18:00 直进。</div>
+        <h3 class="item-title">Solar dos Presuntos 晚餐 · D1 (5/7 周五) 18:15</h3>
+        <p class="item-sub">仅当决定吃这家海鲜名店时需提前 1–2 周订位；改吃 Pinóquio 或 Bonjardim 烤鸡则不用约，18:15 直进。</p>
         <div class="acts">
-          <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Solar+dos+Presuntos+Lisboa" target="_blank" rel="noopener">↗ Google Maps / 官网</a>
+          <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Solar+dos+Presuntos+Lisboa" target="_blank" rel="noopener" data-copy="Solar dos Presuntos, Lisboa">↗ Google Maps / 官网</a>
         </div>
       </article>
     </section>
 
-    <section class="sec-group" id="sec-local">
-      <div class="sec-h">🌤️ 到当地后再约（看天气 & 订餐厅）</div>
+    <section class="sec-group" id="sec-local" aria-labelledby="h-local">
+      <h2 class="sec-h" id="h-local">🌤️ 到当地后再约（看天气 &amp; 订餐厅）</h2>
 
-      <article class="item" data-after="2027-05-07">
+      <article class="item" data-after="2027-05-08">
         <div class="badges">
-          <span class="when">2027/5/6 (D1 入住当天)</span>
+          <span class="when">2027/5/7 (D1 入住当天)</span>
           <span class="tag">🟡 提前 1 天</span>
         </div>
-        <div class="item-title">5 Oceanos / Doca de Santo · D2 (5/7 周五) 18:00</div>
-        <div class="item-sub">订河景露台位（备注 4 Adults + 1 Cadeira de bebé）。若坐室内 18:00 可直进。</div>
+        <h3 class="item-title">5 Oceanos / Doca de Santo · D2 (5/8 周六) 18:00</h3>
+        <p class="item-sub">订河景露台位（备注 4 Adults + 1 Cadeira de bebé）。若坐室内 18:00 可直进。</p>
         <div class="acts">
-          <a class="btn" href="https://www.google.com/maps/search/?api=1&query=5+Oceanos+Doca+de+Santo+Amaro+Lisboa" target="_blank" rel="noopener">↗ Google Maps 订位</a>
+          <a class="btn" href="https://www.google.com/maps/search/?api=1&query=5+Oceanos+Doca+de+Santo+Amaro+Lisboa" target="_blank" rel="noopener" data-copy="5 Oceanos, Doca de Santo Amaro, Lisboa">↗ Google Maps 订位</a>
           <a class="btn" href="tel:+351213978395">📞 +351 213 978 395</a>
         </div>
       </article>
 
       <article class="item" data-after="2027-05-09">
         <div class="badges">
-          <span class="when">2027/5/6 ～ 5/7</span>
+          <span class="when">2027/5/7 ～ 5/8</span>
           <span class="tag">🌤️ 看周日天气</span>
         </div>
-        <div class="item-title">D4 (5/9 周日) 上午：佩纳宫纯公园票（晴）或 水族馆（雨）</div>
-        <div class="item-sub">晴天买 <b>Park Ticket (€10) + Transfer 小巴 (€3.5)</b>，不买宫殿室内票；雨天改买海洋水族馆（记得勾 1 张 <b>€0 Infant 票</b>）。</div>
+        <h3 class="item-title">D3 (5/9 周日) 上午：佩纳宫纯公园票（晴）或 水族馆（雨）</h3>
+        <p class="item-sub">晴天买 <b>Park Ticket (€10) + Transfer 小巴 (€3.5)</b>，不买宫殿室内票；雨天改买海洋水族馆（记得勾 1 张 <b>€0 Infant 票</b>）。</p>
         <div class="acts">
           <a class="btn primary" href="https://www.parquesdesintra.pt" target="_blank" rel="noopener">↗ 佩纳宫官网</a>
           <a class="btn" href="https://tickets.oceanario.pt" target="_blank" rel="noopener">↗ 水族馆官网</a>
-        </div>
-      </article>
-
-      <article class="item" data-after="2027-05-11">
-        <div class="badges">
-          <span class="when sea">2027/5/8 ～ 5/9</span>
-          <span class="tag">🌤️ 看海况</span>
-        </div>
-        <div class="item-title">Catamaran 双体船看海豚 · D6 (5/11 周二) 09:30</div>
-        <div class="item-sub">出发去拉各斯前看风浪预报再订。务必选 <b>Catamaran（避开 RIB 快艇）</b> + <b>24h 免费退改</b> + Marina de Lagos 发船，人数选 4 大 1 婴。</div>
-        <div class="acts">
-          <a class="btn sea" href="https://www.expedia.com/Things-To-Do-Search?location=Lagos%2C+Algarve%2C+Portugal&query=dolphin+catamaran" target="_blank" rel="noopener">↗ Expedia 搜船</a>
-          <a class="btn" href="https://www.getyourguide.com/s/?q=Lagos+dolphin+watching+catamaran" target="_blank" rel="noopener">↗ GetYourGuide</a>
         </div>
       </article>
 
@@ -253,8 +96,8 @@
           <span class="when sea">5/9 前网订 或 5/10 入住时</span>
           <span class="tag">🟡 拉各斯 ①</span>
         </div>
-        <div class="item-title">Campimar 沙滩餐厅 · D5 (5/10 周一) 18:15</div>
-        <div class="item-sub">可先在官网订好，或 5/10 17:15 办入住时请 Belmar 前台电话代订。</div>
+        <h3 class="item-title">Campimar 沙滩餐厅 · D4 (5/10 周一) 18:15</h3>
+        <p class="item-sub">可先在官网订好，或 5/10 17:15 办入住时请 Belmar 前台电话代订。</p>
         <div class="acts">
           <a class="btn" href="https://campimar.pt" target="_blank" rel="noopener">↗ campimar.pt</a>
           <a class="btn" href="tel:+351282762024">📞 +351 282 762 024</a>
@@ -263,11 +106,24 @@
 
       <article class="item" data-after="2027-05-11">
         <div class="badges">
-          <span class="when sea">2027/5/10 (D5 入住当天)</span>
+          <span class="when sea">2027/5/8 ～ 5/10</span>
+          <span class="tag">🌤️ 看海况</span>
+        </div>
+        <h3 class="item-title">Catamaran 双体船看海豚 · D5 (5/11 周二) 09:30</h3>
+        <p class="item-sub">出发去拉各斯前看风浪预报再订。务必选 <b>Catamaran（避开 RIB 快艇）</b> + <b>24h 免费退改</b> + Marina de Lagos 发船，人数选 4 大 1 婴。</p>
+        <div class="acts">
+          <a class="btn sea" href="https://www.expedia.com/Things-To-Do-Search?location=Lagos%2C+Algarve%2C+Portugal&query=dolphin+catamaran" target="_blank" rel="noopener">↗ Expedia 搜船</a>
+          <a class="btn" href="https://www.getyourguide.com/s/?q=Lagos+dolphin+watching+catamaran" target="_blank" rel="noopener">↗ GetYourGuide</a>
+        </div>
+      </article>
+
+      <article class="item" data-after="2027-05-11">
+        <div class="badges">
+          <span class="when sea">2027/5/10 (D4 入住当天)</span>
           <span class="tag must">🔴 桌少必订 · 拉各斯 ②</span>
         </div>
-        <div class="item-title">Casinha do Petisco · D6 (5/11 周二) 17:30 首轮</div>
-        <div class="item-sub">全店仅 7–8 张桌且无网订！入住时直接把下方英文卡亮给 Belmar 前台看（备选：17:20 到门口排第一波）。</div>
+        <h3 class="item-title">Casinha do Petisco · D5 (5/11 周二) 17:30 首轮</h3>
+        <p class="item-sub">全店仅 7–8 张桌且无网订！入住时直接把下方英文卡亮给 Belmar 前台看（备选：17:20 到门口排第一波）。</p>
         <div class="acts">
           <a class="btn" href="tel:+351282767163">📞 +351 282 767 163</a>
           <a class="btn sea" href="#belmar-show">👇 直接看前台英文卡</a>
@@ -279,8 +135,8 @@
           <span class="when sea">2027/5/10 ～ 5/11</span>
           <span class="tag">🟡 拉各斯 ③</span>
         </div>
-        <div class="item-title">Don Sebastião 古城海鲜 · D7 (5/12 周三) 18:00</div>
-        <div class="item-sub">入住时一并让前台订，或路过 Belmar 前台提前 1–2 天电话代订。</div>
+        <h3 class="item-title">Don Sebastião 古城海鲜 · D6 (5/12 周三) 18:00</h3>
+        <p class="item-sub">入住时一并让前台订，或路过 Belmar 前台提前 1–2 天电话代订。</p>
         <div class="acts">
           <a class="btn" href="tel:+351282780480">📞 +351 282 780 480</a>
         </div>
@@ -291,8 +147,8 @@
           <span class="when sea">2027/5/10 ～ 5/12</span>
           <span class="tag">🟡 拉各斯 ④</span>
         </div>
-        <div class="item-title">O Camilo 悬崖餐厅 · D8 (5/13 周四) 18:00</div>
-        <div class="item-sub">告别晚宴（或改吃度假村 Levante），提前 1–2 天请 Belmar 前台电话代订。</div>
+        <h3 class="item-title">O Camilo 悬崖餐厅 · D7 (5/13 周四) 18:00</h3>
+        <p class="item-sub">告别晚宴（或改吃度假村 Levante），提前 1–2 天请 Belmar 前台电话代订。</p>
         <div class="acts">
           <a class="btn" href="tel:+351282763845">📞 +351 282 763 845</a>
         </div>
@@ -304,59 +160,23 @@
       <div class="past-list" id="past-list"></div>
     </details>
 
-    <div class="sec-h" id="belmar-show">📱 分两次亮给 Belmar 前台看（点击可展开/收起）</div>
-    <details class="show-fold" open>
-      <summary>① 5/10 (周一) 17:15 办入住时 · 先订当晚和明晚</summary>
-      <div class="show-body">
-        <p class="show-en">Hello! Could you please help us call to book a table for <b>4 adults + 1 baby high chair (Cadeira de bebé)</b>?</p>
-        <ol class="show-list">
-          <li><b>Today (Mon, May 10) at 18:15</b> — Campimar (<code>+351 282 762 024</code>)</li>
-          <li><b>Tomorrow (Tue, May 11) at 17:30</b> — Casinha do Petisco (<code>+351 282 767 163</code>)</li>
-        </ol>
-        <p class="show-en">Thank you so much!</p>
-      </div>
-    </details>
+    <h2 class="sec-h" id="belmar-show">📱 分两次亮给 Belmar 前台看（点击可展开/收起）</h2>
+    <div class="show-stack" id="belmar-cards"></div>
 
-    <details class="show-fold">
-      <summary>② 5/11 (周二) 路过前台时 · 再订周三和周四</summary>
-      <div class="show-body">
-        <p class="show-en">Hello! Could you please help us call to book a table for <b>4 adults + 1 baby high chair (Cadeira de bebé)</b>?</p>
-        <ol class="show-list">
-          <li><b>Tomorrow (Wed, May 12) at 18:00</b> — Don Sebastião (<code>+351 282 780 480</code>)</li>
-          <li><b>Thu, May 13 at 18:00</b> — O Camilo (<code>+351 282 763 845</code>)</li>
-        </ol>
-        <p class="show-en">Thank you so much!</p>
-        <p class="show-note">💡 周二白天出海回来或出门前顺口找前台订就行，提前 1–2 天很充裕。</p>
-      </div>
-    </details>
-
-    <div class="sec-h">🟢 全程免预约（随到随去）</div>
+    <h2 class="sec-h">🟢 全程免预约（随到随去）</h2>
     <div class="free-card">
       <div><b>甜点小吃</b>：Pastéis de Belém 蛋挞（穿拱门进 400 座大厅）、辛特拉 Casa Piriquita 枕头酥、卡斯凯什 Santini 冰淇淋</div>
-      <div><b>午市餐厅</b>：D1–D5 常规午市、D6 周二 <b>Chico Zé 炭烤鱼</b>（11:45 开门前到场直接坐第一波）</div>
+      <div><b>午市餐厅</b>：D1–D4 常规午市、D5 周二 <b>Chico Zé 炭烤鱼</b>（11:45 开门前到场直接坐第一波）、D6 码头餐馆</div>
       <div><b>景点玩水</b>：罗卡角、观景台、悬崖木栈道、<b>拉各斯动物园</b>（现场买票，3 岁以下免费）、两家酒店泳池</div>
     </div>
   </main>
 
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="subpage.js"></script>
   <script>
     (function () {
-      const from = new URLSearchParams(location.search).get('from');
-      const back = document.querySelector('.back');
-      if (back && from) {
-        if (from === 'pocket') { back.href = 'index.html?tab=pocket'; back.textContent = '‹ 返回随身'; }
-        else if (from === 'trip') { back.href = 'index.html?tab=trip'; back.textContent = '‹ 返回全程'; }
-        else if (from.startsWith('day-')) {
-          const d = from.slice(4);
-          back.href = `index.html?day=${encodeURIComponent(d)}`;
-          back.textContent = `‹ 返回 D${d}`;
-        }
-      }
-
-      // 按里斯本当前日期（支持 ?now=YYYY-MM-DD 调试），把已过活动时间的项目自动收进底部折叠区
-      const qNow = new URLSearchParams(location.search).get('now');
-      const nowDate = qNow ? new Date(qNow) : new Date();
-      const todayIso = new Intl.DateTimeFormat('sv-SE', { timeZone: 'Europe/Lisbon' }).format(nowDate);
-
+      const todayIso = window.LISBON_TODAY_ISO;
       const pastBox = document.getElementById('past-box');
       const pastList = document.getElementById('past-list');
       const pastSum = document.getElementById('past-sum');

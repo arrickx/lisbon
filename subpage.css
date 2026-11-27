@@ -1,0 +1,180 @@
+/* =========================================================
+   子页面公共样式 (todo.html · restaurants.html)
+   复用 style.css 的全部颜色、字号、安全区、弹窗与 Toast Token
+   ========================================================= */
+
+:root { --head-h: 48px; }
+
+body { padding-bottom: calc(32px + var(--safe-bottom)); }
+
+.topbar {
+  max-width: 720px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 8px;
+}
+.back {
+  justify-self: start;
+  display: inline-flex; align-items: center; gap: 4px;
+  min-height: 44px; padding: 0 4px;
+  font-size: var(--fs-body); font-weight: 600; color: var(--accent);
+  white-space: nowrap;
+}
+.top-title { font-size: var(--fs-name); font-weight: 700; text-align: center; white-space: nowrap; }
+.top-switch {
+  justify-self: end;
+  display: inline-flex; align-items: center; justify-content: flex-end; gap: 3px;
+  min-width: 48px; min-height: 44px; padding: 0 4px;
+  font-size: var(--fs-sub); font-weight: 600; color: var(--sea);
+  white-space: nowrap;
+}
+.back:active, .top-switch:active { opacity: .7; }
+
+.wrap {
+  max-width: 720px; margin: 0 auto;
+  padding: var(--s-4);
+  padding-inline: max(var(--s-4), env(safe-area-inset-left, 0px)) max(var(--s-4), env(safe-area-inset-right, 0px));
+  display: flex; flex-direction: column; gap: var(--s-3);
+}
+.wrap .sec-h { margin: var(--s-1) 0 0; letter-spacing: .02em; }
+
+/* 子页面无底栏，Toast 贴安全区底部上方 */
+.toast { bottom: calc(20px + var(--safe-bottom)); }
+
+/* 子页面操作按钮：保证 ≥ 44px 触控高度，允许自然换行 */
+.acts, .r-acts { display: flex; flex-wrap: wrap; gap: 8px; }
+.r-acts { margin-top: 4px; }
+.wrap .btn {
+  flex: 0 1 auto;
+  min-height: 44px; padding: 0 14px;
+  border-radius: 11px;
+  font-size: var(--fs-sub); font-weight: 600;
+  background: var(--bg); border: .5px solid var(--line); color: var(--ink);
+}
+.wrap .btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+.wrap .btn.sea { background: var(--sea); border-color: var(--sea); color: #fff; }
+
+/* ---------------- todo.html ---------------- */
+.sec-group { display: flex; flex-direction: column; gap: 12px; }
+
+.fold {
+  background: var(--surface); border: .5px solid var(--line);
+  border-radius: var(--r-card); overflow: hidden;
+}
+.fold summary {
+  list-style: none; min-height: 48px; padding: 12px 16px;
+  display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  font-size: 0.875rem; font-weight: 600; color: var(--ink-2); cursor: pointer;
+}
+.fold.ok summary { color: var(--ok); }
+.fold summary::-webkit-details-marker { display: none; }
+.fold summary::after { content: "›"; font-size: 20px; color: var(--ink-3); transition: transform .15s; flex-shrink: 0; }
+.fold[open] summary::after { transform: rotate(90deg); }
+.locked-list {
+  padding: 0 16px 14px; display: flex; flex-direction: column; gap: 8px;
+  font-size: 0.875rem; color: var(--ink-2);
+}
+.locked-list li { list-style: none; }
+
+.past-list { padding: 0 12px 12px; display: flex; flex-direction: column; gap: 10px; }
+.past-list .item { opacity: .72; background: var(--bg); }
+
+.item {
+  background: var(--surface); border: .5px solid var(--line);
+  border-radius: var(--r-card); padding: 14px 16px;
+  display: flex; flex-direction: column; gap: 10px;
+}
+.badges { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.when {
+  font-size: var(--fs-sub); font-weight: 700;
+  padding: 2px 9px; border-radius: 999px;
+  background: var(--accent-soft); color: var(--accent);
+}
+.when.sea { background: var(--sea-soft); color: var(--sea); }
+.tag {
+  font-size: var(--fs-sub); font-weight: 600;
+  padding: 2px 9px; border-radius: 999px;
+  background: var(--warn-soft); color: var(--warn);
+}
+.tag.must { background: var(--must-soft); color: var(--must); }
+
+.item-title { font-size: var(--fs-name); font-weight: 700; color: var(--ink); line-height: 1.35; }
+.item-sub { font-size: 0.875rem; color: var(--ink-2); line-height: 1.55; }
+
+.free-card {
+  background: var(--surface); border: .5px solid var(--line);
+  border-radius: var(--r-card); padding: 14px 16px;
+  font-size: 0.875rem; color: var(--ink-2); line-height: 1.55;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.free-card b { color: var(--ink); }
+
+/* ---------------- restaurants.html ---------------- */
+.tip {
+  background: var(--accent-soft); border: .5px solid color-mix(in srgb, var(--accent) 25%, transparent);
+  border-radius: var(--r-card); padding: 12px 14px;
+  font-size: 0.875rem; color: var(--ink); line-height: 1.55;
+}
+.tip b { color: var(--accent); }
+.tip code {
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: var(--fs-sub); background: rgba(0, 0, 0, .06); padding: 1px 6px; border-radius: 4px;
+}
+
+.tbl-card {
+  background: var(--surface); border: .5px solid var(--line);
+  border-radius: var(--r-card); overflow: hidden;
+}
+.r-row {
+  padding: 14px 16px;
+  border-bottom: .5px solid var(--line);
+  display: flex; flex-direction: column; gap: 7px;
+}
+.r-row:last-child { border-bottom: 0; }
+.row-top {
+  display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  flex-wrap: wrap;
+}
+.day-pill {
+  font-size: var(--fs-sub); font-weight: 700;
+  padding: 2px 9px; border-radius: 999px;
+  background: var(--accent-soft); color: var(--accent);
+}
+.day-pill.sea { background: var(--sea-soft); color: var(--sea); }
+.status {
+  font-size: var(--fs-sub); font-weight: 700;
+  padding: 2px 9px; border-radius: 999px;
+}
+.status.ok { background: var(--ok-soft); color: var(--ok); }
+.status.warn { background: var(--warn-soft); color: var(--warn); }
+.status.must { background: var(--must-soft); color: var(--must); }
+
+.r-name { font-size: var(--fs-name); font-weight: 700; color: var(--ink); line-height: 1.35; }
+.r-meta { font-size: 0.875rem; color: var(--ink-2); line-height: 1.55; }
+.r-meta code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: var(--fs-sub); }
+
+/* ---------------- Belmar 前台英文卡（公用组件） ---------------- */
+.show-stack { display: flex; flex-direction: column; gap: 12px; }
+.show-fold {
+  background: var(--surface);
+  border: 1.5px solid var(--sea);
+  border-radius: var(--r-card);
+  overflow: hidden;
+}
+.show-fold summary {
+  list-style: none; min-height: 50px; padding: 12px 16px;
+  display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  font-size: var(--fs-body); font-weight: 700; color: var(--sea);
+  background: var(--sea-soft); cursor: pointer;
+}
+.show-fold summary::-webkit-details-marker { display: none; }
+.show-fold summary::after { content: "›"; font-size: 20px; color: var(--sea); transition: transform .15s; flex-shrink: 0; }
+.show-fold[open] summary::after { transform: rotate(90deg); }
+.show-body { padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; }
+.show-en { font-size: var(--fs-body); font-weight: 600; color: var(--ink); line-height: 1.55; }
+.show-list { padding-left: 1.2em; display: flex; flex-direction: column; gap: 6px; font-size: var(--fs-body); color: var(--ink); }
+.show-list li b { color: var(--sea); }
+.show-list code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: var(--fs-sub); }
+.show-note { font-size: var(--fs-sub); color: var(--ink-3); }
+
+@media (forced-colors: active) {
+  .fold, .item, .free-card, .tbl-card, .show-fold, .tip { border: 1px solid CanvasText; }
+}

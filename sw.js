@@ -1,16 +1,17 @@
 /* 离线缓存：旅途中信号差也能打开。
  * 策略：网络优先，3 秒超时或离线时回落缓存。
  * 改了任何静态文件后，把 VERSION 加 1，旧缓存会在 activate 时清掉。 */
-const VERSION = 'lisbon-v2-18';
+const VERSION = 'lisbon-v2-21';
 const FILES = [
-  './', 'index.html', 'todo.html', 'restaurants.html', 'style.css', 'data.js', 'app.js',
+  './', 'index.html', 'todo.html', 'restaurants.html',
+  'style.css', 'subpage.css', 'data.js', 'app.js', 'subpage.js',
   'manifest.webmanifest', 'icon.svg', 'icon-180.png', 'icon-192.png', 'icon-512.png'
 ];
 
 self.addEventListener('install', (e) => {
   e.waitUntil(
     caches.open(VERSION)
-      .then((c) => Promise.allSettled(FILES.map((f) => c.add(f))))
+      .then((c) => Promise.allSettled(FILES.map((f) => fetch(f, { cache: 'no-cache' }).then((r) => (r.ok ? c.put(f, r) : null)))))
       .then(() => self.skipWaiting())
   );
 });
@@ -31,7 +32,7 @@ self.addEventListener('fetch', (e) => {
   const cacheKey = url.origin + url.pathname;
   e.respondWith(
     caches.open(VERSION).then(async (cache) => {
-      const net = fetch(req).then((res) => {
+      const net = fetch(req.url, { cache: 'no-cache' }).then((res) => {
         if (res.ok) cache.put(cacheKey, res.clone());
         return res;
       });

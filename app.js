@@ -93,7 +93,7 @@
   const place = (o) => (o.at ? T.stays[o.at] : o);
   const dest = (o) => {
     const p = place(o);
-    return p.address || p.query || null;
+    return p.query || p.address || null;
   };
   const rideText = (o) => dest(o) || place(o).name;
 
@@ -107,7 +107,7 @@
 
   const legText = (leg, first) => {
     if (!leg) return '';
-    const from = first ? '从住处出发 · ' : '';
+    const from = first ? '住处 → ' : '';
     if (leg.mode === 'walk') return `🚶 ${from}步行约 ${fmtMin(leg.min)}`;
     if (leg.mode === 'drive') return `🚗 ${from}自驾约 ${fmtMin(leg.min)}${leg.km ? ` · ${leg.km} km` : ''}`;
     return `🚕 ${from}约 ${fmtMin(leg.min)}${leg.eur ? ` · ~€${leg.eur}` : ''}`;
@@ -124,8 +124,12 @@
     const past = st && (st.done || i < st.cur);
     const cur = st && !st.done && i === st.cur;
     const p = place(s);
-    const go = dest(p) ? `<a class="go" href="${navUrl(p, s.leg && s.leg.mode)}" target="_blank" rel="noopener"${copyAttr(p)} aria-label="导航到${esc(s.name)}"><span>↗</span></a>` : '<span></span>';
-    const leg = s.leg ? `<li class="leg">${legText(s.leg, i === 0)}</li>` : '';
+    const hasDest = dest(p);
+    const go = hasDest ? `<a class="go" href="${navUrl(p, s.leg && s.leg.mode)}" target="_blank" rel="noopener"${copyAttr(p)} aria-label="导航到${esc(s.name)}"><span>↗</span></a>` : '<span></span>';
+    const uberChip = s.leg && s.leg.mode === 'uber' && hasDest
+      ? `<a class="leg-uber" href="${uberUrl(p)}" target="_blank" rel="noopener"${copyAttr(p)} aria-label="叫 Uber 去${esc(s.name)}并复制地址">叫 Uber ↗</a>`
+      : '';
+    const leg = s.leg ? `<li class="leg"><span>${legText(s.leg, i === 0)}</span>${uberChip}</li>` : '';
     return `${leg}<li class="stop${past ? ' past' : ''}${cur ? ' cur' : ''}">
       <div class="t">${s.t}<small>${slotOf(s.t)}</small></div>
       <span class="dot"></span>
@@ -176,6 +180,12 @@
   }
 
   function renderDayPager(day) {
+    const navBtns = [
+      day.n > 1 ? `<button type="button" class="dp-nav-btn" data-day="${day.n - 1}">← 上一天 Day ${day.n - 1}</button>` : '',
+      day.n < DAYS.length ? '<button type="button" class="dp-nav-btn" data-tab="trip">🗓 全程总览</button>' : ''
+    ].filter(Boolean).join('');
+    const navRow = navBtns ? `<div class="dp-nav">${navBtns}</div>` : '';
+
     if (day.n < DAYS.length) {
       const next = DAYS[day.n];
       return `
@@ -188,6 +198,7 @@
             </div>
             <div class="dp-title"><span>${esc(next.title)}</span><span class="dp-chev" aria-hidden="true">→</span></div>
           </button>
+          ${navRow}
         </div>`;
     }
     return `
@@ -199,6 +210,7 @@
           </div>
           <div class="dp-title"><span>${DAYS.length} 天慢调行程圆满结束</span><span class="dp-chev" aria-hidden="true">→</span></div>
         </button>
+        ${navRow}
       </div>`;
   }
 
@@ -219,15 +231,19 @@
     const st = live ? stopState(day, ctx.clk) : null;
     const dr = dayDrive(day);
     const home = homeFor(day, ctx.clk);
-    const driveChip = dr.n ? `🚗 车程约 ${fmtMin(dr.min)} · ${dr.n} 段` : '🚶 基本步行';
+    const isDriveDay = day.stops.some((s) => s.leg && s.leg.mode === 'drive');
+    const driveChip = dr.n ? `🚗 约 ${fmtMin(dr.min)} · ${dr.n} 段` : '🚶 基本步行';
+    const homeChip = home
+      ? `<a class="hero-home" href="${isDriveDay ? navUrl(home, 'drive') : uberUrl(home)}" target="_blank" rel="noopener"${copyAttr(home)} aria-label="${isDriveDay ? '导航回住处并复制地址' : '叫 Uber 回住处并复制地址'}">🏠 回住处 ↗</a>`
+      : '';
     return `
       ${ctx.banner}
-      <${home ? `a class="hero" href="${uberUrl(home)}" target="_blank" rel="noopener"${copyAttr(home)}` : 'div class="hero"'}>
+      <div class="hero">
         <div class="hero-top"><span>Day ${day.n}/${DAYS.length} · ${dateLabel(day.date)}</span><span>${esc(T.cities[day.city].name)}</span></div>
         <h1 class="day-title">${esc(day.title)}</h1>
-        <div class="hero-chips"><span>${driveChip}</span><span>📍 ${day.stops.length} 站</span></div>
-      </${home ? 'a' : 'div'}>
-      <div class="sec-h">当天安排</div>
+        <div class="hero-chips"><span>${driveChip}</span><span>📍 ${day.stops.length} 站</span>${homeChip}</div>
+      </div>
+      <h2 class="sec-h">当天安排</h2>
       <ol class="tl">${day.stops.map((s, i) => renderStopRow(s, i, st)).join('')}</ol>
       ${renderDayTips(day)}
       ${renderDayPager(day)}`;
@@ -244,23 +260,26 @@
         const [m, dd] = md(d.date);
         return `<button type="button" class="row" style="${cityVars(c)}" data-day="${d.n}">
           <span class="n">D${d.n}</span>
-          <span class="m"><span class="d">${m}/${dd} ${weekday(d.date)}${isToday ? '<span class="badge">今天</span>' : ''}</span><span class="ti">${esc(d.title)}</span></span>
-          <span class="dr">${dr.n ? `🚗 ${fmtMin(dr.min)}` : '🚶'}</span><span class="chev">›</span></button>`;
+          <span class="m">
+            <span class="m-top"><span class="d">${m}/${dd} ${weekday(d.date)}${isToday ? '<span class="badge">今天</span>' : ''}</span><span class="dr">${dr.n ? `🚗 ${fmtMin(dr.min)}` : '🚶'}</span></span>
+            <span class="ti">${esc(d.title)}</span>
+          </span>
+          <span class="chev" aria-hidden="true">›</span></button>`;
       }).join('');
-      return `<div class="grp-h" style="${cityVars(c)}">${esc(T.cities[c].name)} · ${nightsIn(c)} 晚</div>${rows}`;
+      return `<h2 class="grp-h" style="${cityVars(c)}">${esc(T.cities[c].name)} · ${nightsIn(c)} 晚</h2>${rows}`;
     }).join('');
-    return `<div class="trip-sum">${DAYS.length} 天 ${TOTAL_NIGHTS} 晚 · ${T.party}</div>${groups}`;
+    return `<h1 class="trip-sum">${DAYS.length} 天 ${TOTAL_NIGHTS} 晚 · ${T.party}</h1>${groups}`;
   }
 
   function renderPocket() {
-    const poc = T.pocket.map((p) => `<details class="poc"><summary><span class="ic">${p.icon}</span><span class="ttl"><b>${esc(p.title)}</b><i>${esc(p.summary)}</i></span></summary>
+    const poc = T.pocket.map((p) => `<details class="poc"><summary><span class="ic" aria-hidden="true">${p.icon}</span><span class="ttl"><b>${esc(p.title)}</b><i>${esc(p.summary)}</i></span></summary>
       <div class="pb">${p.body}${p.copy ? `<div class="actions">${copyBtn(`📋 ${p.copyLabel || '复制'}`, p.copy)}</div>` : ''}</div></details>`).join('');
     return `
-      <div class="card flash-card"><div class="name">${esc(T.flash.title)}</div><div class="note">${esc(T.flash.hint)}</div>
+      <div class="card flash-card"><h1 class="name">${esc(T.flash.title)}</h1><div class="note">${esc(T.flash.hint)}</div>
         <div class="actions"><button type="button" class="btn primary" data-flash>出示给服务员</button></div></div>
-      <a class="card todo-entry" href="todo.html"><div class="todo-entry-body"><div class="name">📋 预订与待办清单</div><div class="note">什么时候约什么 · 官网直达 · 过期自动收起</div></div><span class="chev">›</span></a>
-      <a class="card todo-entry" href="restaurants.html"><div class="todo-entry-body"><div class="name">🍽️ 餐厅订位与电话表</div><div class="note">里斯本 & 拉各斯分天排表 · 直接亮给前台看</div></div><span class="chev">›</span></a>
-      <div class="sec-h">小抄</div>
+      <a class="card todo-entry" href="todo.html"><div class="todo-entry-body"><div class="name">📋 预订与待办清单</div><div class="note">什么时候约什么 · 官网直达 · 过期自动收起</div></div><span class="chev" aria-hidden="true">›</span></a>
+      <a class="card todo-entry" href="restaurants.html"><div class="todo-entry-body"><div class="name">🍽️ 餐厅订位与电话表</div><div class="note">里斯本 & 拉各斯分天排表 · 直接亮给前台看</div></div><span class="chev" aria-hidden="true">›</span></a>
+      <h2 class="sec-h">小抄</h2>
       ${poc}`;
   }
 
@@ -391,7 +410,7 @@
     }
     ind.hidden = false;
     ind.className = `flip-indicator${ready ? ' ready' : ''}`;
-    ind.innerHTML = `<span class="fi-arrow">↑</span><span>${ready ? `松手切换至 Day ${targetN} · ${esc(targetDay.title)}` : `↑ 继续上滑查看 Day ${targetN} · ${esc(targetDay.title)}`}</span>`;
+    ind.innerHTML = `<span class="fi-arrow" aria-hidden="true">↑</span><span>${ready ? `松手切换至 Day ${targetN} · ${esc(targetDay.title)}` : `继续上滑查看 Day ${targetN} · ${esc(targetDay.title)}`}</span>`;
   }
 
   function hideFlipIndicator() {
@@ -522,10 +541,11 @@
       const from = state.tab === 'pocket' ? 'pocket' : state.tab === 'trip' ? 'trip' : `day-${activeDayN()}`;
       const u = new URL(subPage.getAttribute('href'), location.href);
       u.searchParams.set('from', from);
+      if (params.get('now')) u.searchParams.set('now', params.get('now'));
       subPage.href = u.pathname.split('/').pop() + u.search + u.hash;
       return;
     }
-    const t = e.target.closest('.tab[data-tab],[data-day],[data-act],[data-copy],[data-flash],[data-close-flash]');
+    const t = e.target.closest('[data-tab],[data-day],[data-act],[data-copy],[data-flash],[data-close-flash]');
     if (!t) return;
     if (t.dataset.copy != null) return copyText(t.dataset.copy);   // 不调用 preventDefault，<a> 外链照常跳转
     if (t.dataset.flash != null) return $('#flash').showModal();
@@ -545,7 +565,17 @@
     }
   });
 
-  $('#flash').addEventListener('click', (e) => { if (e.target === e.currentTarget) e.currentTarget.close(); });
+  // Fallback for browsers (e.g. Safari) lacking declarative <dialog closedby="any">
+  const flashDlg = $('#flash');
+  if (!('closedBy' in HTMLDialogElement.prototype)) {
+    const outside = (e) => {
+      const r = flashDlg.getBoundingClientRect();
+      return e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom;
+    };
+    let pressedOutside = false;
+    flashDlg.addEventListener('pointerdown', (e) => { pressedOutside = outside(e); });
+    flashDlg.addEventListener('pointerup', (e) => { if (pressedOutside && outside(e)) flashDlg.close(); });
+  }
 
   /** 重新判定：从后台切回 / 解锁 / bfcache 恢复。手动导航 5 分钟之后切回，一律回到“今天” */
   function wake() {
