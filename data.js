@@ -100,17 +100,19 @@ window.TRIP = {
     },
     {
       city: 'algarve', stay: 'algarve',
-      title: '老城观景 · 14:30 提车南下',
+      title: '老城观景 · 英国宫逛街 · 提车南下',
       tips: [
-        { i: '👟', t: '上午顺坡零费力逛老城', b: '09:30 UberXL 直上最高峰圣母山顶，往下经圣卢西亚观景台拍 28 路电车到商业广场<b>全段顺坡下滑</b>；老城碎石坡路滑，长辈务必穿<b>防滑健步鞋</b>。11:45 回 Upon 退房吃午饭。' },
+        { i: '👟', t: '上午顺坡零费力逛老城', b: '09:30 UberXL 直上最高峰圣母山顶，往下经圣卢西亚观景台拍 28 路电车到商业广场<b>全段顺坡下滑</b>；老城碎石坡路滑，长辈务必穿<b>防滑健步鞋</b>。' },
+        { i: '🛍️', t: 'D1 + D4 双保险购物（英国宫百货）', b: '12:00 Upon 退房把箱子寄存前台，轻装打车 7 分钟去 <b>El Corte Inglés 英国宫百货</b>！顶楼吃热午餐，顺便在一二楼补货 <b>LV / Gucci / Loewe / Prada / 美妆名表</b>（全空调纯平、百货退税台一站式退税，带护照），13:50 回 Upon 拿箱去机场！' },
         { i: '🚗', t: '14:30 提车 4 步核对（整 96h 省一天租金！）', b: '① 认准 LIS T1 <b>Guerin</b> 柜台提 <b>BYD Seal U DM-i 或同级混动 SUV</b>（加 <b>95 号汽油</b>，拆遮物隔板装 4 箱+推车）；② 加租后排 ISOFIX 幼儿安全座椅；③ 激活 <b>Via Verde</b> 高速盒子；④ 全额刷 <b>Chase CSP/CSR</b> 拒绝柜台 Super CDW 白嫖 Primary 全险。' },
         { i: '📞', t: '【17:15 办 Belmar 入住】先请前台订今明两晚', b: '入住时不用一次全订，先请礼宾订<b>今晚 18:15 Campimar</b> 与<b>明晚 17:30 Casinha do Petisco</b>，直接点 <a href="restaurants.html#belmar-show"><b>前台英文卡</b></a> 亮给他看。' },
         { i: '🌤️', t: '看海况锁明天海豚船', b: '查明天周二上午风浪预报，在 <a href="todo.html"><b>Expedia / GetYourGuide</b> 订明早 09:30 <b>Catamaran 大型双体船</b></a>（若明早浪大可改订 D6 或 D7 上午，连住 4 晚有 3 个上午窗口！）。' }
       ],
       stops: [
         { t: '09:30', name: 'Senhora do Monte 圣母山观景台 & 28 路电车', note: 'UberXL 直达山顶平地俯瞰红屋顶，顺坡向下经圣卢西亚瓷砖长廊拍复古黄电车到商业广场', query: 'Miradouro da Senhora do Monte, Lisboa', leg: { mode: 'uber', min: 18, km: 8, eur: 12 } },
-        { t: '12:00', name: 'Upon 12:00 退房寄存 · 里斯本悠闲慢午餐', note: '12:00 官方退房拿箱，在 Dona Joaquina 或英国宫百货顶楼吃热午餐', at: 'lisbon', leg: { mode: 'uber', min: 15, km: 7, eur: 10 } },
-        { t: '14:00', name: '打车前往机场 T1 租车中心', note: 'UberXL 10 分钟到 LIS T1 航站楼内租车柜台', query: 'Aeroporto de Lisboa (LIS)', leg: { mode: 'uber', min: 10, km: 6, eur: 10 } },
+        { t: '12:00', name: 'Upon 12:00 退房寄存大箱', note: '官方 12:00 退房把 4 个箱子免费寄存前台，轻装出发吃饭逛百货', at: 'lisbon', leg: { mode: 'uber', min: 15, km: 7, eur: 10 } },
+        { t: '12:15', name: '英国宫百货 (El Corte Inglés) 午餐 + 大牌补货', note: '全空调纯平无障碍！顶楼吃热午餐，一二楼补货 LV/Gucci/Loewe/美妆名表并集中办退税（带护照）', query: 'El Corte Inglés Lisboa', leg: { mode: 'uber', min: 7, km: 3, eur: 7 } },
+        { t: '13:50', name: '回 Upon 拿箱 ➡️ 机场 T1 租车中心', note: 'UberXL 回 Upon 顺路取上寄存行李，10 分钟直达 LIS T1 租车柜台', query: 'Aeroporto de Lisboa (LIS)', leg: { mode: 'uber', min: 12, km: 6, eur: 11 } },
         { t: '14:30', name: 'LIS T1 Guerin 提 BYD Seal U DM-i (96h 起点)', note: '提自动挡混动 SUV（拆遮物隔板装 4 箱+推车），装儿童座椅，激活 Via Verde，刷 CSP', query: 'Aeroporto de Lisboa (LIS)' },
         { t: '15:00', name: 'A2 高速自驾南下（宝宝午睡）', note: '正好撞上宝宝午睡时间，高速巡航 2.5 小时直奔拉各斯', leg: { mode: 'drive', min: 150, km: 250 } },
         { t: '17:15', name: '零等待直接入住 Belmar (连住 4 晚)', note: '房间已保洁就绪！地库电梯直通两卧海景平层，顺便请前台代订拉各斯晚餐！', at: 'algarve' },
