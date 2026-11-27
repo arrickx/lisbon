@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#FAF7F2">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>餐厅订位与吃饭指南 · 葡萄牙家庭行</title>
+  <link rel="icon" type="image/svg+xml" href="icon.svg">
+  <link rel="apple-touch-icon" href="icon-180.png">
+  <style>
+    :root {
+      --bg: #FAF7F2;
+      --surface: #FFFFFF;
+      --line: #E7DED2;
+      --ink: #1F1A16;
+      --ink-2: #5E554C;
+      --ink-3: #8F857A;
+      --accent: #C4532F;
+      --accent-soft: #FBEDE6;
+      --sea: #147A8A;
+      --sea-soft: #E3F2F4;
+      --ok: #2E7D32;
+      --ok-soft: #E9F4EA;
+      --warn: #B26A00;
+      --warn-soft: #FFF4E0;
+      --r: 16px;
+      --safe-top: env(safe-area-inset-top, 0px);
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", "Hiragino Sans GB", sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-size: 15px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      padding-bottom: calc(32px + var(--safe-bottom));
+    }
+    a { color: inherit; text-decoration: none; }
+
+    .head {
+      position: sticky; top: 0; z-index: 40;
+      padding-top: var(--safe-top);
+      background: rgba(250, 247, 242, .92);
+      -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px);
+      border-bottom: .5px solid var(--line);
+    }
+    .topbar {
+      max-width: 760px; margin: 0 auto;
+      height: 48px; padding: 0 16px;
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    }
+    .back {
+      display: inline-flex; align-items: center; gap: 4px;
+      min-height: 44px; padding: 0 4px;
+      font-size: 15px; font-weight: 600; color: var(--accent);
+    }
+    .top-title { font-size: 16px; font-weight: 700; }
+    .top-sub { font-size: 12.5px; font-weight: 600; color: var(--ink-3); }
+
+    .wrap {
+      max-width: 760px; margin: 0 auto;
+      padding: 16px;
+      display: flex; flex-direction: column; gap: 16px;
+    }
+
+    .tip {
+      background: var(--accent-soft); border: .5px solid color-mix(in srgb, var(--accent) 25%, transparent);
+      border-radius: var(--r); padding: 12px 14px;
+      font-size: 13.5px; color: var(--ink);
+    }
+    .tip b { color: var(--accent); }
+
+    .sec-h {
+      font-size: 13px; font-weight: 700; color: var(--ink-2);
+      letter-spacing: .02em; margin-top: 2px;
+    }
+
+    .tbl-card {
+      background: var(--surface); border: .5px solid var(--line);
+      border-radius: var(--r); overflow: hidden;
+    }
+    .row {
+      padding: 13px 15px;
+      border-bottom: .5px solid var(--line);
+      display: flex; flex-direction: column; gap: 6px;
+    }
+    .row:last-child { border-bottom: 0; }
+    .row-top {
+      display: flex; align-items: center; justify-content: space-between; gap: 8px;
+      flex-wrap: wrap;
+    }
+    .day-pill {
+      font-size: 12px; font-weight: 700;
+      padding: 2px 8px; border-radius: 999px;
+      background: var(--accent-soft); color: var(--accent);
+    }
+    .day-pill.sea { background: var(--sea-soft); color: var(--sea); }
+    .status {
+      font-size: 12px; font-weight: 700;
+      padding: 2px 8px; border-radius: 999px;
+    }
+    .status.ok { background: var(--ok-soft); color: var(--ok); }
+    .status.warn { background: var(--warn-soft); color: var(--warn); }
+    .status.must { background: #FDE8E8; color: #B42318; }
+
+    .r-name { font-size: 16px; font-weight: 700; color: var(--ink); }
+    .r-meta { font-size: 13.5px; color: var(--ink-2); }
+    .r-acts { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 2px; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 5px;
+      min-height: 36px; padding: 0 11px; border-radius: 9px;
+      font-size: 13px; font-weight: 600;
+      background: var(--bg); border: .5px solid var(--line); color: var(--ink);
+    }
+    .btn:active { opacity: .75; }
+
+    /* 直接亮给 Belmar 前台看的可折叠英文卡（分两次） */
+    .show-fold {
+      background: #FFFFFF;
+      border: 1.5px solid var(--sea);
+      border-radius: var(--r);
+      overflow: hidden;
+    }
+    .show-fold summary {
+      list-style: none; min-height: 50px; padding: 12px 16px;
+      display: flex; align-items: center; justify-content: space-between; gap: 8px;
+      font-size: 14.5px; font-weight: 700; color: var(--sea);
+      background: var(--sea-soft); cursor: pointer;
+    }
+    .show-fold summary::-webkit-details-marker { display: none; }
+    .show-fold summary::after { content: "›"; font-size: 20px; color: var(--sea); transition: transform .15s; }
+    .show-fold[open] summary::after { transform: rotate(90deg); }
+    .show-body {
+      padding: 14px 16px;
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .show-en {
+      font-size: 15.5px; font-weight: 600; color: var(--ink); line-height: 1.55;
+    }
+    .show-list {
+      padding-left: 1.2em; display: flex; flex-direction: column; gap: 6px;
+      font-size: 15px; color: var(--ink);
+    }
+    .show-list li b { color: var(--sea); }
+    .show-note { font-size: 12.5px; color: var(--ink-3); }
+  </style>
+</head>
+<body>
+  <header class="head">
+    <div class="topbar">
+      <a class="back" href="index.html?tab=pocket">‹ 返回随身</a>
+      <div class="top-title">餐厅订位与电话表</div>
+      <div class="top-sub">4 大 1 小</div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="tip">
+      💡 <b>错峰神技</b>：当地人午饭 13:30、晚饭 20:00 才吃；我们固定 <b>11:45 午饭、17:30–18:00 晚饭</b>，刚好卡在开门第一波！到店或订位一律备注 <code>4 Adults + 1 Cadeira de bebé</code>（宝宝高脚椅）。
+    </div>
+
+    <div class="sec-h">🧱 里斯本 · 辛特拉（D1–D5 午）</div>
+    <section class="tbl-card">
+      <div class="row">
+        <div class="row-top">
+          <span class="day-pill">D2 (5/7 周五) · 早茶</span>
+          <span class="status ok">🟢 免订位</span>
+        </div>
+        <div class="r-name">Pastéis de Belém 蛋挞老店</div>
+        <div class="r-meta">别排门外外卖长队！直接推车穿拱门进里面 <b>400 座堂食大厅</b>，有宝宝高脚椅。</div>
+      </div>
+
+      <div class="row">
+        <div class="row-top">
+          <span class="day-pill">D2 (5/7 周五) · 18:00 晚餐</span>
+          <span class="status warn">🟡 提前 1–2 天订露台</span>
+        </div>
+        <div class="r-name">5 Oceanos / Doca de Santo（码头河景）</div>
+        <div class="r-meta">在 Google Maps / TheFork 订 18:00 河景露台位；若坐室内 18:00 可直接进。</div>
+        <div class="r-acts">
+          <a class="btn" href="https://www.google.com/maps/search/?api=1&query=5+Oceanos+Doca+de+Santo+Amaro+Lisboa" target="_blank" rel="noopener">↗ Google Maps</a>
+          <a class="btn" href="tel:+351213978395">📞 +351 213 978 395</a>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="row-top">
+          <span class="day-pill">D3 (5/8 周六) · 18:00 晚餐</span>
+          <span class="status must">🔴 名店需提前 1–2 周 · 有免订备选</span>
+        </div>
+        <div class="r-name">Solar dos Presuntos（或 Pinóquio / Bonjardim）</div>
+        <div class="r-meta">吃 <b>Solar dos Presuntos</b> 需提前 1–2 周官网订（周六至 23:30，周日休）；不想提前订就去隔壁 <b>Pinóquio</b> 海鲜或 <b>Bonjardim</b> 烤鸡，18:00 直进。</div>
+        <div class="r-acts">
+          <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Solar+dos+Presuntos+Lisboa" target="_blank" rel="noopener">↗ Solar Maps</a>
+          <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Restaurante+Bonjardim+Lisboa" target="_blank" rel="noopener">↗ Bonjardim 烤鸡</a>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="row-top">
+          <span class="day-pill">D4 (5/9 周日) · 午茶/午餐</span>
+          <span class="status ok">🟢 免订位</span>
+        </div>
+        <div class="r-name">Casa Piriquita 枕头酥 · Tascantiga</div>
+        <div class="r-meta">Casa Piriquita 周日正常营业（周三休），免预约吃热杏仁枕头酥；Tascantiga 12:00 直进。</div>
+      </div>
+    </section>
+
+    <div class="sec-h">🌊 阿尔加维 · 拉各斯（D5 晚–D8）</div>
+    <section class="tbl-card">
+      <div class="row">
+        <div class="row-top">
+          <span class="day-pill sea">D5 (5/10 周一) · 18:15 晚餐</span>
+          <span class="status warn">🟡 官网订或前台代订</span>
+        </div>
+        <div class="r-name">Campimar 沙滩餐厅</div>
+        <div class="r-meta">可提前在 <code>campimar.pt</code> 订好，或周一 17:15 入住时请 Belmar 前台电话代订。</div>
+        <div class="r-acts">
+          <a class="btn" href="https://campimar.pt" target="_blank" rel="noopener">↗ campimar.pt</a>
+          <a class="btn" href="tel:+351282762024">📞 +351 282 762 024</a>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="row-top">
+          <span class="day-pill sea">D6 (5/11 周二) · 11:45 午市</span>
+          <span class="status ok">🟢 免网订 · 11:45 直进</span>
+        </div>
+        <div class="r-name">Chico Zé 炭烤海鲜</div>
+        <div class="r-meta">仅做 12:00–16:00 午市（周日休），无网订。<b>11:45 开门前到场坐第一波免排队</b>。</div>
+        <div class="r-acts">
+          <a class="btn" href="tel:+351282764595">📞 +351 282 764 595</a>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="row-top">
+          <span class="day-pill sea">D6 (5/11 周二) · 17:30 晚餐</span>
+          <span class="status must">🔴 全店仅 7–8 桌 · 必请前台订</span>
+        </div>
+        <div class="r-name">Casinha do Petisco 铜锅猪肉蛤蜊</div>
+        <div class="r-meta">无网订（周日休）。周一入住时请 Belmar 前台打电话订周二 17:30 首轮（备选：17:20 到门口排）。</div>
+        <div class="r-acts">
+          <a class="btn" href="tel:+351282767163">📞 +351 282 767 163</a>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="row-top">
+          <span class="day-pill sea">D7 (5/12 周三) · 18:00 晚餐</span>
+          <span class="status warn">🟡 提前 1–2 天前台代订</span>
+        </div>
+        <div class="r-name">Don Sebastião 古城海鲜</div>
+        <div class="r-meta">拉各斯老城经典名店，周三营业。提前 1–2 天请 Belmar 前台电话代订。</div>
+        <div class="r-acts">
+          <a class="btn" href="tel:+351282780480">📞 +351 282 780 480</a>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="row-top">
+          <span class="day-pill sea">D8 (5/13 周四) · 18:00 晚餐</span>
+          <span class="status warn">🟡 提前 1 天前台代订</span>
+        </div>
+        <div class="r-name">O Camilo 悬崖餐厅 / 度假村 Levante</div>
+        <div class="r-meta">告别晚宴，提前 1 天请 Belmar 前台电话代订 18:00 桌位。</div>
+        <div class="r-acts">
+          <a class="btn" href="tel:+351282763845">📞 +351 282 763 845</a>
+        </div>
+      </div>
+    </section>
+
+    <div class="sec-h" id="belmar-show">📱 分两次亮给 Belmar 前台看（点击可展开/收起）</div>
+    <details class="show-fold" open>
+      <summary>① 5/10 (周一) 17:15 办入住时 · 先订当晚和明晚</summary>
+      <div class="show-body">
+        <p class="show-en">Hello! Could you please help us call to book a table for <b>4 adults + 1 baby high chair (Cadeira de bebé)</b>?</p>
+        <ol class="show-list">
+          <li><b>Today (Mon, May 10) at 18:15</b> — Campimar (<code>+351 282 762 024</code>)</li>
+          <li><b>Tomorrow (Tue, May 11) at 17:30</b> — Casinha do Petisco (<code>+351 282 767 163</code>)</li>
+        </ol>
+        <p class="show-en">Thank you so much!</p>
+      </div>
+    </details>
+
+    <details class="show-fold">
+      <summary>② 5/11 (周二) 路过前台时 · 再订周三和周四</summary>
+      <div class="show-body">
+        <p class="show-en">Hello! Could you please help us call to book a table for <b>4 adults + 1 baby high chair (Cadeira de bebé)</b>?</p>
+        <ol class="show-list">
+          <li><b>Tomorrow (Wed, May 12) at 18:00</b> — Don Sebastião (<code>+351 282 780 480</code>)</li>
+          <li><b>Thu, May 13 at 18:00</b> — O Camilo (<code>+351 282 763 845</code>)</li>
+        </ol>
+        <p class="show-en">Thank you so much!</p>
+        <p class="show-note">💡 周二白天出海回来或出门前顺口找前台订就行，提前 1–2 天很充裕。</p>
+      </div>
+    </details>
+  </main>
+
+  <script>
+    (function () {
+      const from = new URLSearchParams(location.search).get('from');
+      const back = document.querySelector('.back');
+      if (back && from) {
+        if (from === 'pocket') { back.href = 'index.html?tab=pocket'; back.textContent = '‹ 返回随身'; }
+        else if (from === 'trip') { back.href = 'index.html?tab=trip'; back.textContent = '‹ 返回全程'; }
+        else if (from.startsWith('day-')) {
+          const d = from.slice(4);
+          back.href = `index.html?day=${encodeURIComponent(d)}`;
+          back.textContent = `‹ 返回 D${d}`;
+        }
+      }
+    })();
+  </script>
+</body>
+</html>

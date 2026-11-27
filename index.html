@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#FAF7F2">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="葡萄牙">
+  <title>葡萄牙家庭行</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" type="image/svg+xml" href="icon.svg">
+  <link rel="apple-touch-icon" href="icon-180.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-tab="today">
+
+  <header class="head" id="head">
+    <div class="topbar">
+      <div class="top-main" id="top-main"></div>
+      <div class="clock" id="clock"></div>
+    </div>
+  </header>
+
+  <main>
+    <section class="panel" id="p-today"></section>
+    <section class="panel" id="p-trip" hidden></section>
+    <section class="panel" id="p-pocket" hidden></section>
+  </main>
+
+  <nav class="tabbar" aria-label="主导航">
+    <button type="button" class="tab" data-tab="today" aria-current="page"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.4"/></svg>今天</button>
+    <button type="button" class="tab" data-tab="trip"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>全程</button>
+    <button type="button" class="tab" data-tab="pocket"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="7.5" width="17" height="12" rx="3"/><path d="M9 7.5V6a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v1.5M3.5 13h17"/></svg>随身</button>
+  </nav>
+
+  <dialog id="flash" class="flash">
+    <p class="flash-badge" id="flash-badge"></p>
+    <p class="flash-pt" id="flash-pt" lang="pt"></p>
+    <p class="flash-zh" id="flash-zh"></p>
+    <button type="button" class="btn primary flash-close" data-close-flash>关闭</button>
+  </dialog>
+
+  <div class="flip-indicator" id="flip-indicator" hidden></div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
